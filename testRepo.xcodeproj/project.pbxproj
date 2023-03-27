@@ -16,6 +16,10 @@
 		3028851329D163A200BE2E72 /* testRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3028851229D163A200BE2E72 /* testRepoTests.swift */; };
 		3028851D29D163A200BE2E72 /* testRepoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3028851C29D163A200BE2E72 /* testRepoUITests.swift */; };
 		3028851F29D163A200BE2E72 /* testRepoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3028851E29D163A200BE2E72 /* testRepoUITestsLaunchTests.swift */; };
+		3028852E29D1641700BE2E72 /* testfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3028852D29D1641700BE2E72 /* testfile.swift */; };
+		3028853029D1649600BE2E72 /* PhuocNguyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3028852F29D1649600BE2E72 /* PhuocNguyen.swift */; };
+		3028853229D1651400BE2E72 /* tansan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3028853129D1651400BE2E72 /* tansan.swift */; };
+		3028856F29D16C6D00BE2E72 /* IOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3028856E29D16C6D00BE2E72 /* IOS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		3028851829D163A200BE2E72 /* testRepoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testRepoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3028851C29D163A200BE2E72 /* testRepoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testRepoUITests.swift; sourceTree = "<group>"; };
 		3028851E29D163A200BE2E72 /* testRepoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testRepoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3028852D29D1641700BE2E72 /* testfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testfile.swift; sourceTree = "<group>"; };
+		3028852F29D1649600BE2E72 /* PhuocNguyen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhuocNguyen.swift; sourceTree = "<group>"; };
+		3028853129D1651400BE2E72 /* tansan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tansan.swift; sourceTree = "<group>"; };
+		3028856E29D16C6D00BE2E72 /* IOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,10 @@
 				3028850529D163A200BE2E72 /* Persistence.swift */,
 				3028850729D163A200BE2E72 /* testRepo.xcdatamodeld */,
 				3028850229D163A200BE2E72 /* Preview Content */,
+				3028852D29D1641700BE2E72 /* testfile.swift */,
+				3028852F29D1649600BE2E72 /* PhuocNguyen.swift */,
+				3028853129D1651400BE2E72 /* tansan.swift */,
+				3028856E29D16C6D00BE2E72 /* IOS.swift */,
 			);
 			path = testRepo;
 			sourceTree = "<group>";
@@ -264,9 +276,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3028850629D163A200BE2E72 /* Persistence.swift in Sources */,
+				3028853029D1649600BE2E72 /* PhuocNguyen.swift in Sources */,
+				3028852E29D1641700BE2E72 /* testfile.swift in Sources */,
 				302884FF29D163A100BE2E72 /* ContentView.swift in Sources */,
 				302884FD29D163A100BE2E72 /* testRepoApp.swift in Sources */,
+				3028853229D1651400BE2E72 /* tansan.swift in Sources */,
 				3028850929D163A200BE2E72 /* testRepo.xcdatamodeld in Sources */,
+				3028856F29D16C6D00BE2E72 /* IOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

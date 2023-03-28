@@ -1,0 +1,37 @@
+[
+    {
+        "id" : "1",
+        "name" : "201",
+        "floor" : "2",
+        "price" : 123,
+        "type" : "sigle"
+    },
+    {
+        "id" : "2",
+        "name" : "202",
+        "floor" : "2",
+        "price" : 123,
+        "type" : "sigle"
+    },
+    {
+        "id" : "3",
+        "name" : "203",
+        "floor" : "2",
+        "price" : 123,
+        "type" : "sigle"
+    },
+    {
+        "id" : "4",
+        "name" : "204",
+        "floor" : "2",
+        "price" : 123,
+        "type" : "sigle"
+    },
+    {
+        "id" : "5",
+        "name" : "205",
+        "floor" : "2",
+        "price" : 123,
+        "type" : "sigle"
+    }
+]

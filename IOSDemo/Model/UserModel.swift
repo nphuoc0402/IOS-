@@ -8,6 +8,7 @@
 import Foundation
 
 
+
 struct UserModel: Codable, Identifiable{
     var id:String
     var name:String
@@ -23,6 +24,6 @@ struct UserModel: Codable, Identifiable{
     
 }
 
-var users:[UserModel] = load("User.json")
+
 
 

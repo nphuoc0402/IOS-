@@ -4,34 +4,44 @@
         "name" : "201",
         "floor" : "2",
         "price" : 123,
-        "type" : "sigle"
+        "type" : "sigle",
+        "imageName": "201-Single",
+        "description": "Đây là phòng 201"
     },
     {
         "id" : "2",
         "name" : "202",
         "floor" : "2",
         "price" : 123,
-        "type" : "sigle"
+        "type" : "sigle",
+        "imageName": "202-Single",
+        "description": "Đây là phòng 202"
     },
     {
         "id" : "3",
         "name" : "203",
         "floor" : "2",
         "price" : 123,
-        "type" : "sigle"
+        "type" : "sigle",
+        "imageName": "203-Single",
+        "description": "Đây là phòng 203"
     },
     {
         "id" : "4",
         "name" : "204",
         "floor" : "2",
         "price" : 123,
-        "type" : "sigle"
+        "type" : "sigle",
+        "imageName": "204-Single",
+        "description": "Đây là phòng 204"
     },
     {
         "id" : "5",
         "name" : "205",
         "floor" : "2",
         "price" : 123,
-        "type" : "sigle"
+        "type" : "sigle",
+        "imageName": "205-Single",
+        "description": "Đây là phòng 205"
     }
 ]

@@ -32,6 +32,7 @@
 		491988A529CC481C0060A3EA /* RoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491988A429CC481B0060A3EA /* RoomModel.swift */; };
 		491988A729CC48360060A3EA /* RoomOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491988A629CC48360060A3EA /* RoomOrderModel.swift */; };
 		491988AA29CC4C8C0060A3EA /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491988A929CC4C8C0060A3EA /* RoomViewModel.swift */; };
+		49D97F9D29D27FCE00657C7B /* RoomOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D97F9C29D27FCE00657C7B /* RoomOrderController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		491988A429CC481B0060A3EA /* RoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomModel.swift; sourceTree = "<group>"; };
 		491988A629CC48360060A3EA /* RoomOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomOrderModel.swift; sourceTree = "<group>"; };
 		491988A929CC4C8C0060A3EA /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
+		49D97F9C29D27FCE00657C7B /* RoomOrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomOrderController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 				4919889729CC21C80060A3EA /* DataController.swift */,
 				491988A129CC47FA0060A3EA /* UserModel.swift */,
 				491988A429CC481B0060A3EA /* RoomModel.swift */,
+				49D97F9C29D27FCE00657C7B /* RoomOrderController.swift */,
 				491988A629CC48360060A3EA /* RoomOrderModel.swift */,
 			);
 			path = Model;
@@ -379,7 +382,11 @@
 			files = (
 				491988A529CC481C0060A3EA /* RoomModel.swift in Sources */,
 				4919888C29CC1B970060A3EA /* LoginView.swift in Sources */,
+<<<<<<< Updated upstream
 				30D5D5F029D28D5E00C0A1F3 /* ListRoom.swift in Sources */,
+=======
+				49D97F9D29D27FCE00657C7B /* RoomOrderController.swift in Sources */,
+>>>>>>> Stashed changes
 				4919886529CC1AC50060A3EA /* IOSDemo.xcdatamodeld in Sources */,
 				4919886229CC1AC50060A3EA /* Persistence.swift in Sources */,
 				30D5D5F229D28DFD00C0A1F3 /* RoomDetail.swift in Sources */,

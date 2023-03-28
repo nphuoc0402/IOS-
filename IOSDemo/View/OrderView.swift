@@ -36,6 +36,7 @@ struct WrapMainView: View {
     @State var isOn = false
     @State var isShowAlert:Bool = false
     @State var total = 0;
+    var roomOrderController: RoomOrderController = RoomOrderController()
     @EnvironmentObject var roomViewModel : RoomViewModel
     @State private var selectedOptionIndex = 0
     

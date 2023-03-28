@@ -7,17 +7,17 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class DataController: ObservableObject {
+    
+    let viewContext = PersistenceController.shared.container.viewContext
+    
+//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let container = NSPersistentContainer(name: "User")
     @Published var users: [User] = []
-
+    
     init() {
-        container.loadPersistentStores{desc, error in
-            if let error = error {
-                print("Fail to load the data \(error.localizedDescription)")
-            }
-        }
         fetchUsers()
     }
     func save(context: NSManagedObjectContext){
@@ -31,11 +31,16 @@ class DataController: ObservableObject {
         }
     }
     func fetchUsers(){
-        let request = NSFetchRequest<User>(entityName: "User")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+//        request.predicate = NSPredicate(format: "name = %@", "name")
+        request.returnsObjectsAsFaults = false
         do {
-            users = try container.viewContext.fetch(request)
-        }catch let error {
-            print("Error fetching .\(error)")
+            let result = try viewContext.fetch(request)
+            for data in result as! [NSManagedObject]{
+                print(data.value(forKey: "name") as! String)
+            }
+        }catch {
+            print("Failed")
         }
     }
     func addUser(email: String, name: String, passwd: String, context: NSManagedObjectContext){

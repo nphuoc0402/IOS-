@@ -11,15 +11,15 @@ struct OrderView: View {
     @State private var showMenu: Bool = false
     @State private var text1: String = "My text"
     @State private var text2: String = "My text"
-      // MARK: - View Body
-      
-      var body: some View {
-          ZStack{
-              WrapMainView().frame(alignment: .topLeading)
-              Spacer()
-          }.frame(alignment: .top)
-          
-      }
+    // MARK: - View Body
+    
+    var body: some View {
+        ZStack{
+            WrapMainView().frame(alignment: .topLeading)
+            Spacer()
+        }.frame(alignment: .top)
+        
+    }
 }
 
 struct OrderView_Previews: PreviewProvider {
@@ -29,20 +29,21 @@ struct OrderView_Previews: PreviewProvider {
 }
 
 struct WrapMainView: View {
+    let options = ["All", "Single", "Twin"]
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
-    @State var roomType = "Single"
+    @State var selection = "All"
     @State var isOn = false
     @State var isShowAlert:Bool = false
     @State var total = 0;
     @EnvironmentObject var roomViewModel : RoomViewModel
+    @State private var selectedOptionIndex = 0
     
     var body: some View {
         
         VStack{
             Text("Booking Room").font(.largeTitle)
             HStack{
-                
                 DatePicker("",
                            selection: $checkinDate,
                            in: Date()...,
@@ -52,66 +53,57 @@ struct WrapMainView: View {
                 Text("-")
                 DatePicker("",
                            selection: $checkoutDate,
-                           in: checkoutDate...,
+                           in: (checkinDate.addingTimeInterval(86400))...,
                            displayedComponents: [.date]
                 ).padding(.horizontal)
                     .frame(alignment: .trailing)
             }.frame(alignment: .leading)
-//            .onChange(of: <#T##Equatable#>, perform: <#T##(Equatable) -> Void##(Equatable) -> Void##(_ newValue: Equatable) -> Void#>)
-                
-                RadioButtonGroup(items: ["Single", "Double", "All"], selectedId: roomType){ selected in
-                    roomType = selected}.padding()
-                ScrollView(.vertical, showsIndicators: true) {
-                    VStack{
-                        ForEach(roomViewModel.rooms){ room in
-                            HStack{
-                                Button(action:{showRoomInfo()}){
-                                    Text("Room \(room.name)")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity,alignment: .leading)
-                                        .font(.largeTitle)
-                                }
-                                
-                                Button(action:{doConfirm()}){
-                                    Toggle("",isOn: $isOn).toggleStyle(iOSCheckboxToggleStyle()).font(.largeTitle)
-                                }
-                            }.padding(8)
-                            
+            
+            HStack {
+                ForEach(0..<options.count) { index in
+                    Button(action: {
+                        selectedOptionIndex = index
+                    }, label: {
+                        HStack {
+                            Text(options[index])
+                            Image(systemName: selectedOptionIndex == index ? "largecircle.fill.circle" : "circle")
                         }
-                    }.frame(alignment: .leading)
+                        .padding(20)
+                    })
                 }
-                .cornerRadius(5)
-                .background(Color.gray)
-                .frame(maxHeight: 200,alignment: .trailing)
-                .padding()
-                
+            }
+                                     
+            VStack{
+                ListRoom()
+                    
+            }
+            .cornerRadius(5)
+            .padding()
+            
             VStack(alignment:.leading){
-                    Text("Total: \(total)¥").frame(alignment: .leading).font(.headline)
+                Text("Total: \(total)¥").frame(alignment: .leading).font(.headline)
             }.frame(maxWidth: .infinity,alignment: .leading).padding()
-                
-                Button(action: {doSave()}) {
-                    Text("Save")
-                        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                        .border(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
-                        .cornerRadius(/*@START_MENU_TOKEN@*/5.0/*@END_MENU_TOKEN@*/)
-                        .frame(width: 150, height: 50)
-                }
-                Spacer()
-                
-                
+            
+            Button(action: {doSave()}) {
+                Text("Save")
+                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    .border(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/5.0/*@END_MENU_TOKEN@*/)
+                    .frame(width: 150, height: 50)
+            }
+            Spacer()
+            
+            
         }.alert(isPresented: $isShowAlert){
             
             Alert(
-                    title: Text(""),
-                    message: Text("Do you want to order this Room?"),
-                    primaryButton: .destructive(Text("Cancel"), action:{cancelSelectRoom()}),
-                    secondaryButton: .default(Text("OK"),action: {confirmSelectRoom()})
+                title: Text(""),
+                message: Text("Do you want to order this Room?"),
+                primaryButton: .destructive(Text("Cancel"), action:{cancelSelectRoom()}),
+                secondaryButton: .default(Text("OK"),action: {confirmSelectRoom()})
             )
             
         }
-            
-        
-        
     }
     func showRoomInfo(){
         isShowAlert = true
@@ -128,12 +120,12 @@ struct WrapMainView: View {
     }
     func doConfirm(){
         isShowAlert = true
-
+        
     }
     func doSave(){
         print(checkinDate)
         print(checkoutDate)
-        print(roomType)
+        print(selection)
         roomViewModel.rooms.forEach{ item in
             print(item.name)
         }
@@ -154,7 +146,7 @@ struct iOSCheckboxToggleStyle: ToggleStyle {
             
             // 2
             configuration.isOn.toggle()
-
+            
         }, label: {
             HStack {
                 // 3

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var opDat:OpDat
-    @EnvironmentObject var roomViewModel : RoomViewModel
     @State private var showMenu: Bool = false
+    
     var body: some View {
         ZStack{
             NavigationView {
@@ -22,7 +22,7 @@ struct MainView: View {
                           .environmentObject(opDat)
                   case .home:
                       OrderView()
-                          .environmentObject(opDat).environmentObject(roomViewModel)
+                          .environmentObject(opDat)
                   case .wellcome:
                       WellcomeView()
                           .environmentObject(opDat)

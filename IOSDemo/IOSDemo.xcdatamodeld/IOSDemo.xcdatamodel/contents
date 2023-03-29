@@ -3,6 +3,13 @@
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="RoomOrder" representedClassName="RoomOrder" syncable="YES" codeGenerationType="class">
+        <attribute name="checkinDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="checkoutDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="roomId" optional="YES" attributeType="String"/>
+        <attribute name="userId" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -10,5 +17,6 @@
     <elements>
         <element name="Item" positionX="-36" positionY="27" width="128" height="44"/>
         <element name="User" positionX="-36" positionY="18" width="128" height="59"/>
+        <element name="RoomOrder" positionX="-36" positionY="36" width="128" height="104"/>
     </elements>
 </model>

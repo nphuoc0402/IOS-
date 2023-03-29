@@ -11,11 +11,18 @@ struct OrderView: View {
     @State private var showMenu: Bool = false
     @State private var text1: String = "My text"
     @State private var text2: String = "My text"
-    // MARK: - View Body
+    var roomViewModel : RoomViewModel = RoomViewModel()
+    @State var listRooms:[RoomModel]
     
+    // MARK: - View Body
+    init(){
+        listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "All")
+    }
     var body: some View {
         ZStack{
-            WrapMainView().frame(alignment: .topLeading)
+            WrapMainView(list: $listRooms)
+                .frame(alignment: .topLeading)
+                .environmentObject(roomViewModel)
             Spacer()
         }.frame(alignment: .top)
         
@@ -35,9 +42,13 @@ struct WrapMainView: View {
     @State var selection = "All"
     @State var isOn = false
     @State var isShowAlert:Bool = false
-    @State var total = 0;
+    @State var total = 0
+    @Binding var list: [RoomModel]
     @EnvironmentObject var roomViewModel : RoomViewModel
     @State private var selectedOptionIndex = 0
+    init(list: Binding<[RoomModel]>){
+        self._list = list
+    }
     
     var body: some View {
         
@@ -48,8 +59,12 @@ struct WrapMainView: View {
                            selection: $checkinDate,
                            in: Date()...,
                            displayedComponents: [.date]
-                ).padding()
+                )
+                    .padding()
                     .frame(alignment: .leading)
+                    .onChange(of: checkinDate) { value in
+                        updateFilter()
+                    }
                 Text("-")
                 DatePicker("",
                            selection: $checkoutDate,
@@ -57,6 +72,9 @@ struct WrapMainView: View {
                            displayedComponents: [.date]
                 ).padding(.horizontal)
                     .frame(alignment: .trailing)
+                    .onChange(of: checkinDate) { value in
+                        updateFilter()
+                    }
             }.frame(alignment: .leading)
             
             HStack {
@@ -74,7 +92,7 @@ struct WrapMainView: View {
             }
                                      
             VStack{
-                ListRoom()
+                ListRoom(listRooms: $list)
                     
             }
             .cornerRadius(5)
@@ -105,6 +123,11 @@ struct WrapMainView: View {
             
         }
     }
+    func updateFilter(){
+        print(options[selectedOptionIndex])
+        list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
+        
+    }
     func showRoomInfo(){
         isShowAlert = true
     }
@@ -123,12 +146,12 @@ struct WrapMainView: View {
         
     }
     func doSave(){
-        print(checkinDate)
-        print(checkoutDate)
-        print(selection)
-        roomViewModel.rooms.forEach{ item in
-            print(item.name)
-        }
+//        print(checkinDate)
+//        print(checkoutDate)
+//        print(selection)
+//        roomViewModel.rooms.forEach{ item in
+//            print(item.name)
+//        }
     }
 }
 struct ExtractedView: View {

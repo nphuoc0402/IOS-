@@ -33,22 +33,27 @@ struct LoginView: View {
                     .scale(1.35)
                     .foregroundColor(.white)
                 
-                VStack{
-                    Text("Login")
+                VStack(spacing: 10){
+                    Image("hotel")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .frame(alignment: .topTrailing)
+                    
+                    Text("予約室")
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    TextField("Email", text: $email)
+                    TextField("メール", text: $email)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                    SecureField("Password", text: $passwd)
+                    SecureField("パスワード", text: $passwd)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                    Button("Login") {
+                    Button("ログイン") {
                         doLogin(email: email, pw: passwd)
                     }
                     .foregroundColor(.white)

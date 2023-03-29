@@ -13,17 +13,25 @@ struct RoomRow: View {
     var body: some View {
         ZStack{
             HStack{
-                room.image
-                    .resizable()
-                    .frame(width: 50, height:50)
-                Text(room.name)
+                VStack{
+                    room.image
+                        .resizable()
+                        .frame(width: 60, height:60)
+                }
+                VStack(spacing: 5){
+                    Text("部屋:   \(room.name)")
+                    Text("     価格: ¥\(room.price)")
+                    Text("  タイプ: \(room.type)")
+                }
+                .font(.system(size: 12))
                 Spacer()
             }
-            
-            
             HStack {
                 Spacer()
                 Toggle("",isOn: $isBooked).toggleStyle(iOSCheckboxToggleStyle()).font(.largeTitle)
+                    .onChange(of: isBooked) { newValue in
+                        
+                    }
             }
             
         }
@@ -38,7 +46,7 @@ struct RoomRow_Previews: PreviewProvider {
             RoomRow(room: rooms[1])
                
         }
-        .previewLayout(.fixed(width: 300, height: 70))
+        .previewLayout(.fixed(width: 350, height: 150))
         
     }
 }

@@ -29,10 +29,9 @@ struct OrderView_Previews: PreviewProvider {
 }
 
 struct WrapMainView: View {
-    let options = ["All", "Single", "Twin"]
+    let options = ["全て", "シングル", "ツイン"]
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
-    @State var selection = "All"
     @State var isOn = false
     @State var isShowAlert:Bool = false
     @State var total = 0;
@@ -40,96 +39,108 @@ struct WrapMainView: View {
     @State private var selectedOptionIndex = 0
     
     var body: some View {
+        VStack{
+            ZStack{
+                Image("Beach 1")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 200)
+                    .clipped()
+                VStack(){
+                    Text("予約室").font(.largeTitle)
+                    HStack{
+                        DatePicker("",
+                                   selection: $checkinDate,
+                                   in: Date()...,
+                                   displayedComponents: [.date]
+                        )
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .frame(maxWidth: .infinity)
+                        Image(systemName: "arrow.right")
+                            .foregroundColor(.black)
+                        
+                        DatePicker("",
+                                   selection: $checkoutDate,
+                                   in: (checkinDate.addingTimeInterval(86400))...,
+                                   displayedComponents: [.date]
+                        ).labelsHidden()
+                            .datePickerStyle(.compact)
+                            .frame(maxWidth: .infinity)
+                    }.padding()
+                }
+                
+            }
+        
+        HStack {
+            ForEach(0..<options.count) { index in
+                Button(action: {
+                    selectedOptionIndex = index
+                }, label: {
+                    HStack {
+                        Text(options[index])
+                        Image(systemName: selectedOptionIndex == index ? "largecircle.fill.circle" : "circle")
+                    }
+                    .padding(20)
+                })
+            }
+        }
         
         VStack{
-            Text("Booking Room").font(.largeTitle)
-            HStack{
-                DatePicker("",
-                           selection: $checkinDate,
-                           in: Date()...,
-                           displayedComponents: [.date]
-                ).padding()
-                    .frame(alignment: .leading)
-                Text("-")
-                DatePicker("",
-                           selection: $checkoutDate,
-                           in: (checkinDate.addingTimeInterval(86400))...,
-                           displayedComponents: [.date]
-                ).padding(.horizontal)
-                    .frame(alignment: .trailing)
-            }.frame(alignment: .leading)
-            
-            HStack {
-                ForEach(0..<options.count) { index in
-                    Button(action: {
-                        selectedOptionIndex = index
-                    }, label: {
-                        HStack {
-                            Text(options[index])
-                            Image(systemName: selectedOptionIndex == index ? "largecircle.fill.circle" : "circle")
-                        }
-                        .padding(20)
-                    })
-                }
-            }
-                                     
-            VStack{
-                ListRoom()
-                    
-            }
-            .cornerRadius(5)
-            .padding()
-            
-            VStack(alignment:.leading){
-                Text("Total: \(total)¥").frame(alignment: .leading).font(.headline)
-            }.frame(maxWidth: .infinity,alignment: .leading).padding()
-            
-            Button(action: {doSave()}) {
-                Text("Save")
-                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                    .border(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
-                    .cornerRadius(/*@START_MENU_TOKEN@*/5.0/*@END_MENU_TOKEN@*/)
-                    .frame(width: 150, height: 50)
-            }
-            Spacer()
-            
-            
-        }.alert(isPresented: $isShowAlert){
-            
-            Alert(
-                title: Text(""),
-                message: Text("Do you want to order this Room?"),
-                primaryButton: .destructive(Text("Cancel"), action:{cancelSelectRoom()}),
-                secondaryButton: .default(Text("OK"),action: {confirmSelectRoom()})
-            )
+            ListRoom()
+        }
+        .cornerRadius(5)
+        .padding()
+        
+        VStack(alignment:.leading){
+            Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
+        }.frame(maxWidth: .infinity,alignment: .leading).padding()
+        
+        Button(action: {doSave()}) {
+            Text("予約")
+                .fontWeight(.semibold)
+                .font(.title)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(40)
             
         }
-    }
-    func showRoomInfo(){
-        isShowAlert = true
-    }
-    func onTapCheckbox(){
-        print("tap checkbox")
-    }
-    func confirmSelectRoom(){
-        isShowAlert = true
-        isOn = true
-    }
-    func cancelSelectRoom(){
-        isOn = false
-    }
-    func doConfirm(){
-        isShowAlert = true
+        Spacer()
+    }.alert(isPresented: $isShowAlert){
+        
+        Alert(
+            title: Text(""),
+            message: Text("この部屋を予約しますか?"),
+            primaryButton: .destructive(Text("キャンセル"), action:{cancelSelectRoom()}),
+            secondaryButton: .default(Text("OK"),action: {confirmSelectRoom()})
+        )
         
     }
-    func doSave(){
-        print(checkinDate)
-        print(checkoutDate)
-        print(selection)
-        roomViewModel.rooms.forEach{ item in
-            print(item.name)
-        }
-    }
+}
+func showRoomInfo(){
+    isShowAlert = true
+}
+func onTapCheckbox(){
+    print("tap checkbox")
+}
+func confirmSelectRoom(){
+    isShowAlert = true
+    isOn = true
+}
+func cancelSelectRoom(){
+    isOn = false
+}
+func doConfirm(){
+    isShowAlert = true
+    
+}
+func doSave(){
+    print(checkinDate)
+    print(checkoutDate)
+    print(selectedOptionIndex)
+    
+}
 }
 struct ExtractedView: View {
     @State private var isShowAlert: Bool = true

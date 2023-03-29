@@ -16,7 +16,7 @@ struct OrderView: View {
     
     // MARK: - View Body
     init(){
-        listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "All")
+        listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "全て")
     }
     var body: some View {
         ZStack{
@@ -36,7 +36,7 @@ struct OrderView_Previews: PreviewProvider {
 }
 
 struct WrapMainView: View {
-    let options = ["All", "Single", "Twin"]
+    let options = ["全て", "シングル", "ツイン"]
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
     @State var selection = "All"
@@ -53,29 +53,43 @@ struct WrapMainView: View {
     var body: some View {
         
         VStack{
-            Text("Booking Room").font(.largeTitle)
-            HStack{
-                DatePicker("",
-                           selection: $checkinDate,
-                           in: Date()...,
-                           displayedComponents: [.date]
-                )
-                    .padding()
-                    .frame(alignment: .leading)
-                    .onChange(of: checkinDate) { value in
-                        updateFilter()
-                    }
-                Text("-")
-                DatePicker("",
-                           selection: $checkoutDate,
-                           in: (checkinDate.addingTimeInterval(86400))...,
-                           displayedComponents: [.date]
-                ).padding(.horizontal)
-                    .frame(alignment: .trailing)
-                    .onChange(of: checkinDate) { value in
-                        updateFilter()
-                    }
-            }.frame(alignment: .leading)
+            ZStack{
+                Image("Beach 1")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 200)
+                    .clipped()
+                VStack(){
+                    Text("予約室").font(.largeTitle)
+                    HStack{
+                        DatePicker("",
+                                   selection: $checkinDate,
+                                   in: Date()...,
+                                   displayedComponents: [.date]
+                        )
+                            .labelsHidden()
+                            .datePickerStyle(.compact)
+                            .frame(maxWidth: .infinity)
+                            .onChange(of: checkinDate) { value in
+                                updateFilter()
+                            }
+                        Image(systemName: "arrow.right")
+                            .foregroundColor(.black)
+                        
+                        DatePicker("",
+                                   selection: $checkoutDate,
+                                   in: (checkinDate.addingTimeInterval(86400))...,
+                                   displayedComponents: [.date]
+                        ).labelsHidden()
+                            .datePickerStyle(.compact)
+                            .frame(maxWidth: .infinity)
+                            .onChange(of: checkinDate) { value in
+                                updateFilter()
+                            }
+                    }.padding()
+                }
+                
+            }
             
             HStack {
                 ForEach(0..<options.count) { index in
@@ -90,24 +104,27 @@ struct WrapMainView: View {
                     })
                 }
             }
-                                     
+            
             VStack{
                 ListRoom(listRooms: $list)
-                    
+                
             }
             .cornerRadius(5)
             .padding()
             
             VStack(alignment:.leading){
-                Text("Total: \(total)¥").frame(alignment: .leading).font(.headline)
+                Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
             }.frame(maxWidth: .infinity,alignment: .leading).padding()
             
             Button(action: {doSave()}) {
-                Text("Save")
-                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                    .border(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
-                    .cornerRadius(/*@START_MENU_TOKEN@*/5.0/*@END_MENU_TOKEN@*/)
-                    .frame(width: 150, height: 50)
+                Text("予約")
+                    .fontWeight(.semibold)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(40)
+                
             }
             Spacer()
             
@@ -116,8 +133,8 @@ struct WrapMainView: View {
             
             Alert(
                 title: Text(""),
-                message: Text("Do you want to order this Room?"),
-                primaryButton: .destructive(Text("Cancel"), action:{cancelSelectRoom()}),
+                message: Text("この部屋を予約しますか?"),
+                primaryButton: .destructive(Text("キャンセル"), action:{cancelSelectRoom()}),
                 secondaryButton: .default(Text("OK"),action: {confirmSelectRoom()})
             )
             
@@ -146,12 +163,12 @@ struct WrapMainView: View {
         
     }
     func doSave(){
-//        print(checkinDate)
-//        print(checkoutDate)
-//        print(selection)
-//        roomViewModel.rooms.forEach{ item in
-//            print(item.name)
-//        }
+        //        print(checkinDate)
+        //        print(checkoutDate)
+        //        print(selection)
+        //        roomViewModel.rooms.forEach{ item in
+        //            print(item.name)
+        //        }
     }
 }
 struct ExtractedView: View {

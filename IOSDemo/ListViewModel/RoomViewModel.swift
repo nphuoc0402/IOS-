@@ -31,7 +31,7 @@ class RoomViewModel:ObservableObject {
         for room in rooms {
             if(!roomOrderController.isBookingInRange(checkinDate: chin, checkoutDate: chout, roomId: room.id))
             {
-                if(roomType == "All" || room.type == roomType){
+                if(roomType == "全て" || room.type == roomType){
                     roomFilter.append(room)
                 }
             }

@@ -3,45 +3,45 @@
         "id" : "1",
         "name" : "201",
         "floor" : "2",
-        "price" : 123,
-        "type" : "sigle",
+        "price" : "15,000",
+        "type" : "シングル",
         "imageName": "201-Single",
-        "description": "Đây là phòng 201"
+        "description": "ここは201号室です"
     },
     {
         "id" : "2",
         "name" : "202",
         "floor" : "2",
-        "price" : 123,
-        "type" : "sigle",
+        "price" : "5,000",
+        "type" : "シングル",
         "imageName": "202-Single",
-        "description": "Đây là phòng 202"
+        "description": "ここは202号室です"
     },
     {
         "id" : "3",
         "name" : "203",
         "floor" : "2",
-        "price" : 123,
-        "type" : "sigle",
+        "price" : "13,000",
+        "type" : "シングル",
         "imageName": "203-Single",
-        "description": "Đây là phòng 203"
+        "description": "ここは203号室です"
     },
     {
         "id" : "4",
         "name" : "204",
         "floor" : "2",
-        "price" : 123,
-        "type" : "sigle",
+        "price" : "10,000",
+        "type" : "シングル",
         "imageName": "204-Single",
-        "description": "Đây là phòng 204"
+        "description": "ここは204号室です"
     },
     {
         "id" : "5",
         "name" : "205",
         "floor" : "2",
-        "price" : 123,
-        "type" : "sigle",
+        "price" : "8,000",
+        "type" : "シングル",
         "imageName": "205-Single",
-        "description": "Đây là phòng 205"
+        "description": "ここは205号室です"
     }
 ]

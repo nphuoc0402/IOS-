@@ -12,6 +12,7 @@ let backgroundGradient = LinearGradient(
     startPoint: .top, endPoint: .bottom)
 
 struct RoomDetail: View {
+    @Environment(\.presentationMode) var presentationMode
     var room: RoomModel
     var body: some View {
         VStack(spacing: .zero){
@@ -34,7 +35,7 @@ private extension RoomDetail {
     
     var close: some View{
         Button{
-            
+            self.presentationMode.wrappedValue.dismiss()
         } label: {
             Image(systemName: "xmark")
                 .symbolVariant(.circle.fill)

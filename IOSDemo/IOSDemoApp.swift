@@ -19,14 +19,15 @@ class OpDat : ObservableObject {
 @main
 struct IOSDemoApp: App {
     let persistenceController = PersistenceController.shared
-    @StateObject var roomViewModel : RoomViewModel = RoomViewModel()
+    
     private var opDat = OpDat()
+    @State var listRooms:[RoomModel] = []
     init(){
         
     }
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(opDat).environment(\.managedObjectContext, persistenceController.container.viewContext).environmentObject(roomViewModel)
+            MainView().environmentObject(opDat).environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
 //        WindowGroup {
 //            ContentView()

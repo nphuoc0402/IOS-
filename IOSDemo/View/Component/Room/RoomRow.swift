@@ -10,6 +10,7 @@ import SwiftUI
 struct RoomRow: View {
     var room: RoomModel
     @State var isBooked: Bool = false
+ 
     var body: some View {
         ZStack{
             HStack{
@@ -27,15 +28,26 @@ struct RoomRow: View {
                 Spacer()
             }
             HStack {
-                Spacer()
                 Toggle("",isOn: $isBooked).toggleStyle(iOSCheckboxToggleStyle()).font(.largeTitle)
                     .onChange(of: isBooked) { newValue in
-                        
                     }
             }
             
         }
         
+    }
+}
+struct iOSCheckboxToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        return HStack {
+            configuration.label
+            Spacer()
+            Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+                .resizable()
+                .frame(width: 20, height: 20)
+                .padding()
+                .onTapGesture { configuration.isOn.toggle() }
+        }
     }
 }
 

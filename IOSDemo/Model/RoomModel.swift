@@ -15,7 +15,7 @@ struct RoomModel: Codable, Identifiable {
     var id: String
     var name: String
     var floor: String
-    var price: Int64
+    var price: String
     var type: String
     var description: String
     
@@ -24,7 +24,7 @@ struct RoomModel: Codable, Identifiable {
         Image(imageName)
     }
     
-    init(id:String = UUID().uuidString, name: String, floor: String, price: Int64, type: String, imageName: String, description: String){
+    init(id:String = UUID().uuidString, name: String, floor: String, price: String, type: String, imageName: String, description: String){
         self.id = id
         self.name = name
         self.floor = floor

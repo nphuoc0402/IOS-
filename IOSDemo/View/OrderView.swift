@@ -39,7 +39,6 @@ struct WrapMainView: View {
     let options = ["全て", "シングル", "ツイン"]
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
-    @State var selection = "All"
     @State var isOn = false
     @State var isShowAlert:Bool = false
     @State var total = 0
@@ -51,7 +50,6 @@ struct WrapMainView: View {
     }
     
     var body: some View {
-        
         VStack{
             ZStack{
                 Image("Beach 1")

@@ -100,7 +100,9 @@ struct WrapMainView: View {
                             Image(systemName: selectedOptionIndex == index ? "largecircle.fill.circle" : "circle")
                         }
                         .padding(20)
-                    })
+                    }).onChange(of: selectedOptionIndex) { value in
+                        updateFilter()
+                    }
                 }
             }
             
@@ -174,30 +176,6 @@ struct WrapMainView: View {
         //        }
     }
 }
-struct ExtractedView: View {
-    @State private var isShowAlert: Bool = true
-    @State var text1: String = "new"
-    var body: some View {
-        Text(text1)
-    }
-}
 
-struct iOSCheckboxToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        // 1
-        Button(action: {
-            
-            // 2
-            configuration.isOn.toggle()
-            
-        }, label: {
-            HStack {
-                // 3
-                Image(systemName: configuration.isOn ? "checkmark.square" : "square")
-                configuration.label
-            }
-        })
-    }
-}
 
 

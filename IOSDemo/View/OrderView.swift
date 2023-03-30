@@ -11,18 +11,26 @@ struct OrderView: View {
     @State private var showMenu: Bool = false
     @State private var text1: String = "My text"
     @State private var text2: String = "My text"
+
     var roomViewModel : RoomViewModel = RoomViewModel()
     @State var listRooms:[RoomModel]
-    
+    @State var total: Int64 = 0
+    @State var isPayment:Bool = false
+    @State var drafRoomOrder:[RoomModel] = []
     // MARK: - View Body
     init(){
         listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "全て")
     }
     var body: some View {
         ZStack{
-            WrapMainView(list: $listRooms)
-                .frame(alignment: .topLeading)
-                .environmentObject(roomViewModel)
+            if isPayment {
+                 Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment)
+            }else {
+                WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment)
+                    .frame(alignment: .topLeading)
+                    .environmentObject(roomViewModel)
+            }
+            
             Spacer()
         }.frame(alignment: .top)
         
@@ -36,17 +44,24 @@ struct OrderView_Previews: PreviewProvider {
 }
 
 struct WrapMainView: View {
+    @Binding var list: [RoomModel]
+    @Binding var total: Int64
+    @Binding var drafRoomOrder:[RoomModel]
+    @Binding var isPayment: Bool
     let options = ["全て", "シングル", "ツイン"]
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
-    @State var isOn = false
-    @State var total: Int64 = 0
-    @Binding var list: [RoomModel]
+    @State var showAlert = false
+    
+    
     @EnvironmentObject var roomViewModel : RoomViewModel
     @State private var selectedOptionIndex = 0
-    @State var drafRoomOrder:[RoomModel] = []
-    init(list: Binding<[RoomModel]>){
+    
+    init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>){
         self._list = list
+        self._total = total
+        self._drafRoomOrder = drafRoomOrder
+        self._isPayment = isPayment
     }
     
     var body: some View {
@@ -65,12 +80,12 @@ struct WrapMainView: View {
                                    in: Date()...,
                                    displayedComponents: [.date]
                         )
-                            .labelsHidden()
-                            .datePickerStyle(.compact)
-                            .frame(maxWidth: .infinity)
-                            .onChange(of: checkinDate) { value in
-                                updateFilter()
-                            }
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .frame(maxWidth: .infinity)
+                        .onChange(of: checkinDate) { value in
+                            updateFilter()
+                        }
                         Image(systemName: "arrow.right")
                             .foregroundColor(.black)
                         
@@ -117,47 +132,52 @@ struct WrapMainView: View {
             }.frame(maxWidth: .infinity,alignment: .leading).padding()
             
             Button(action: {doSave()}) {
-                Text("予約")
-                    .fontWeight(.semibold)
-                    .font(.title)
+                Text("予約画面へ")
+                    .font(.system(size:16))
                     .foregroundColor(.white)
-                    .padding()
+                    .padding(.horizontal, 50)
+                    .padding(.vertical)
                     .background(Color.blue)
-                    .cornerRadius(40)
+                    .cornerRadius(20)
+                    .frame(height: 30)
                 
             }
             Spacer()
-            
-            
+        }.alert(isPresented: $showAlert){
+            Alert(title: Text("This field is required"),
+            message: Text("Please enter valid account"))
         }
-
+        
     }
     func updateFilter(){
         list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
         
     }
     func showRoomInfo(){
-//        isShowAlert = true
+        //        isShowAlert = true
     }
     func onTapCheckbox(){
         print("tap checkbox")
     }
-    func confirmSelectRoom(){
-//        isShowAlert = true
-        isOn = true
-    }
-    func cancelSelectRoom(){
-        isOn = false
-    }
+//    func confirmSelectRoom(){
+//        //        isShowAlert = true
+//        isOn = true
+//    }
+//    func cancelSelectRoom(){
+//        isOn = false
+//    }
     func doConfirm(){
-//        isShowAlert = true
+        //        isShowAlert = true
         
     }
     func doSave(){
-        print("Save")
-        for draf in drafRoomOrder {
-            print(draf.name)
+        if(!drafRoomOrder.isEmpty){
+            isPayment = true
+        }else {
+            showAlert = true
         }
+        
+    
         //        print(checkinDate)
         //        print(checkoutDate)
         //        print(selection)

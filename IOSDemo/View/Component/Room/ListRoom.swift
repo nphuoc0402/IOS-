@@ -11,16 +11,18 @@ struct ListRoom: View {
     @State private var selectedItem: RoomModel? = nil
     @Binding var listRooms:[RoomModel]
     @Binding var drafRoomOder: [RoomModel]
-    init(listRooms: Binding<[RoomModel]>, drafRoomOrder:Binding<[RoomModel]>){
+    @Binding var total: Int64
+    init(listRooms: Binding<[RoomModel]>, drafRoomOrder:Binding<[RoomModel]>, total: Binding<Int64>){
         self._listRooms = listRooms
         self._drafRoomOder = drafRoomOrder
+        self._total = total
     }
     var body: some View {
             List(listRooms){ room in
                 Button(action: {
                     self.selectedItem = room
                 }) {
-                    RoomRow(drafRoomOrder: $drafRoomOder, room: room)
+                    RoomRow(drafRoomOrder: $drafRoomOder, room: room, total: $total)
                 }
             }
             .popover(item: $selectedItem){room in

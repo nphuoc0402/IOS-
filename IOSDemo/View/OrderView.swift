@@ -40,8 +40,7 @@ struct WrapMainView: View {
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
     @State var isOn = false
-    @State var isShowAlert:Bool = false
-    @State var total = 0
+    @State var total: Int64 = 0
     @Binding var list: [RoomModel]
     @EnvironmentObject var roomViewModel : RoomViewModel
     @State private var selectedOptionIndex = 0
@@ -107,7 +106,7 @@ struct WrapMainView: View {
             }
             
             VStack{
-                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder)
+                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total)
                 
             }
             .cornerRadius(5)
@@ -130,37 +129,28 @@ struct WrapMainView: View {
             Spacer()
             
             
-        }.alert(isPresented: $isShowAlert){
-            
-            Alert(
-                title: Text(""),
-                message: Text("この部屋を予約しますか?"),
-                primaryButton: .destructive(Text("キャンセル"), action:{cancelSelectRoom()}),
-                secondaryButton: .default(Text("OK"),action: {confirmSelectRoom()})
-            )
-            
         }
+
     }
     func updateFilter(){
-        print(options[selectedOptionIndex])
         list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
         
     }
     func showRoomInfo(){
-        isShowAlert = true
+//        isShowAlert = true
     }
     func onTapCheckbox(){
         print("tap checkbox")
     }
     func confirmSelectRoom(){
-        isShowAlert = true
+//        isShowAlert = true
         isOn = true
     }
     func cancelSelectRoom(){
         isOn = false
     }
     func doConfirm(){
-        isShowAlert = true
+//        isShowAlert = true
         
     }
     func doSave(){

@@ -10,15 +10,17 @@ import SwiftUI
 struct ListRoom: View {
     @State private var selectedItem: RoomModel? = nil
     @Binding var listRooms:[RoomModel]
-    init(listRooms: Binding<[RoomModel]>){
+    @Binding var drafRoomOder: [RoomModel]
+    init(listRooms: Binding<[RoomModel]>, drafRoomOrder:Binding<[RoomModel]>){
         self._listRooms = listRooms
+        self._drafRoomOder = drafRoomOrder
     }
     var body: some View {
             List(listRooms){ room in
                 Button(action: {
                     self.selectedItem = room
                 }) {
-                    RoomRow(room: room)
+                    RoomRow(drafRoomOrder: $drafRoomOder, room: room)
                 }
             }
             .popover(item: $selectedItem){room in

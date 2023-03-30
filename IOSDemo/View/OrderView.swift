@@ -45,6 +45,7 @@ struct WrapMainView: View {
     @Binding var list: [RoomModel]
     @EnvironmentObject var roomViewModel : RoomViewModel
     @State private var selectedOptionIndex = 0
+    @State var drafRoomOrder:[RoomModel] = []
     init(list: Binding<[RoomModel]>){
         self._list = list
     }
@@ -104,7 +105,7 @@ struct WrapMainView: View {
             }
             
             VStack{
-                ListRoom(listRooms: $list)
+                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder)
                 
             }
             .cornerRadius(5)
@@ -161,6 +162,10 @@ struct WrapMainView: View {
         
     }
     func doSave(){
+        print("Save")
+        for draf in drafRoomOrder {
+            print(draf.name)
+        }
         //        print(checkinDate)
         //        print(checkoutDate)
         //        print(selection)

@@ -10,7 +10,11 @@ import SwiftUI
 struct RoomRow: View {
     var room: RoomModel
     @State var isBooked: Bool = false
- 
+    @Binding var drafRoomOrder: [RoomModel]
+    init(drafRoomOrder: Binding<[RoomModel]>,room: RoomModel) {
+        self._drafRoomOrder = drafRoomOrder
+        self.room = room
+    }
     var body: some View {
         ZStack{
             HStack{
@@ -29,12 +33,18 @@ struct RoomRow: View {
             }
             HStack {
                 Toggle("",isOn: $isBooked).toggleStyle(iOSCheckboxToggleStyle()).font(.largeTitle)
-                    .onChange(of: isBooked) { newValue in
+                    .onChange(of: isBooked) { value in
+                        updateDrafRoomOrder()
                     }
             }
             
         }
         
+    }
+    func updateDrafRoomOrder(){
+        print("update")
+        print(room.name)
+        drafRoomOrder.append(room)
     }
 }
 struct iOSCheckboxToggleStyle: ToggleStyle {
@@ -54,8 +64,8 @@ struct iOSCheckboxToggleStyle: ToggleStyle {
 struct RoomRow_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            RoomRow(room: rooms[0])   
-            RoomRow(room: rooms[1])
+//            RoomRow(room: rooms[0])   
+//            RoomRow(room: rooms[1])
                
         }
         .previewLayout(.fixed(width: 350, height: 150))

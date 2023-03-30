@@ -9,11 +9,22 @@ import SwiftUI
 
 struct RoomRow: View {
     var room: RoomModel
-    @State var isBooked: Bool = false
+    @State var isBooked: Bool
     @Binding var drafRoomOrder: [RoomModel]
-    init(drafRoomOrder: Binding<[RoomModel]>,room: RoomModel) {
+    @Binding var total: Int64
+    init(drafRoomOrder: Binding<[RoomModel]>,room: RoomModel, total: Binding<Int64>) {
         self._drafRoomOrder = drafRoomOrder
         self.room = room
+        self._total = total
+        var checked = false
+        for item in drafRoomOrder {
+            if room.id == item.id {
+                checked = true
+                break
+            }
+        }
+        isBooked = checked
+        
     }
     var body: some View {
         ZStack{
@@ -42,9 +53,16 @@ struct RoomRow: View {
         
     }
     func updateDrafRoomOrder(){
-        print("update")
-        print(room.name)
-        drafRoomOrder.append(room)
+        if isBooked {
+            drafRoomOrder.append(room)
+            total += room.price
+        }else {
+            if let index = drafRoomOrder.firstIndex(where: {$0.id == room.id}){
+                drafRoomOrder.remove(at: index)
+                total = total - room.price
+            }
+        }
+        
     }
 }
 struct iOSCheckboxToggleStyle: ToggleStyle {

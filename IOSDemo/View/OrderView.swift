@@ -13,20 +13,24 @@ struct OrderView: View {
     @State private var text2: String = "My text"
 
     var roomViewModel : RoomViewModel = RoomViewModel()
-    @State var listRooms:[RoomModel]
+    @State var listRooms:[RoomModel] = []
     @State var total: Int64 = 0
     @State var isPayment:Bool = false
     @State var drafRoomOrder:[RoomModel] = []
+    @State var checkinDate = Date()
+    @State var checkoutDate = Date().addingTimeInterval(86400)
+    @State private var selectedOptionIndex = 0
+    @State var days = 1
     // MARK: - View Body
-    init(){
-        listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "全て")
-    }
+//    init(){
+//        listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "全て")
+//    }
     var body: some View {
         ZStack{
             if isPayment {
                  Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment)
             }else {
-                WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment)
+                WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days)
                     .frame(alignment: .topLeading)
                     .environmentObject(roomViewModel)
             }
@@ -37,31 +41,33 @@ struct OrderView: View {
     }
 }
 
-struct OrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        OrderView()
-    }
-}
 
 struct WrapMainView: View {
     @Binding var list: [RoomModel]
     @Binding var total: Int64
     @Binding var drafRoomOrder:[RoomModel]
     @Binding var isPayment: Bool
+    @Binding var checkinDate:Date
+    @Binding var checkoutDate:Date
+    @Binding var selectedOptionIndex: Int
+    @Binding var days:Int
     let options = ["全て", "シングル", "ツイン"]
-    @State var checkinDate = Date()
-    @State var checkoutDate = Date().addingTimeInterval(86400)
+    
     @State var showAlert = false
     
     
     @EnvironmentObject var roomViewModel : RoomViewModel
-    @State private var selectedOptionIndex = 0
     
-    init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>){
+    
+    init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>, checkinDate: Binding<Date>,checkoutDate: Binding<Date>, selectedOptionIndex: Binding<Int>, days: Binding<Int>){
         self._list = list
         self._total = total
         self._drafRoomOrder = drafRoomOrder
         self._isPayment = isPayment
+        self._checkinDate = checkinDate
+        self._checkoutDate = checkoutDate
+        self._selectedOptionIndex = selectedOptionIndex
+        self._days = days
     }
     
     var body: some View {
@@ -84,7 +90,7 @@ struct WrapMainView: View {
                         .datePickerStyle(.compact)
                         .frame(maxWidth: .infinity)
                         .onChange(of: checkinDate) { value in
-                            updateFilter()
+                            filterData()
                         }
                         Image(systemName: "arrow.right")
                             .foregroundColor(.black)
@@ -96,8 +102,8 @@ struct WrapMainView: View {
                         ).labelsHidden()
                             .datePickerStyle(.compact)
                             .frame(maxWidth: .infinity)
-                            .onChange(of: checkinDate) { value in
-                                updateFilter()
+                            .onChange(of: checkoutDate) { value in
+                                filterData()
                             }
                     }.padding()
                 }
@@ -121,7 +127,8 @@ struct WrapMainView: View {
             }
             
             VStack{
-                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total)
+                
+                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total, days: $days)
                 
             }
             .cornerRadius(5)
@@ -135,8 +142,8 @@ struct WrapMainView: View {
                 Text("予約画面へ")
                     .font(.system(size:16))
                     .foregroundColor(.white)
-                    .padding(.horizontal, 50)
-                    .padding(.vertical)
+                    .padding(.horizontal, 20)
+                    .padding(10)
                     .background(Color.blue)
                     .cornerRadius(20)
                     .frame(height: 30)
@@ -152,6 +159,12 @@ struct WrapMainView: View {
     func updateFilter(){
         list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
         
+    }
+    func filterData() {
+        list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
+        days = numberOfDaysBetween(start: formatDateHelper(date: checkinDate), end: formatDateHelper(date: checkoutDate))
+        total = 0
+        drafRoomOrder.removeAll()
     }
     func showRoomInfo(){
         //        isShowAlert = true
@@ -171,7 +184,7 @@ struct WrapMainView: View {
         
     }
     func doSave(){
-        if(!drafRoomOrder.isEmpty){
+        if(!$drafRoomOrder.isEmpty){
             isPayment = true
         }else {
             showAlert = true

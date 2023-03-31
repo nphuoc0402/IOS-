@@ -10,8 +10,9 @@ import SwiftUI
 struct ListRoom: View {
     
     @Binding var listRooms:[RoomModel]
-    @Binding var drafRoomOder: [RoomModel]
+    @Binding var drafRoomOrder:[RoomModel]
     @Binding var total: Int64
+    @Binding var days: Int
     @State var isShowDetail = false
     @State var name:String = ""
     @State var price:Int64 = 0
@@ -20,10 +21,16 @@ struct ListRoom: View {
     @State var image:Image = Image("")
     @State var desc: String = ""
     
-    init(listRooms: Binding<[RoomModel]>, drafRoomOrder:Binding<[RoomModel]>, total: Binding<Int64>){
+    init(listRooms: Binding<[RoomModel]>, drafRoomOrder:Binding<[RoomModel]>, total: Binding<Int64>, days: Binding<Int>){
         self._listRooms = listRooms
-        self._drafRoomOder = drafRoomOrder
+        self._drafRoomOrder = drafRoomOrder
         self._total = total
+        self._days = days
+        
+        for order in _drafRoomOrder {
+            print(order.name)
+        }
+
     }
     var body: some View {
         ZStack {
@@ -37,7 +44,7 @@ struct ListRoom: View {
                     desc = room.description
                     isShowDetail = true
                 }) {
-                    RoomRow(drafRoomOrder: $drafRoomOder, room: room, total: $total)
+                    RoomRow(drafRoomOrder: $drafRoomOrder, room: room, total: $total, days: $days)
                 }
             }
             if isShowDetail {
@@ -87,19 +94,20 @@ struct PopupView: View {
                 Spacer()
             }
             HStack {
-                
                 Button("Ok") {
                     isShowDetail = false
                 }.frame(width: UIScreen.main.bounds.width/2-30, height: 40)
                     .foregroundColor(.white)
                 
             }
+    
             
         }
         .frame(width: UIScreen.main.bounds.width-50, height: 200)
-        .background(Color.blue)
+        .background(Color.gray)
         .cornerRadius(12)
         .clipped()
+        .padding()
         
     }
     

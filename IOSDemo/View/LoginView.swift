@@ -48,6 +48,7 @@ struct LoginView: View {
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
+                        .keyboardType(.emailAddress)
                     SecureField("パスワード", text: $passwd)
                         .padding()
                         .frame(width: 300, height: 50)

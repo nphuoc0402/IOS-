@@ -43,5 +43,59 @@
         "type" : "シングル",
         "imageName": "205-Single",
         "description": "ここは205号室です"
+    },
+    {
+        "id" : "6",
+        "name" : "206",
+        "floor" : "2",
+        "price" : 18000,
+        "type" : "ツイン",
+        "imageName": "206-Twin",
+        "description": "ここは206号室です"
+    },
+    {
+        "id" : "7",
+        "name" : "301",
+        "floor" : "3",
+        "price" : 12000,
+        "type" : "ツイン",
+        "imageName": "301-Twin",
+        "description": "ここは301号室です"
+    },
+    {
+        "id" : "8",
+        "name" : "302",
+        "floor" : "3",
+        "price" : 15000,
+        "type" : "ツイン",
+        "imageName": "302-Twin",
+        "description": "ここは302号室です"
+    },
+    {
+        "id" : "9",
+        "name" : "303",
+        "floor" : "3",
+        "price" : 16000,
+        "type" : "ツイン",
+        "imageName": "303-Twin",
+        "description": "ここは303号室です"
+    },
+    {
+        "id" : "10",
+        "name" : "304",
+        "floor" : "3",
+        "price" : 10000,
+        "type" : "ツイン",
+        "imageName": "304-Twin",
+        "description": "ここは304号室です"
+    },
+    {
+        "id" : "11",
+        "name" : "305",
+        "floor" : "3",
+        "price" : 17000,
+        "type" : "ツイン",
+        "imageName": "305-Twin",
+        "description": "ここは305号室です"
     }
 ]

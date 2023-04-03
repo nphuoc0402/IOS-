@@ -14,11 +14,15 @@ struct Payment: View {
     @Binding var drafRoomOder: [RoomModel]
     @Binding var total: Int64
     @Binding var isPayment: Bool
-    
-    init(drafRoomOder: Binding<[RoomModel]>, total: Binding<Int64>,isPayment: Binding<Bool> ){
+    @Binding var checkinDate:Date
+    @Binding var checkoutDate:Date
+    var roomOrderController:RoomOrderController = RoomOrderController()
+    init(drafRoomOder: Binding<[RoomModel]>, total: Binding<Int64>,isPayment: Binding<Bool>, checkinDate: Binding<Date>, checkoutDate: Binding<Date> ){
         self._drafRoomOder = drafRoomOder
         self._total = total
         self._isPayment = isPayment
+        self._checkinDate = checkinDate
+        self._checkoutDate = checkinDate
     }
     var body: some View {
         
@@ -93,7 +97,7 @@ struct Payment: View {
                     
                 }
                 Button {
-                    
+                    saveOrder()
                 } label: {
                     Text("予約を確認する")
                         .font(.system(size:16))
@@ -114,6 +118,11 @@ struct Payment: View {
         
         
         
+    }
+    func saveOrder(){
+        for draf in drafRoomOder {
+            roomOrderController.addRoomOrder(userId: "1", roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: isPayment)
+        }
     }
 }
 

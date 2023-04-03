@@ -42,13 +42,15 @@ class RoomOrderController: ObservableObject {
         return results
     }
     
-    func addRoomOrder(){
+    func addRoomOrder(userId: String, roomId: String, checkinDate: Date, checkoutDate: Date, payment: Bool){
         let entity = NSEntityDescription.entity(forEntityName: "RoomOrder", in: viewContext)
         let newRoomOrder = NSManagedObject(entity: entity!, insertInto: viewContext)
-        newRoomOrder.setValue("01", forKey: "userId")
-        newRoomOrder.setValue("05", forKey: "roomId")
-        newRoomOrder.setValue(formatDateHelper(date: addMoreDate(date: Date(), number: 1)), forKey: "checkinDate")
-        newRoomOrder.setValue(formatDateHelper(date: addMoreDate(date: Date(), number: 6)), forKey: "checkoutDate")
+        newRoomOrder.setValue(userId, forKey: "userId")
+        newRoomOrder.setValue(roomId, forKey: "roomId")
+        newRoomOrder.setValue(formatDateHelper(date: checkinDate), forKey: "checkinDate")
+        newRoomOrder.setValue(formatDateHelper(date: checkoutDate), forKey: "checkoutDate")
+        newRoomOrder.setValue(payment, forKey: "payment")
+        newRoomOrder.setValue(Date(), forKey: "orderDate")
         do {
             try viewContext.save()
         }catch{

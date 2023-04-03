@@ -15,8 +15,12 @@ struct ItemMenuView: View {
             Spacer()
             ZStack(alignment: .trailing){
                 Menu{
-                        Button("List Room Ordered",action: {
+                        Button("Order New Room",action: {
                             opDat.currView = .home
+                            
+                        })
+                        Button("List Room Ordered",action: {
+                            opDat.currView = .listOrderd
                             
                         })
                         Button("Logout",action: {

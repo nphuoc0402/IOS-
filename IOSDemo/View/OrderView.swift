@@ -28,7 +28,7 @@ struct OrderView: View {
     var body: some View {
         ZStack{
             if isPayment {
-                 Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment)
+                Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment, checkinDate: $checkinDate, checkoutDate: $checkoutDate)
             }else {
                 WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days)
                     .frame(alignment: .topLeading)
@@ -81,7 +81,7 @@ struct WrapMainView: View {
                 VStack(){
                     Text("予約室").font(.largeTitle)
                     HStack{
-                        DatePicker("",
+                        DatePicker("Checkin Date",
                                    selection: $checkinDate,
                                    in: Date()...,
                                    displayedComponents: [.date]

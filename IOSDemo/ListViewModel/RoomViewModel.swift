@@ -24,7 +24,16 @@ class RoomViewModel:ObservableObject {
     func getRooms(){
         self.rooms = load("Room.json")
     }
+    func getRoomById(id: String)-> RoomModel?{
+        for room in self.rooms {
+            if room.id == id {
+                return room
+            }
+        }
+        return nil
+    }
     func filterRoom(checkinDate: Date, checkoutDate:Date, roomType: String) ->[RoomModel] {
+        
         var roomFilter:[RoomModel] = []
         let chin = formatDateHelper(date: checkinDate)
         let chout = formatDateHelper(date: checkoutDate)
@@ -33,6 +42,7 @@ class RoomViewModel:ObservableObject {
             {
                 if(roomType == "全て" || room.type == roomType){
                     roomFilter.append(room)
+                    
                 }
             }
         }

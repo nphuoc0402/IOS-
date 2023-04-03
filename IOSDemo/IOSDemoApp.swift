@@ -7,13 +7,13 @@
 
 import SwiftUI
 enum CurrView:Int{
-    case wellcome
+    case listOrderd
     case login
     case home
 }
 
 class OpDat : ObservableObject {
-    @Published var currView = CurrView.home
+    @Published var currView = CurrView.listOrderd
 }
 
 @main

@@ -26,11 +26,7 @@ struct ListRoom: View {
         self._drafRoomOrder = drafRoomOrder
         self._total = total
         self._days = days
-        
-        for order in _drafRoomOrder {
-            print(order.name)
-        }
-
+        loadData()
     }
     var body: some View {
         ZStack {
@@ -52,6 +48,11 @@ struct ListRoom: View {
             }
         }
         
+    }
+    func loadData(){
+        if total == 0 {
+            drafRoomOrder.removeAll()
+        }
     }
 }
 

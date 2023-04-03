@@ -23,8 +23,8 @@ struct MainView: View {
                   case .home:
                       OrderView()
                           .environmentObject(opDat)
-                  case .wellcome:
-                      WellcomeView()
+                  case .listOrderd:
+                      ListOrderedView()
                           .environmentObject(opDat)
                   }
                 

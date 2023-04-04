@@ -59,7 +59,10 @@ struct WrapMainView: View {
     @State var detailRoomId:String = ""
     
     @EnvironmentObject var roomViewModel : RoomViewModel
-    
+    @State var isOpenCheckin = false
+    @State var isOpenCheckout = false
+    @State private var checkin:String = ""
+    @State private var checkout:String = ""
     
     init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>, checkinDate: Binding<Date>,checkoutDate: Binding<Date>, selectedOptionIndex: Binding<Int>, days: Binding<Int>, isShowDetail: Binding<Bool>){
         self._list = list
@@ -74,95 +77,143 @@ struct WrapMainView: View {
     }
     
     var body: some View {
-        VStack{
-            ZStack{
-                VStack(){
-                    Text("予約室").font(.largeTitle)
-                    HStack{
-                        DatePicker("Checkin Date",
-                                   selection: $checkinDate,
-                                   in: Date()...,
-                                   displayedComponents: [.date]
-                        )
-                        .labelsHidden()
-                        .datePickerStyle(.compact)
-                        .frame(maxWidth: .infinity)
-                        .onChange(of: checkinDate) { value in
-                            filterData()
-                        }
-                        Image(systemName: "arrow.right")
-                            .foregroundColor(.black)
-                        
-                        DatePicker("",
-                                   selection: $checkoutDate,
-                                   in: (checkinDate.addingTimeInterval(86400))...,
-                                   displayedComponents: [.date]
-                        ).labelsHidden()
-                            .datePickerStyle(.compact)
-                            .frame(maxWidth: .infinity)
-                            .onChange(of: checkoutDate) { value in
-                                filterData()
-                            }
-                    }.padding()
-                }
-                
-            }
-            
-            HStack {
-                ForEach(0..<options.count) { index in
-                    Button(action: {
-                        selectedOptionIndex = index
-                    }, label: {
-                        HStack {
-                            Text(options[index])
-                            Image(systemName: selectedOptionIndex == index ? "largecircle.fill.circle" : "circle")
-                        }
-                        .padding(20)
-                    }).onChange(of: selectedOptionIndex) { value in
-                        updateFilter()
-                    }
-                }
-            }
+        ZStack {
             
             VStack{
-                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total, days: $days, isShowDetail: $isShowDetail, detailRoomId: $detailRoomId)
-            }
-            .cornerRadius(5)
-            .padding()
-            .frame(width: .infinity, height: 420, alignment: .center)
-            
-            VStack(alignment:.leading){
-                Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
-            }.frame(maxWidth: .infinity,alignment: .leading).padding()
-            
-            Button(action: {doSave()}) {
-                Text("予約画面へ")
-                    .font(.system(size:16))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(10)
-                    .background(Color.blue)
-                    .cornerRadius(20)
-                    .frame(height: 30)
+                ZStack{
+                    VStack(){
+                        Text("予約室").font(.largeTitle)
+                        HStack{
+                            
+                            TextField("Checkin Date", text: $checkin)
+                                .disabled(true)
+                                .padding()
+                                .frame(width: 150, height: 50)
+                                .background(Color.black.opacity(0.05))
+                                .cornerRadius(10)
+                                .onTapGesture {
+                                    self.onExpandCheckin()
+                                    isOpenCheckin = true
+                                    if isOpenCheckout {
+                                        isOpenCheckout.toggle()
+                                    }
+                                }
+                            Image(systemName: "arrow.right")
+                                .foregroundColor(.black)
+                            TextField("Checkout Date", text: $checkout)
+                                .disabled(true)
+                                .padding()
+                                .frame(width: 150, height: 50)
+                                .background(Color.black.opacity(0.05))
+                                .cornerRadius(10)
+                                .onTapGesture {
+                                    self.onExpandCheckout()
+                                    isOpenCheckout = true
+                                    if isOpenCheckin {
+                                        isOpenCheckin.toggle()
+                                    }
+                                }
+                            Image(systemName: "magnifyingglass").font(.title).onTapGesture {
+                                filterData()
+                            }
+                        }.padding()
+                    }
+                    
+                }
                 
+                HStack {
+                    ForEach(0..<options.count) { index in
+                        Button(action: {
+                            selectedOptionIndex = index
+                        }, label: {
+                            HStack {
+                                Text(options[index])
+                                Image(systemName: selectedOptionIndex == index ? "largecircle.fill.circle" : "circle")
+                            }
+                            .padding(20)
+                        }).onChange(of: selectedOptionIndex) { value in
+                            updateFilter()
+                        }
+                    }
+                }
+                
+                VStack{
+                    ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total, days: $days, isShowDetail: $isShowDetail, detailRoomId: $detailRoomId)
+                }
+                .cornerRadius(5)
+                .padding()
+                .frame(width: .infinity, height: 420, alignment: .center)
+                
+                VStack(alignment:.leading){
+                    Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
+                }.frame(maxWidth: .infinity,alignment: .leading).padding()
+                
+                Button(action: {doSave()}) {
+                    Text("予約画面へ")
+                        .font(.system(size:16))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20)
+                        .padding(10)
+                        .background(Color.blue)
+                        .cornerRadius(20)
+                        .frame(height: 30)
+                    
+                }
+                Spacer()
+            }.alert(isPresented: $showAlert){
+                Alert(title: Text("この項目は必須です"),
+                      message: Text("項目を選択してください"))
             }
-            Spacer()
-        }.alert(isPresented: $showAlert){
-            Alert(title: Text("この項目は必須です"),
-                  message: Text("項目を選択してください"))
+            
+            if isShowDetail {
+                Color.black.opacity(0.5).ignoresSafeArea(.all)
+                    .onTapGesture {
+                        isShowDetail = false
+                    }
+                    .allowsTightening(true)
+                let room:RoomModel? = roomViewModel.getRoomById(id: detailRoomId)
+                RoomDetail(isShowDetail: $isShowDetail, roomDetail: room) {
+                    print(detailRoomId)
+                }
+            }
+            VStack {
+                if isOpenCheckin {
+                    DatePicker("Checkin Date",
+                               selection: $checkinDate,
+                               in: Date()...,
+                               displayedComponents: [.date]
+                    )
+                        .labelsHidden()
+                        .datePickerStyle(.graphical)
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(40)
+                        .border(.gray,width:2)
+                        .onChange(of: checkinDate) { value in
+                            changedCheckin()
+                        }
+                }
+                if isOpenCheckout {
+                    DatePicker("Checkout Date",
+                               selection: $checkoutDate,
+                               in: (checkinDate.addingTimeInterval(86400))...,
+                               displayedComponents: [.date]
+                               
+                    )
+                        .labelsHidden()
+                        .datePickerStyle(.graphical)
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(40)
+                        .border(.gray,width:2)
+                    
+                        .onChange(of: checkoutDate) { value in
+                            changedCheckout()
+                        }
+                }
+            }.background(Color.white)
+                .cornerRadius(5)
+                .padding()
         }
         
-        if isShowDetail {
-            Color.black.opacity(0.5).ignoresSafeArea(.all)
-                .onTapGesture {
-                    isShowDetail = false
-                }
-                .allowsTightening(true)
-            let room:RoomModel? = roomViewModel.getRoomById(id: detailRoomId)
-            RoomDetail(isShowDetail: $isShowDetail, roomDetail: room) {
-              print(detailRoomId)
-            }
-        }
     }
     
     
@@ -184,7 +235,7 @@ struct WrapMainView: View {
     func onTapCheckbox(){
         print("tap checkbox")
     }
-   
+    
     func doConfirm(){
         //        isShowAlert = true
         
@@ -196,7 +247,28 @@ struct WrapMainView: View {
             showAlert = true
         }
     }
-    
+    func changedCheckin() {
+        checkin = formatDate(date: checkinDate)
+        isOpenCheckin.toggle()
+        isOpenCheckin = false
+        if(checkinDate >= checkoutDate) {
+            checkoutDate = checkinDate.addingTimeInterval(86400)
+            checkout = formatDate(date: checkoutDate)
+        }
+        
+    }
+    func changedCheckout() {
+        isOpenCheckout.toggle()
+        isOpenCheckout = false
+        
+        checkout = formatDate(date: checkoutDate)
+    }
+    func onExpandCheckin() {
+        isOpenCheckin.toggle()
+    }
+    func onExpandCheckout() {
+        isOpenCheckout.toggle()
+    }
 }
 
 

@@ -82,14 +82,14 @@ struct iOSCheckboxToggleStyle: ToggleStyle {
     }
 }
 
-struct RoomRow_Previews: PreviewProvider {
-    static var previews: some View {
-        Group{
-//            RoomRow(room: rooms[0])   
-//            RoomRow(room: rooms[1])
-               
-        }
-        .previewLayout(.fixed(width: 350, height: 150))
-        
-    }
-}
+//struct RoomRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group{
+//            RoomRow(drafRoomOrder: rooms, room: room, total: 120, days: 12)
+//
+//               
+//        }
+//        .previewLayout(.fixed(width: 350, height: 150))
+//        
+//    }
+//}

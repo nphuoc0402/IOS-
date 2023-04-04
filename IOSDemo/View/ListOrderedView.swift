@@ -22,6 +22,9 @@ struct ListOrderedView: View {
     @State var isPickCheckout: Bool = false
     @State var isFirst: Bool = true
 
+    init() {
+        self.listRooms = roomOrderController.getRoomOrderByUser(userId: "1")
+    }
     func filterData() {
         if isPickCheckin && isPickCheckout {
             listRooms = roomOrderController.getRoomOrderByUserInRange(userId: "1", checkinDate: checkinDate, checkoutDate: checkoutDate)
@@ -183,5 +186,7 @@ struct ListDataView: View {
         }.cornerRadius(5)
             .padding(.horizontal,20)
         
+    }
+}
     }
 }

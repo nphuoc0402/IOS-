@@ -21,7 +21,7 @@ struct ListOrderedView: View {
     @State var isPickCheckin: Bool = false
     @State var isPickCheckout: Bool = false
     @State var isFirst: Bool = true
-
+    
     init() {
         self.listRooms = roomOrderController.getRoomOrderByUser(userId: "1")
     }
@@ -146,12 +146,12 @@ struct ListOrderedView: View {
                         .onChange(of: checkoutDate) { value in
                             changedCheckout()
                         }
-                        
+                    
                 }
             }.background(Color.white)
                 .cornerRadius(5)
                 .padding()
-                
+            
             Spacer()
         }.frame(alignment: .top)
     }
@@ -173,9 +173,11 @@ struct ListDataView: View {
                             .frame(width: 60, height:60)
                     }
                     VStack(spacing: 5){
-                        Text("     価格: ¥\(room?.name ?? "")")
-                        Text(formatDate(date: orderRoom.checkinDate!))
-                        Text(formatDate(date: orderRoom.checkoutDate!))
+                        Text("部屋:  \(room?.name ?? "")")
+                        Text("     価格: ¥\(room?.price ?? 0)")
+                        Text("期間: \(formatDate(date: orderRoom.checkoutDate!)) - \(formatDate(date: orderRoom.checkoutDate!))")
+                        Text("予約日: ")
+                        Text("支払方法:")
                     }
                     .font(.system(size: 12))
                     Spacer()
@@ -188,5 +190,4 @@ struct ListDataView: View {
         
     }
 }
-    }
-}
+

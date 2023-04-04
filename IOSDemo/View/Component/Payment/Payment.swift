@@ -22,7 +22,7 @@ struct Payment: View {
         self._total = total
         self._isPayment = isPayment
         self._checkinDate = checkinDate
-        self._checkoutDate = checkinDate
+        self._checkoutDate = checkoutDate
     }
     var body: some View {
         
@@ -120,6 +120,8 @@ struct Payment: View {
         
     }
     func saveOrder(){
+        print(checkoutDate)
+        print(checkinDate)
         for draf in drafRoomOder {
             roomOrderController.addRoomOrder(userId: "1", roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: isPayment)
         }

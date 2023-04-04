@@ -41,6 +41,24 @@ class RoomOrderController: ObservableObject {
         }
         return results
     }
+    func getRoomOrderByUserInRange(userId: String, checkinDate: Date, checkoutDate: Date) -> [RoomOrder] {
+        let request = NSFetchRequest<RoomOrder>(entityName: "RoomOrder")
+        request.predicate = NSPredicate(format: "userId = %@", userId)
+        request.returnsObjectsAsFaults = false
+        var results:[RoomOrder] = []
+        do {
+            results = try viewContext.fetch(request)
+            for data in results {
+                if (!(checkinDate <= data.value(forKey: "checkoutDate") as! Date && checkoutDate >= data.value(forKey: "checkinDate") as! Date)) {
+                    results.removeAll(where: { $0.roomId == data.value(forKey: "roomId") as! String})
+                }
+            }
+            
+        }catch {
+            print("Failed")
+        }
+        return results
+    }
     
     func addRoomOrder(userId: String, roomId: String, checkinDate: Date, checkoutDate: Date, payment: Bool){
         let entity = NSEntityDescription.entity(forEntityName: "RoomOrder", in: viewContext)

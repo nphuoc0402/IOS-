@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ListRoom: View {
-    
     @Binding var listRooms:[RoomModel]
     @Binding var drafRoomOrder:[RoomModel]
     @Binding var total: Int64
     @Binding var days: Int
-    @State var isShowDetail = false
+    @Binding var isShowDetail: Bool
+    @Binding var detailRoomId: String
     @State var name:String = ""
     @State var price:Int64 = 0
     @State var floor: String = ""
@@ -21,15 +21,18 @@ struct ListRoom: View {
     @State var image:Image = Image("")
     @State var desc: String = ""
     
-    init(listRooms: Binding<[RoomModel]>, drafRoomOrder:Binding<[RoomModel]>, total: Binding<Int64>, days: Binding<Int>){
+    
+    init(listRooms: Binding<[RoomModel]>, drafRoomOrder:Binding<[RoomModel]>, total: Binding<Int64>, days: Binding<Int>, isShowDetail: Binding<Bool>, detailRoomId: Binding<String>){
         self._listRooms = listRooms
         self._drafRoomOrder = drafRoomOrder
         self._total = total
         self._days = days
+        self._isShowDetail = isShowDetail
+        self._detailRoomId = detailRoomId
         loadData()
     }
     var body: some View {
-        ZStack {
+        VStack(spacing: 0) {
             List(listRooms){ room in
                 Button(action: {
                     name = room.name
@@ -38,13 +41,13 @@ struct ListRoom: View {
                     type = room.type
                     image = room.image
                     desc = room.description
+                    print(isShowDetail)
                     isShowDetail = true
+                    detailRoomId = room.id
+                    
                 }) {
                     RoomRow(drafRoomOrder: $drafRoomOrder, room: room, total: $total, days: $days)
                 }
-            }
-            if isShowDetail {
-                PopupView(isShowDetail: $isShowDetail, name: name, price: price, floor: floor, type: type, image: image, desc: desc)
             }
         }
         
@@ -56,62 +59,6 @@ struct ListRoom: View {
     }
 }
 
-struct PopupView: View {
-    @Binding var isShowDetail: Bool
-    var name: String
-    var price: Int64
-    var floor: String
-    var type: String
-    var image: Image
-    var desc: String
-    
-    init(isShowDetail: Binding<Bool>, name: String, price: Int64, floor: String, type: String,image: Image, desc: String) {
-        self._isShowDetail = isShowDetail
-        self.name = name
-        self.price = price
-        self.floor = floor
-        self.type = type
-        self.image = image
-        self.desc = desc
-        
-    }
-    var body: some View {
-        VStack {
-            HStack{
-                VStack{
-                    image
-                        .resizable()
-                        .frame(width: 60, height:60)
-                }
-                VStack(spacing: 5){
-                    Text("部屋:   \(name)")
-                    Text("価格: ¥\(price)")
-                    Text("タイプ: \(type)")
-                    Text("タイプ: \(floor)")
-                    Text("タイプ: \(desc)")
-                }
-                .font(.system(size: 15))
-                .frame(alignment: .leading)
-                Spacer()
-            }
-            HStack {
-                Button("Ok") {
-                    isShowDetail = false
-                }.frame(width: UIScreen.main.bounds.width/2-30, height: 40)
-                    .foregroundColor(.white)
-                
-            }
-    
-            
-        }
-        .frame(width: UIScreen.main.bounds.width-50, height: 200)
-        .background(Color.gray)
-        .cornerRadius(12)
-        .clipped()
-        .padding()
-        
-    }
-    
-}
+
 
 

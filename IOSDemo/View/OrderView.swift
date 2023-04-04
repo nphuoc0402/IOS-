@@ -11,7 +11,7 @@ struct OrderView: View {
     @State private var showMenu: Bool = false
     @State private var text1: String = "My text"
     @State private var text2: String = "My text"
-
+    
     var roomViewModel : RoomViewModel = RoomViewModel()
     @State var listRooms:[RoomModel] = []
     @State var total: Int64 = 0
@@ -20,17 +20,18 @@ struct OrderView: View {
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
     @State private var selectedOptionIndex = 0
+    @State var isShowDetail = false
     @State var days = 1
     // MARK: - View Body
-//    init(){
-//        listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "全て")
-//    }
+    //    init(){
+    //        listRooms = roomViewModel.filterRoom(checkinDate: Date(), checkoutDate: Date(), roomType: "全て")
+    //    }
     var body: some View {
         ZStack{
             if isPayment {
                 Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment, checkinDate: $checkinDate, checkoutDate: $checkoutDate)
             }else {
-                WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days)
+                WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days, isShowDetail: $isShowDetail)
                     .frame(alignment: .topLeading)
                     .environmentObject(roomViewModel)
             }
@@ -51,15 +52,16 @@ struct WrapMainView: View {
     @Binding var checkoutDate:Date
     @Binding var selectedOptionIndex: Int
     @Binding var days:Int
+    @Binding var isShowDetail: Bool
     let options = ["全て", "シングル", "ツイン"]
     
     @State var showAlert = false
-    
+    @State var detailRoomId:String = ""
     
     @EnvironmentObject var roomViewModel : RoomViewModel
     
     
-    init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>, checkinDate: Binding<Date>,checkoutDate: Binding<Date>, selectedOptionIndex: Binding<Int>, days: Binding<Int>){
+    init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>, checkinDate: Binding<Date>,checkoutDate: Binding<Date>, selectedOptionIndex: Binding<Int>, days: Binding<Int>, isShowDetail: Binding<Bool>){
         self._list = list
         self._total = total
         self._drafRoomOrder = drafRoomOrder
@@ -68,16 +70,12 @@ struct WrapMainView: View {
         self._checkoutDate = checkoutDate
         self._selectedOptionIndex = selectedOptionIndex
         self._days = days
+        self._isShowDetail = isShowDetail
     }
     
     var body: some View {
         VStack{
             ZStack{
-                Image("Beach 1")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 200)
-                    .clipped()
                 VStack(){
                     Text("予約室").font(.largeTitle)
                     HStack{
@@ -127,12 +125,11 @@ struct WrapMainView: View {
             }
             
             VStack{
-                
-                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total, days: $days)
-                
+                ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total, days: $days, isShowDetail: $isShowDetail, detailRoomId: $detailRoomId)
             }
             .cornerRadius(5)
             .padding()
+            .frame(width: .infinity, height: 420, alignment: .center)
             
             VStack(alignment:.leading){
                 Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
@@ -151,11 +148,26 @@ struct WrapMainView: View {
             }
             Spacer()
         }.alert(isPresented: $showAlert){
-            Alert(title: Text("This field is required"),
-            message: Text("Please enter valid account"))
+            Alert(title: Text("この項目は必須です"),
+                  message: Text("項目を選択してください"))
         }
         
+        if isShowDetail {
+            Color.black.opacity(0.5).ignoresSafeArea(.all)
+                .onTapGesture {
+                    isShowDetail = false
+                }
+                .allowsTightening(true)
+            let room:RoomModel? = roomViewModel.getRoomById(id: detailRoomId)
+            RoomDetail(isShowDetail: $isShowDetail, roomDetail: room) {
+              print(detailRoomId)
+            }
+        }
     }
+    
+    
+    
+    
     func updateFilter(){
         list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
         
@@ -172,13 +184,7 @@ struct WrapMainView: View {
     func onTapCheckbox(){
         print("tap checkbox")
     }
-//    func confirmSelectRoom(){
-//        //        isShowAlert = true
-//        isOn = true
-//    }
-//    func cancelSelectRoom(){
-//        isOn = false
-//    }
+   
     func doConfirm(){
         //        isShowAlert = true
         
@@ -189,15 +195,8 @@ struct WrapMainView: View {
         }else {
             showAlert = true
         }
-        
-    
-        //        print(checkinDate)
-        //        print(checkoutDate)
-        //        print(selection)
-        //        roomViewModel.rooms.forEach{ item in
-        //            print(item.name)
-        //        }
     }
+    
 }
 
 

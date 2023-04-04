@@ -13,7 +13,7 @@ struct ListOrderedView: View {
     var listRooms:[RoomOrder] = []
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
-    
+
     init() {
         self.listRooms = roomOrderController.getRoomOrderByUser(userId: "1")
     }
@@ -31,12 +31,12 @@ struct ListOrderedView: View {
                                in: Date()...,
                                displayedComponents: [.date]
                     )
-                        .labelsHidden()
-                        .datePickerStyle(.compact)
-                        .frame(maxWidth: .infinity)
-                        .onChange(of: checkinDate) { value in
-                            filterData()
-                        }
+                    .labelsHidden()
+                    .datePickerStyle(.compact)
+                    .frame(maxWidth: .infinity)
+                    .onChange(of: checkinDate) { value in
+                        filterData()
+                    }
                     Image(systemName: "arrow.right")
                         .foregroundColor(.black)
                     
@@ -63,16 +63,21 @@ struct ListOrderedView: View {
                                         .frame(width: 60, height:60)
                                 }
                                 VStack(spacing: 5){
-                                    Text("     価格: ¥\(room?.name ?? "")")
+                                    Text("部屋:  \(room?.name ?? "")")
+                                    Text("     価格: ¥\(room?.price ?? 0)")
+                                    Text("期間: \(checkinDate.formatted(date: .abbreviated, time: .omitted)) - \(checkoutDate.formatted(date: .abbreviated, time: .omitted))")
+                                    Text("予約日: ")
+                                    Text("支払方法:")
+                                    
                                 }
                                 .font(.system(size: 12))
-                                Spacer()
+                                
                             }
                             
                         }
                         
                     }.cornerRadius(5)
-                        .padding(.horizontal,20)
+                    .padding(.horizontal,20)
                 }
                 
                 
@@ -82,3 +87,4 @@ struct ListOrderedView: View {
         }.frame(alignment: .top)
     }
 }
+

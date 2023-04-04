@@ -10,7 +10,7 @@ import SwiftUI
 import CoreData
 struct LoginView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
@@ -63,10 +63,10 @@ struct LoginView: View {
                     .cornerRadius(10)  
                 }
             }
-     
+            
         }.alert(isPresented: $showAlert){
-            Alert(title: Text("This field is required"),
-            message: Text("Please enter valid account"))
+            Alert(title: Text("この項目は必須です"),
+                  message: Text("有効なアカウントを入力してください"))
         }
         
     }
@@ -76,8 +76,8 @@ struct LoginView: View {
                 opDat.currView = .home
             }
         }
-            showAlert = true
-      
+        showAlert = true
+        
     }
 }
 

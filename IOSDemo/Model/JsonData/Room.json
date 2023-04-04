@@ -97,5 +97,23 @@
         "type" : "ツイン",
         "imageName": "305-Twin",
         "description": "ここは305号室です"
+    },
+    {
+        "id" : "12",
+        "name" : "401",
+        "floor" : "4",
+        "price" : 22000,
+        "type" : "ツイン",
+        "imageName": "401-Twin",
+        "description": "ここは401号室です"
+    },
+    {
+        "id" : "13",
+        "name" : "402",
+        "floor" : "3",
+        "price" : 17000,
+        "type" : "シングル",
+        "imageName": "402-Single",
+        "description": "ここは402号室です"
     }
 ]

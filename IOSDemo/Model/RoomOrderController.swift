@@ -12,19 +12,20 @@ class RoomOrderController: ObservableObject {
     let viewContext = PersistenceController.shared.container.viewContext
     init() {
         fetchRoomOrder()
+//        deleteRoomOrder()
     }
     
     func fetchRoomOrder(){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RoomOrder")
-//        request.predicate = NSPredicate(format: "name = %@", "name")
+        //        request.predicate = NSPredicate(format: "name = %@", "name")
         request.returnsObjectsAsFaults = false
         do {
             let result = try viewContext.fetch(request)
-//            for data in result as! [NSManagedObject]{
-//                print(data.value(forKey: "roomId") as! String)
-//                print(data.value(forKey: "checkinDate") as! Date)
-//                print(data.value(forKey: "checkoutDate") as! Date)
-//            }
+            //            for data in result as! [NSManagedObject]{
+            //                print(data.value(forKey: "roomId") as! String)
+            //                print(data.value(forKey: "checkinDate") as! Date)
+            //                print(data.value(forKey: "checkoutDate") as! Date)
+            //            }
         }catch {
             print("Failed")
         }
@@ -58,7 +59,7 @@ class RoomOrderController: ObservableObject {
         }
     }
     func isBookingInRange(checkinDate: Date, checkoutDate: Date, roomId: String) -> Bool{
-
+        
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RoomOrder")
         request.predicate = NSPredicate(format: "roomId = %@", roomId)
         request.returnsObjectsAsFaults = false
@@ -74,5 +75,15 @@ class RoomOrderController: ObservableObject {
             print("Failed")
         }
         return false
+    }
+    
+    func deleteRoomOrder(){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RoomOrder")
+        let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try viewContext.execute(batchDeleteRequest1)
+        }catch {
+            print("Failed")
+        }
     }
 }

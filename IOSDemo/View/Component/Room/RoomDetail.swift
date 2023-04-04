@@ -5,72 +5,73 @@
 //  Created by tester on 2023/03/28.
 //
 
+
 import SwiftUI
 
-let backgroundGradient = LinearGradient(
-    colors: [Color.red, Color.blue],
-    startPoint: .top, endPoint: .bottom)
-
 struct RoomDetail: View {
-    @Environment(\.presentationMode) var presentationMode
-    var room: RoomModel
+    @Binding var isShowDetail: Bool
+    var roomDetail: RoomModel?
+    let action: () -> ()
+    @State var offset: CGFloat = 2000
+    
     var body: some View {
-        VStack(spacing: .zero){
-            image
-            roomName
-            description
-        }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 40)
-        .multilineTextAlignment(.center)
-        .border(.blue, width: 4)
-        .overlay(alignment: .topTrailing){
-            close
-        }
-  
-    }
-}
-
-private extension RoomDetail {
-    
-    var close: some View{
-        Button{
-            self.presentationMode.wrappedValue.dismiss()
-        } label: {
-            Image(systemName: "xmark")
-                .symbolVariant(.circle.fill)
-                .font(.system(size: 35, weight: .bold,design: .rounded))
-        }
-        .foregroundStyle(.gray.opacity(0.4))
-        .padding(8)
-    }
-    var image: some View{
-        room.image
-            .resizable()
-            .frame(width: 50, height:50)
-    }
-    
-    var roomName: some View{
-        Text(room.name)
-            .font(.system(size: 30,
-                          weight: .bold,
-                          design: .rounded))
+        ZStack{
+            Color(.black)
+                .opacity(0.5)
+                .onTapGesture {
+                    close()
+                }
+                
+                VStack{
+                    roomDetail?.image
+                        .resizable()
+                        .frame(width: 100, height:100)
+                    Text("部屋:   \(roomDetail?.name ?? "")")
+                        .font(.system(size:15))
+                    Text("価格: ¥\(roomDetail?.price ?? 0)")
+                        .font(.system(size:15))
+                    Text("タイプ: \(roomDetail?.type ?? "")")
+                        .font(.system(size:15))
+                    Text("タイプ: \(roomDetail?.floor ?? "")")
+                        .font(.system(size:15))
+                    Text("タイプ: \(roomDetail?.description ?? "")")
+                        .font(.system(size:15))
+                    Button{
+                        close()
+                    } label: {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundColor(.red)
+                            Text("OK")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        .padding()
+                    }
+            }
+            .fixedSize(horizontal: false, vertical: true)
             .padding()
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .shadow(radius: 20)
+            .padding(30)
+            .offset(x: 0, y: offset)
+            .onAppear{
+                withAnimation(.spring()){
+                    offset = 0
+                }
+            }
+        }
+        .ignoresSafeArea()
+        
     }
     
-    var description: some View{
-        Text(room.description)
-            .font(.callout)
-            .foregroundColor(.black.opacity(0.8))
+    func close() {
+        withAnimation(.spring()){
+            offset = 2000
+            isShowDetail = false
+        }
     }
-}
-
-
-
-struct RoomDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        RoomDetail(room: rooms[0])
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
+    
 }

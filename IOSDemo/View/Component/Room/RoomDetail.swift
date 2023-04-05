@@ -21,34 +21,34 @@ struct RoomDetail: View {
                 .onTapGesture {
                     close()
                 }
-                
-                VStack{
-                    roomDetail?.image
-                        .resizable()
-                        .frame(width: 100, height:100)
-                    Text("部屋:   \(roomDetail?.name ?? "")")
-                        .font(.system(size:15))
-                    Text("価格: ¥\(roomDetail?.price ?? 0)")
-                        .font(.system(size:15))
-                    Text("タイプ: \(roomDetail?.type ?? "")")
-                        .font(.system(size:15))
-                    Text("タイプ: \(roomDetail?.floor ?? "")")
-                        .font(.system(size:15))
-                    Text("タイプ: \(roomDetail?.description ?? "")")
-                        .font(.system(size:15))
-                    Button{
-                        close()
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.red)
-                            Text("OK")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.white)
-                                .padding()
-                        }
-                        .padding()
+            
+            VStack{
+                roomDetail?.image
+                    .resizable()
+                    .frame(width: 100, height:100)
+                Text("部屋:   \(roomDetail?.name ?? "")")
+                    .font(.system(size:15))
+                Text("価格: ¥\(roomDetail?.price ?? 0)")
+                    .font(.system(size:15))
+                Text("タイプ: \(roomDetail?.type ?? "")")
+                    .font(.system(size:15))
+                Text("タイプ: \(roomDetail?.floor ?? "")")
+                    .font(.system(size:15))
+                Text("タイプ: \(roomDetail?.description ?? "")")
+                    .font(.system(size:15))
+                Button{
+                    close()
+                } label: {
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(.red)
+                        Text("OK")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding()
                     }
+                    .padding()
+                }
             }
             .fixedSize(horizontal: false, vertical: true)
             .padding()

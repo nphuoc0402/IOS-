@@ -7,15 +7,15 @@
 
 import Foundation
 
-
 var users:[UserModel] = load("User.json")
 var rooms: [RoomModel] = load("Room.json")
+var accounts:[AccountModel] = load("Account.json")
 
 func load<T: Decodable>(_ filename: String, as type: T.Type = T.self) -> T {
     let data: Data
     
     guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-        else{fatalError("couldn't find\(filename)in main Bundle")}
+    else{fatalError("couldn't find\(filename)in main Bundle")}
     
     do{
         data = try Data(contentsOf: file)

@@ -58,17 +58,14 @@ struct ListOrderedView: View {
     var body: some View {
         ZStack{
             VStack{
-                Text("支払い")
-                    .font(.system(size:20))
-                    .frame(alignment: .top)
-                
-                
+                Text("予約した部屋リスト")
+                    .font(.largeTitle)
                 HStack{
                     HStack{
                         Image(systemName: "calendar").foregroundColor(.gray)
-                        TextField("Start Date", text: $checkin)
+                        TextField("チェックイン日", text: $checkin)
                             .disabled(true)
-                            
+                        
                     }
                     .frame(width: 140, height: 35)
                     .padding([.leading], 5)
@@ -86,9 +83,9 @@ struct ListOrderedView: View {
                     
                     HStack{
                         Image(systemName: "calendar").foregroundColor(.gray)
-                        TextField("To Date", text: $checkout)
+                        TextField("チェックアウト日", text: $checkout)
                             .disabled(true)
-                            
+                        
                     }
                     .frame(width: 140, height: 35)
                     .padding([.leading], 5)
@@ -124,16 +121,16 @@ struct ListOrderedView: View {
                                displayedComponents: [.date]
                                
                     )
-                        .labelsHidden()
-                        .datePickerStyle(.graphical)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(20)
-                        .border(.gray,width:1)
+                    .labelsHidden()
+                    .datePickerStyle(.graphical)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(20)
+                    .border(.gray,width:1)
                     
-                        .onChange(of: checkinDate) { value in
-                            changedCheckin()
-                            isPickCheckin = true
-                        }
+                    .onChange(of: checkinDate) { value in
+                        changedCheckin()
+                        isPickCheckin = true
+                    }
                     
                     Button(action: {
                         isOpenCheckin.toggle()
@@ -158,15 +155,15 @@ struct ListOrderedView: View {
                                displayedComponents: [.date]
                                
                     )
-                        .labelsHidden()
-                        .datePickerStyle(.graphical)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(20)
-                        .border(.gray,width:1)
-                        .onChange(of: checkoutDate) { value in
-                            changedCheckout()
-                        }
-                        .transition(.slide)
+                    .labelsHidden()
+                    .datePickerStyle(.graphical)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(20)
+                    .border(.gray,width:1)
+                    .onChange(of: checkoutDate) { value in
+                        changedCheckout()
+                    }
+                    .transition(.slide)
                     
                     Button(action: {
                         isOpenCheckout.toggle()
@@ -213,12 +210,12 @@ struct ListDataView: View {
                             Text("価格: ¥\(room?.price ?? 0)").frame(width: 120,alignment: .leading)
                         }
                         HStack {
-                            Text("部屋: \(formatDate(date: orderRoom.checkinDate!))").frame(width: 120,alignment: .leading)
-                            Text("価格: \(formatDate(date: orderRoom.checkoutDate!))").frame(width: 120,alignment: .leading)
+                            Text("チェックイン日: \(formatDate(date: orderRoom.checkinDate!))").frame(width: 120,alignment: .leading)
+                            Text("チェックアウト日: \(formatDate(date: orderRoom.checkoutDate!))").frame(width: 120,alignment: .leading)
                         }
                         HStack {
-                            Text("予約日: \(room?.type ?? "")").frame(width: 120,alignment: .leading)
-                            Text("支払方法: \(room?.floor ?? "")").frame(width: 120,alignment: .leading)
+                            Text("タイプ: \(room?.type ?? "")").frame(width: 120,alignment: .leading)
+                            Text("開: \(room?.floor ?? "")").frame(width: 120,alignment: .leading)
                         }
                         HStack {
                             Text("予約日: ¥\(total)").frame(width: 120,alignment: .leading)

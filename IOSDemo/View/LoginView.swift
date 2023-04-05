@@ -47,7 +47,7 @@ struct LoginView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .keyboardType(.emailAddress)
-                
+                    
                     
                     SecureField("パスワード",text: $pw)
                         .padding()
@@ -72,13 +72,15 @@ struct LoginView: View {
         
     }
     func doLogin(_ email: String, _ pw: String){
-
-            for user in users{
-                if (email.lowercased() == user.email.lowercased() && pw == user.passwd) {
-                    opDat.currView = .home
-                }
+        
+        print(rooms[1].name)
+        print(accounts[0].card_number)
+        for user in users{
+            if (email.lowercased() == user.email.lowercased() && pw == user.passwd) {
+                opDat.currView = .home
             }
-            showAlert = true
+        }
+        showAlert = true
         
     }
 }

@@ -91,7 +91,7 @@ struct WrapMainView: View {
                             
                             HStack{
                                 Image(systemName: "calendar").foregroundColor(.gray)
-                                TextField("Checkin Date", text: $checkin)
+                                TextField("チェックイン日", text: $checkin)
                                     .disabled(true)
                                 
                             }
@@ -111,7 +111,7 @@ struct WrapMainView: View {
                             
                             HStack{
                                 Image(systemName: "calendar").foregroundColor(.gray)
-                                TextField("Checkout Date", text: $checkout)
+                                TextField("チェックアウト日", text: $checkout)
                                     .disabled(true)
                                 
                             }
@@ -207,15 +207,15 @@ struct WrapMainView: View {
                                in: Date()...,
                                displayedComponents: [.date]
                     )
-                        .labelsHidden()
-                        .datePickerStyle(.graphical)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(20)
-                        .border(.gray,width:1)
+                    .labelsHidden()
+                    .datePickerStyle(.graphical)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(20)
+                    .border(.gray,width:1)
                     
-                        .onChange(of: checkinDate) { value in
-                            changedCheckin()
-                        }
+                    .onChange(of: checkinDate) { value in
+                        changedCheckin()
+                    }
                     Button(action: {
                         isOpenCheckin.toggle()
                     }, label: {
@@ -239,14 +239,14 @@ struct WrapMainView: View {
                                displayedComponents: [.date]
                                
                     )
-                        .labelsHidden()
-                        .datePickerStyle(.graphical)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(20)
-                        .border(.gray,width:1)
-                        .onChange(of: checkoutDate) { value in
-                            changedCheckout()
-                        }
+                    .labelsHidden()
+                    .datePickerStyle(.graphical)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(20)
+                    .border(.gray,width:1)
+                    .onChange(of: checkoutDate) { value in
+                        changedCheckout()
+                    }
                     Button(action: {
                         isOpenCheckout.toggle()
                     }, label: {

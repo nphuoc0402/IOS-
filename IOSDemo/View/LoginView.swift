@@ -8,18 +8,16 @@
 
 import SwiftUI
 import CoreData
+
 struct LoginView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-    @State private var email:String = ""
-    @State private var passwd:String = ""
-    @State private var wrongEmail = ""
-    @State private var wrongPassword = ""
     @State var showAlert:Bool = false
+    @State var email = ""
+    @State var pw = ""
     @EnvironmentObject var opDat:OpDat
     var body: some View {
         NavigationView{
@@ -43,34 +41,40 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    TextField("メール", text: $email)
+                    TextField("メール",text: $email)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .keyboardType(.emailAddress)
-                    SecureField("パスワード", text: $passwd)
+                    
+                    
+                    SecureField("パスワード",text: $pw)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                     Button("ログイン") {
-                        doLogin(email: email, pw: passwd)
+                        doLogin(email, pw)
                     }
                     .foregroundColor(.white)
                     .frame(width: 300,height: 50)
                     .background(Color.blue)
-                    .cornerRadius(10)  
+                    .cornerRadius(10)
+                    
                 }
             }
             
         }.alert(isPresented: $showAlert){
-            Alert(title: Text("この項目は必須です"),
+            Alert(title: Text("アカウントまたはパスワードが無効です"),
                   message: Text("有効なアカウントを入力してください"))
         }
         
     }
-    func doLogin(email: String, pw: String){
+    func doLogin(_ email: String, _ pw: String){
+        
+        print(rooms[1].name)
+        print(accounts[0].card_number)
         for user in users{
             if (email.lowercased() == user.email.lowercased() && pw == user.passwd) {
                 opDat.currView = .home

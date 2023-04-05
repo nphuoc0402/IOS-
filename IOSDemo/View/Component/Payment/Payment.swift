@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Payment: View {
+    @ObservedObject var account = Account()
     let paymentMethod = ["後払い","前払い"]
     var title = "本気ですか？"
     var message = "本当に部屋を予約しますか"
@@ -21,6 +22,9 @@ struct Payment: View {
     @Binding var isPayment: Bool
     @Binding var checkinDate:Date
     @Binding var checkoutDate:Date
+    @State var isMessACName: Bool = false
+    @State var isMessACNumber: Bool = false
+    @State var isWrongAccount: Bool = false
     var roomOrderController:RoomOrderController = RoomOrderController()
     init(drafRoomOder: Binding<[RoomModel]>, total: Binding<Int64>,isPayment: Binding<Bool>, checkinDate: Binding<Date>, checkoutDate: Binding<Date> ){
         self._drafRoomOder = drafRoomOder
@@ -31,7 +35,7 @@ struct Payment: View {
     }
     var body: some View {
         ZStack{
-
+            
             VStack{
                 Text("支払い")
                     .font(.system(size:20))
@@ -83,7 +87,68 @@ struct Payment: View {
                 }
                 HStack{
                     if deferredPayment{
-                        TypePayment()
+                        VStack(alignment: .center, spacing: 5)  {
+                            HStack{
+                                Image("mastercard")
+                                    .resizable()
+                                    .frame(width: 30, height:30)
+                                Image("visa")
+                                    .resizable()
+                                    .frame(width: 30, height:30)
+                                Image("amex")
+                                    .resizable()
+                                    .frame(width: 30, height:30)
+                                Image("discover").resizable()
+                                    .frame(width: 30, height:30)
+                                Image("jcb").resizable()
+                                    .frame(width: 30, height:30)
+                                Image("unionpay").resizable()
+                                    .frame(width: 30, height:30)
+                                Image("paypal").resizable()
+                                    .frame(width: 30, height:30)
+                                
+                            }
+                            .frame(alignment: .topLeading)
+                            
+                            VStack(alignment: .leading, spacing: -10){
+                                VStack(spacing: 2){
+                                    TextField("名様を入力してください", text: $account.name)
+                                        .padding(10)
+                                        .background(Color.black.opacity(0.05))
+                                        .cornerRadius(10)
+
+                                }
+                                .padding()
+                                if isMessACName {
+                                    Text(account.namePromt)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .font(.caption)
+                                        .foregroundColor(.red)
+                                        .padding(.horizontal)
+                                }
+                                VStack(spacing: 2){
+                                    HStack{
+                                        Image(systemName: "creditcard").foregroundColor(.gray)
+                                        TextField("名様を入力してください", text: $account.cardNumber)
+                                            .keyboardType(.decimalPad)
+                                    }
+                                    .padding(10)
+                                    .background(Color.black.opacity(0.05))
+                                    .cornerRadius(10)
+                                    
+                                }
+                                .padding()
+                                if isMessACNumber {
+                                    Text(account.cardNumberPromt)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .font(.caption)
+                                        .foregroundColor(.red)
+                                        .padding(.horizontal)
+                                }
+                                
+                            }
+                            
+                        }
                     }
                     
                 }.frame(height: 180)
@@ -103,7 +168,8 @@ struct Payment: View {
                         
                     }
                     Button {
-                        isShowingAlert = true
+                        payment()
+                        
                     } label: {
                         Text("予約を確認する")
                             .font(.system(size:16))
@@ -135,9 +201,44 @@ struct Payment: View {
                 }
             }
             
+            if isWrongAccount {
+                Color.black.opacity(0.5).ignoresSafeArea(.all)
+                DialogView(isShowDetail: $isWrongAccount, image: Image("failure"), title: "失敗", message: "無効なアカウントです。再入力してください", buttonTitle: "OK") {
+                    isWrongAccount = false
+                }
+            }
         }
- 
+        
     }
+    
+    func payment(){
+        if !deferredPayment {
+            isShowingAlert = true
+        } else if (account.isCardNumberValid() && account.isNameValid()) {
+            for accountCustomer in accounts {
+                if (accountCustomer.name == account.name && accountCustomer.card_number == account.cardNumber){
+                    isShowingAlert = true
+                    return
+                }
+            }
+            isWrongAccount = true
+        } else {
+            if !account.isNameValid(){
+                isMessACName = true
+            }
+            
+            if !account.isCardNumberValid() {
+                isMessACNumber = true
+            }
+            
+           
+            
+            
+        }
+        
+    }
+    
+    
     func saveOrder(){
         print(checkoutDate)
         print(checkinDate)
@@ -148,6 +249,8 @@ struct Payment: View {
         drafRoomOder.removeAll()
     }
 }
+
+
 
 
 //struct Payment_Previews: PreviewProvider {

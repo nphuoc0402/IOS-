@@ -13,7 +13,7 @@ enum CurrView:Int{
 }
 
 class OpDat : ObservableObject {
-    @Published var currView = CurrView.home
+    @Published var currView = CurrView.listOrderd
 }
 
 @main
@@ -27,6 +27,6 @@ struct IOSDemoApp: App {
         WindowGroup {
             MainView().environmentObject(opDat).environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
-
+        
     }
 }

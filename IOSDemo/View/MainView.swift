@@ -12,34 +12,34 @@ struct MainView: View {
     @State private var showMenu: Bool = false
     
     var body: some View {
-                ZStack {
-                
-                  switch(opDat.currView){
-                  case .login:
-                      LoginView()
-                          .environmentObject(opDat)
-                  case .home:
-                      OrderView()
-                          .environmentObject(opDat)
-                  case .listOrderd:
-                      ListOrderedView()
-                          .environmentObject(opDat)
-                  }
-                
-                GeometryReader { _ in
-                    if(opDat.currView != .login) {
-                        HStack {
-                            ItemMenuView()
-
-                        }
+        ZStack {
+            
+            switch(opDat.currView){
+            case .login:
+                LoginView()
+                    .environmentObject(opDat)
+            case .home:
+                OrderView()
+                    .environmentObject(opDat)
+            case .listOrderd:
+                ListOrderedView()
+                    .environmentObject(opDat)
+            }
+            
+            GeometryReader { _ in
+                if(opDat.currView != .login) {
+                    HStack {
+                        ItemMenuView()
+                        
                     }
-                 
-                  
                 }
-                .background(Color.black.opacity(showMenu ? 0 : 0))
                 
-              }
-
+                
+            }
+            .background(Color.black.opacity(showMenu ? 0 : 0))
+            
+        }
+        
         
         
     }

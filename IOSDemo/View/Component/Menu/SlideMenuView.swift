@@ -15,26 +15,26 @@ struct ItemMenuView: View {
             Spacer()
             ZStack(alignment: .trailing){
                 Menu{
-                        Button("Order New Room",action: {
-                            opDat.currView = .home
-                            
-                        })
-                        Button("List Room Ordered",action: {
-                            opDat.currView = .listOrderd
-                            
-                        })
-                        Button("Logout",action: {
-                            opDat.currView = .login
-                        })
-                
-                    }label: {
-                        Image(systemName: "text.justify")
-                    }
+                    Button("Order New Room",action: {
+                        opDat.currView = .home
+                        
+                    })
+                    Button("List Room Ordered",action: {
+                        opDat.currView = .listOrderd
+                        
+                    })
+                    Button("Logout",action: {
+                        opDat.currView = .login
+                    })
+                    
+                }label: {
+                    Image(systemName: "text.justify")
+                }
                 
             }
             .font(.title)
             .padding()
-
+            
         }
     }
     

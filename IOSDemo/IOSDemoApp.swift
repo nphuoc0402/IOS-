@@ -13,7 +13,7 @@ enum CurrView:Int{
 }
 
 class OpDat : ObservableObject {
-    @Published var currView = CurrView.home
+    @Published var currView = CurrView.login
 }
 
 @main

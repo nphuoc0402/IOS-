@@ -22,7 +22,7 @@ func numberOfDaysBetween(start: Date, end: Date) -> Int{
 func formatDate(date: Date) -> String {
     let dateFormatter = DateFormatter()
     
-    dateFormatter.dateFormat = "MM/dd/yyyy"
+    dateFormatter.dateFormat = "yyyy/MM/dd"
     
     let formattedDate = dateFormatter.string(from: date)
     

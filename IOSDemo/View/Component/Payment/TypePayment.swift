@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TypePayment: View {
+    @ObservedObject var account = Account()
+    @State private var wrongName = false
+    @State private var wrongCardNumber = false
     @State var nameCustomer: String = ""
     @State var cardNumber = ""
     var body: some View {

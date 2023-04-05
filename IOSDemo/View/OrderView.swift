@@ -85,7 +85,7 @@ struct WrapMainView: View {
                         Text("予約室").font(.largeTitle)
                         HStack{
                             
-                            TextField("Checkin Date", text: $checkin)
+                            TextField("チェックイン日", text: $checkin)
                                 .disabled(true)
                                 .padding()
                                 .frame(width: 150, height: 50)
@@ -100,7 +100,7 @@ struct WrapMainView: View {
                                 }
                             Image(systemName: "arrow.right")
                                 .foregroundColor(.black)
-                            TextField("Checkout Date", text: $checkout)
+                            TextField("チェックアウト日", text: $checkout)
                                 .disabled(true)
                                 .padding()
                                 .frame(width: 150, height: 50)
@@ -183,14 +183,14 @@ struct WrapMainView: View {
                                in: Date()...,
                                displayedComponents: [.date]
                     )
-                        .labelsHidden()
-                        .datePickerStyle(.graphical)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(40)
-                        .border(.gray,width:2)
-                        .onChange(of: checkinDate) { value in
-                            changedCheckin()
-                        }
+                    .labelsHidden()
+                    .datePickerStyle(.graphical)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(40)
+                    .border(.gray,width:2)
+                    .onChange(of: checkinDate) { value in
+                        changedCheckin()
+                    }
                 }
                 if isOpenCheckout {
                     DatePicker("Checkout Date",
@@ -198,8 +198,7 @@ struct WrapMainView: View {
                                in: (checkinDate.addingTimeInterval(86400))...,
                                displayedComponents: [.date]
                                
-                    )
-                        .labelsHidden()
+                    ).labelsHidden()
                         .datePickerStyle(.graphical)
                         .frame(maxWidth: .infinity)
                         .cornerRadius(40)
@@ -209,6 +208,7 @@ struct WrapMainView: View {
                             changedCheckout()
                         }
                 }
+                
             }.background(Color.white)
                 .cornerRadius(5)
                 .padding()
@@ -220,8 +220,9 @@ struct WrapMainView: View {
     
     
     func updateFilter(){
-        list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
-        
+        if checkin != "" && checkout != "" {
+            list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
+        }
     }
     func filterData() {
         list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])

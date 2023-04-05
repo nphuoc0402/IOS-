@@ -12,8 +12,6 @@ struct MainView: View {
     @State private var showMenu: Bool = false
     
     var body: some View {
-        ZStack{
-            NavigationView {
                 ZStack {
                 
                   switch(opDat.currView){
@@ -42,14 +40,8 @@ struct MainView: View {
                 
               }
 
-            }
-        }.frame(alignment: .topLeading)
         
         
     }
 }
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
-}
+

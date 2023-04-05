@@ -15,7 +15,7 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \User.name, ascending: true)],
         animation: .default)
     private var items: FetchedResults<User>
-    @EnvironmentObject var roomViewModel : RoomViewModel
+    var roomViewModel : RoomViewModel = RoomViewModel()
     var body: some View {
         NavigationView {
             List {

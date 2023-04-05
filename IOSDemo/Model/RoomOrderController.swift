@@ -12,7 +12,7 @@ class RoomOrderController: ObservableObject {
     let viewContext = PersistenceController.shared.container.viewContext
     init() {
         fetchRoomOrder()
-//        deleteRoomOrder()
+        //        deleteRoomOrder()
     }
     
     func fetchRoomOrder(){
@@ -32,8 +32,10 @@ class RoomOrderController: ObservableObject {
     }
     func getRoomOrderByUser(userId: String) -> [RoomOrder] {
         let request = NSFetchRequest<RoomOrder>(entityName: "RoomOrder")
+        let dateSort = NSSortDescriptor(key: "orderDate", ascending: false)
         request.predicate = NSPredicate(format: "userId = %@", userId)
         request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [dateSort]
         var results:[RoomOrder] = []
         do {
             results = try viewContext.fetch(request)
@@ -44,8 +46,10 @@ class RoomOrderController: ObservableObject {
     }
     func getRoomOrderByUserInRange(userId: String, checkinDate: Date, checkoutDate: Date) -> [RoomOrder] {
         let request = NSFetchRequest<RoomOrder>(entityName: "RoomOrder")
+        let dateSort = NSSortDescriptor(key: "orderDate", ascending: false)
         request.predicate = NSPredicate(format: "userId = %@", userId)
         request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [dateSort]
         var results:[RoomOrder] = []
         do {
             results = try viewContext.fetch(request)

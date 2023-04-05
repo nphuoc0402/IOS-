@@ -21,13 +21,15 @@ struct Payment: View {
     @Binding var isPayment: Bool
     @Binding var checkinDate:Date
     @Binding var checkoutDate:Date
+    @Binding var listRooms:[RoomModel]
     var roomOrderController:RoomOrderController = RoomOrderController()
-    init(drafRoomOder: Binding<[RoomModel]>, total: Binding<Int64>,isPayment: Binding<Bool>, checkinDate: Binding<Date>, checkoutDate: Binding<Date> ){
+    init(drafRoomOder: Binding<[RoomModel]>, total: Binding<Int64>,isPayment: Binding<Bool>, checkinDate: Binding<Date>, checkoutDate: Binding<Date>,listRooms: Binding<[RoomModel]> ){
         self._drafRoomOder = drafRoomOder
         self._total = total
         self._isPayment = isPayment
         self._checkinDate = checkinDate
         self._checkoutDate = checkoutDate
+        self._listRooms = listRooms
     }
     var body: some View {
         ZStack{
@@ -132,6 +134,8 @@ struct Payment: View {
                 DialogView(isShowDetail: $isActive,image: Image("success"), title: "成功", message: "予約が成功したことを確認する", buttonTitle: "OK") {
                     isActive = false
                     isPayment = false
+                    drafRoomOder.removeAll()
+                    total = 0
                 }
             }
             
@@ -139,19 +143,12 @@ struct Payment: View {
  
     }
     func saveOrder(){
-        print(checkoutDate)
-        print(checkinDate)
         for draf in drafRoomOder {
             roomOrderController.addRoomOrder(userId: "1", roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: isPayment)
+            listRooms.removeAll(where: { $0.id == draf.id})
         }
         isActive = true
-        drafRoomOder.removeAll()
+        
     }
 }
 
-
-//struct Payment_Previews: PreviewProvider {
-//    static var previews: some View {
-////        Payment()
-//    }
-//}

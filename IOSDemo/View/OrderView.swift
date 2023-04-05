@@ -22,13 +22,15 @@ struct OrderView: View {
     @State private var selectedOptionIndex = 0
     @State var isShowDetail = false
     @State var days = 1
-    
+    @State var checkin:String = ""
+    @State var checkout:String = ""
+    @State var isSearched = false
     var body: some View {
         ZStack{
             if isPayment {
-                Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment, checkinDate: $checkinDate, checkoutDate: $checkoutDate)
+                Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment, checkinDate: $checkinDate, checkoutDate: $checkoutDate, listRooms: $listRooms)
             }else {
-                WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days, isShowDetail: $isShowDetail)
+                WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days, isShowDetail: $isShowDetail, checkin: $checkin, checkout: $checkout,isSearched: $isSearched)
                     .frame(alignment: .topLeading)
                     .environmentObject(roomViewModel)
             }
@@ -50,6 +52,9 @@ struct WrapMainView: View {
     @Binding var selectedOptionIndex: Int
     @Binding var days:Int
     @Binding var isShowDetail: Bool
+    @Binding var checkin: String
+    @Binding var checkout: String
+    @Binding var isSearched:Bool
     let options = ["全て", "シングル", "ツイン"]
     
     @State var showAlert = false
@@ -58,11 +63,9 @@ struct WrapMainView: View {
     @EnvironmentObject var roomViewModel : RoomViewModel
     @State var isOpenCheckin = false
     @State var isOpenCheckout = false
-    @State private var checkin:String = ""
-    @State private var checkout:String = ""
-    @State private var isSeached = false
     
-    init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>, checkinDate: Binding<Date>,checkoutDate: Binding<Date>, selectedOptionIndex: Binding<Int>, days: Binding<Int>, isShowDetail: Binding<Bool>){
+    
+    init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>, checkinDate: Binding<Date>,checkoutDate: Binding<Date>, selectedOptionIndex: Binding<Int>, days: Binding<Int>, isShowDetail: Binding<Bool>, checkin: Binding<String>, checkout: Binding<String>, isSearched: Binding<Bool>){
         self._list = list
         self._total = total
         self._drafRoomOrder = drafRoomOrder
@@ -72,6 +75,9 @@ struct WrapMainView: View {
         self._selectedOptionIndex = selectedOptionIndex
         self._days = days
         self._isShowDetail = isShowDetail
+        self._checkin = checkin
+        self._checkout = checkout
+        self._isSearched = isSearched
     }
     
     var body: some View {
@@ -87,7 +93,7 @@ struct WrapMainView: View {
                                 Image(systemName: "calendar").foregroundColor(.gray)
                                 TextField("Checkin Date", text: $checkin)
                                     .disabled(true)
-                                    
+                                
                             }
                             .frame(width: 140, height: 35)
                             .padding([.leading], 5)
@@ -107,7 +113,7 @@ struct WrapMainView: View {
                                 Image(systemName: "calendar").foregroundColor(.gray)
                                 TextField("Checkout Date", text: $checkout)
                                     .disabled(true)
-                                    
+                                
                             }
                             .frame(width: 140, height: 35)
                             .padding([.leading], 5)
@@ -120,7 +126,7 @@ struct WrapMainView: View {
                                     isOpenCheckin.toggle()
                                 }
                             }
-                               
+                            
                             Image(systemName: "magnifyingglass").font(.title).onTapGesture {
                                 filterData()
                             }
@@ -146,11 +152,20 @@ struct WrapMainView: View {
                 }
                 
                 VStack{
-                    ListRoom(listRooms: $list, drafRoomOrder: $drafRoomOrder, total: $total, days: $days, isShowDetail: $isShowDetail, detailRoomId: $detailRoomId)
+                    VStack(spacing: 0) {
+                        List(list){ room in
+                            Button(action: {
+                                isShowDetail = true
+                                detailRoomId = room.id
+                            }) {
+                                RoomRow(drafRoomOrder: $drafRoomOrder, room: room, total: $total, days: $days)
+                            }
+                        }
+                    }
                 }
                 .cornerRadius(5)
                 .padding([.leading, .trailing])
-                .frame(width: .infinity, height: 420, alignment: .center)
+                //                .frame(width: .infinity, height: 420, alignment: .center)
                 
                 VStack(alignment:.leading){
                     Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
@@ -180,8 +195,8 @@ struct WrapMainView: View {
                     }
                     .allowsTightening(true)
                 let room:RoomModel? = roomViewModel.getRoomById(id: detailRoomId)
-                RoomDetail(isShowDetail: $isShowDetail, roomDetail: room) {
-                    print(detailRoomId)
+                RoomDetail(isShowDetail: $isShowDetail, roomDetail: room){
+                    
                 }
             }
             
@@ -256,10 +271,9 @@ struct WrapMainView: View {
     
     
     func updateFilter(){
-        if checkin != "" && checkout != "" && isSeached {
+        if checkin != "" && checkout != "" && isSearched {
             list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
         }
-        
         
     }
     func filterData() {
@@ -268,19 +282,9 @@ struct WrapMainView: View {
             days = numberOfDaysBetween(start: formatDateHelper(date: checkinDate), end: formatDateHelper(date: checkoutDate))
             total = 0
             drafRoomOrder.removeAll()
-            isSeached = true
+            isSearched = true
+            
         }
-    }
-    func showRoomInfo(){
-        //        isShowAlert = true
-    }
-    func onTapCheckbox(){
-        print("tap checkbox")
-    }
-    
-    func doConfirm(){
-        //        isShowAlert = true
-        
     }
     func doSave(){
         if(!$drafRoomOrder.isEmpty){

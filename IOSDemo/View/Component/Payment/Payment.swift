@@ -145,6 +145,7 @@ struct Payment: View {
             roomOrderController.addRoomOrder(userId: "1", roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: isPayment)
         }
         isActive = true
+        drafRoomOder.removeAll()
     }
 }
 

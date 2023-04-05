@@ -19,9 +19,7 @@ class OpDat : ObservableObject {
 @main
 struct IOSDemoApp: App {
     let persistenceController = PersistenceController.shared
-    
     private var opDat = OpDat()
-    @State var listRooms:[RoomModel] = []
     init(){
         
     }
@@ -29,9 +27,6 @@ struct IOSDemoApp: App {
         WindowGroup {
             MainView().environmentObject(opDat).environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
-//        WindowGroup {
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext).environmentObject(roomViewModel)
-//        }
+
     }
 }

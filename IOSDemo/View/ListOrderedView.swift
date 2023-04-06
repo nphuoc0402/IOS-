@@ -59,7 +59,7 @@ struct ListOrderedView: View {
         ZStack{
             VStack{
                 Text("予約した部屋リスト")
-                    .font(.largeTitle)
+                    .font(.title2)
                 HStack{
                     HStack{
                         Image(systemName: "calendar").foregroundColor(.gray)

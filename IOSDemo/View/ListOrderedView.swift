@@ -62,7 +62,7 @@ struct ListOrderedView: View {
         ZStack{
             VStack{
                 Text("予約した部屋リスト")
-                    .font(.largeTitle)
+                    .font(.title2)
                 
                 VStack {
                     Picker("Selection askdaksjd",selection: $selectedOption){

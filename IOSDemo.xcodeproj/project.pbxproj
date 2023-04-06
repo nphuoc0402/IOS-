@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		300A0E9929DAAD770064B0AA /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A0E9829DAAD770064B0AA /* DialogView.swift */; };
-		300A0E9B29DC05530064B0AA /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A0E9A29DC05530064B0AA /* Account.swift */; };
-		300A0EA029DD3C9B0064B0AA /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A0E9F29DD3C9B0064B0AA /* AccountModel.swift */; };
+		300A0E9B29DC05530064B0AA /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A0E9A29DC05530064B0AA /* Card.swift */; };
+		300A0EA029DD3C9B0064B0AA /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A0E9F29DD3C9B0064B0AA /* CardModel.swift */; };
 		300A0EA229DD4B3F0064B0AA /* JsonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919889F29CC47900060A3EA /* JsonHelper.swift */; };
-		300A0EA429DD4C280064B0AA /* Account.json in Resources */ = {isa = PBXBuildFile; fileRef = 300A0EA329DD4C280064B0AA /* Account.json */; };
+		300A0EA429DD4C280064B0AA /* Card.json in Resources */ = {isa = PBXBuildFile; fileRef = 300A0EA329DD4C280064B0AA /* Card.json */; };
 		30D5D5EE29D2898A00C0A1F3 /* RoomRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5D5ED29D2898A00C0A1F3 /* RoomRow.swift */; };
 		30D5D5F229D28DFD00C0A1F3 /* RoomDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5D5F129D28DFD00C0A1F3 /* RoomDetail.swift */; };
 		30D5D65229D5801E00C0A1F3 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5D65129D5801E00C0A1F3 /* Payment.swift */; };
@@ -60,9 +60,9 @@
 
 /* Begin PBXFileReference section */
 		300A0E9829DAAD770064B0AA /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
-		300A0E9A29DC05530064B0AA /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		300A0E9F29DD3C9B0064B0AA /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
-		300A0EA329DD4C280064B0AA /* Account.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Account.json; sourceTree = "<group>"; };
+		300A0E9A29DC05530064B0AA /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		300A0E9F29DD3C9B0064B0AA /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		300A0EA329DD4C280064B0AA /* Card.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Card.json; sourceTree = "<group>"; };
 		30D5D5ED29D2898A00C0A1F3 /* RoomRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRow.swift; sourceTree = "<group>"; };
 		30D5D5F129D28DFD00C0A1F3 /* RoomDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDetail.swift; sourceTree = "<group>"; };
 		30D5D65129D5801E00C0A1F3 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		30D5D65429D580A800C0A1F3 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
-				300A0E9A29DC05530064B0AA /* Account.swift */,
+				300A0E9A29DC05530064B0AA /* Card.swift */,
 				30D5D65129D5801E00C0A1F3 /* Payment.swift */,
 			);
 			path = Payment;
@@ -235,7 +235,7 @@
 			children = (
 				4919889929CC46A50060A3EA /* JsonData */,
 				4919889729CC21C80060A3EA /* DataController.swift */,
-				300A0E9F29DD3C9B0064B0AA /* AccountModel.swift */,
+				300A0E9F29DD3C9B0064B0AA /* CardModel.swift */,
 				491988A129CC47FA0060A3EA /* UserModel.swift */,
 				491988A429CC481B0060A3EA /* RoomModel.swift */,
 				49C647E929D3D2BF0026983F /* RoomOrderController.swift */,
@@ -261,7 +261,7 @@
 			children = (
 				4919889A29CC46D80060A3EA /* User.json */,
 				4919889C29CC46F80060A3EA /* Room.json */,
-				300A0EA329DD4C280064B0AA /* Account.json */,
+				300A0EA329DD4C280064B0AA /* Card.json */,
 			);
 			path = JsonData;
 			sourceTree = "<group>";
@@ -397,7 +397,7 @@
 				4919886029CC1AC50060A3EA /* Preview Assets.xcassets in Resources */,
 				4919889B29CC46D80060A3EA /* User.json in Resources */,
 				4919889D29CC46F80060A3EA /* Room.json in Resources */,
-				300A0EA429DD4C280064B0AA /* Account.json in Resources */,
+				300A0EA429DD4C280064B0AA /* Card.json in Resources */,
 				4919885D29CC1AC50060A3EA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,7 +428,8 @@
 				300A0E9929DAAD770064B0AA /* DialogView.swift in Sources */,
 				49C647EA29D3D2BF0026983F /* RoomOrderController.swift in Sources */,
 				49C647EC29D3D3770026983F /* util.swift in Sources */,
-				300A0EA029DD3C9B0064B0AA /* AccountModel.swift in Sources */,
+				300A0EA029DD3C9B0064B0AA /* CardModel.swift in Sources */,
+				30D5D5F029D28D5E00C0A1F3 /* ListRoom.swift in Sources */,
 				4919886529CC1AC50060A3EA /* IOSDemo.xcdatamodeld in Sources */,
 				4919886229CC1AC50060A3EA /* Persistence.swift in Sources */,
 				30D5D5F229D28DFD00C0A1F3 /* RoomDetail.swift in Sources */,
@@ -443,7 +444,7 @@
 				30D5D65229D5801E00C0A1F3 /* Payment.swift in Sources */,
 				300A0EA229DD4B3F0064B0AA /* JsonHelper.swift in Sources */,
 				4919889629CC1DAF0060A3EA /* SlideMenuView.swift in Sources */,
-				300A0E9B29DC05530064B0AA /* Account.swift in Sources */,
+				300A0E9B29DC05530064B0AA /* Card.swift in Sources */,
 				4919889329CC1D670060A3EA /* WellcomeView.swift in Sources */,
 				49791CD329DA6CE700BDEEE5 /* ListOrderedView.swift in Sources */,
 				491988A729CC48360060A3EA /* RoomOrderModel.swift in Sources */,

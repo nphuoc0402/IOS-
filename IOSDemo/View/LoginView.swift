@@ -72,9 +72,6 @@ struct LoginView: View {
         
     }
     func doLogin(_ email: String, _ pw: String){
-        
-        print(rooms[1].name)
-        print(accounts[0].card_number)
         for user in users{
             if (email.lowercased() == user.email.lowercased() && pw == user.passwd) {
                 opDat.currView = .home

@@ -15,7 +15,17 @@ struct MainView: View {
 
     var body: some View {
         ZStack {
-            
+            GeometryReader { _ in
+                if(opDat.currView != .login) {
+                    HStack {
+                        ItemMenuView()
+                        
+                    }
+                }
+                
+                
+            }
+            .background(Color.black.opacity(showMenu ? 0 : 0))
             switch(opDat.currView){
             case .login:
                 LoginView()
@@ -28,17 +38,7 @@ struct MainView: View {
                     .environmentObject(opDat)
             }
             
-            GeometryReader { _ in
-                if(opDat.currView != .login) {
-                    HStack {
-                        ItemMenuView()
-                        
-                    }
-                }
-                
-                
-            }
-            .background(Color.black.opacity(showMenu ? 0 : 0))
+            
             
         }
         

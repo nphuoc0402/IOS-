@@ -28,11 +28,9 @@ struct ListOrderedView: View {
     let option = ["All Records","Custom Search Range"]
     
     func filterData() {
-        
         if isPickCheckin && isPickCheckout {
             listRooms = roomOrderController.getRoomOrderByUserInRange(userId: userId, checkinDate: checkinDate, checkoutDate: checkoutDate)
         }
-        isFirst = false
     }
     func changedCheckin() {
         checkin = formatDate(date: checkinDate)
@@ -45,7 +43,6 @@ struct ListOrderedView: View {
         
     }
     func changedCheckout() {
-        isPickCheckout = true
         isOpenCheckout.toggle()
         checkout = formatDate(date: checkoutDate)
         isOpenCheckout = false
@@ -66,7 +63,7 @@ struct ListOrderedView: View {
                     .padding(.vertical,20)
                 
                 VStack {
-                    Picker("Selection askdaksjd",selection: $selectedOption){
+                    Picker("",selection: $selectedOption){
                         ForEach(0..<option.count) {
                             Text(self.option[$0])
                         }
@@ -130,7 +127,7 @@ struct ListOrderedView: View {
                     }.padding()
                 }
                 VStack(alignment: .leading){
-                    if isFirst {
+                    if selectedOption == 0 {
                         ListDataView(listRooms: roomOrderController.getRoomOrderByUser(userId: userId), roomViewModel: roomViewModel)
                     } else {
                         ListDataView(listRooms: listRooms, roomViewModel: roomViewModel)
@@ -151,7 +148,6 @@ struct ListOrderedView: View {
                     VStack(spacing: 15) {
                         DatePicker("",
                                    selection: $checkinDate,
-                                   in: Date()...,
                                    displayedComponents: [.date]
                         )
                             .labelsHidden()
@@ -160,6 +156,8 @@ struct ListOrderedView: View {
                         
                         
                             .onChange(of: checkinDate) { value in
+                                isPickCheckin = true
+                                isPickCheckout = true
                                 changedCheckin()
                             }
                         Button(action: {
@@ -198,6 +196,7 @@ struct ListOrderedView: View {
                             .labelsHidden()
                             .datePickerStyle(.graphical)
                             .onChange(of: checkoutDate) { value in
+                                isPickCheckout = true
                                 changedCheckout()
                             }
                         Button(action: {

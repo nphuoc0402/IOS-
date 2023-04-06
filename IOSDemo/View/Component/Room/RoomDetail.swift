@@ -15,9 +15,9 @@ struct RoomDetail: View {
     @State var offset: CGFloat = 2000
     
     var body: some View {
-        ZStack{
+        return ZStack{
             Color(.black)
-                .opacity(0.5)
+                .opacity(0.3)
                 .onTapGesture {
                     close()
                 }
@@ -56,12 +56,12 @@ struct RoomDetail: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .shadow(radius: 20)
             .padding(30)
-            .offset(x: 0, y: offset)
-            .onAppear{
-                withAnimation(.spring()){
-                    offset = 0
-                }
-            }
+//            .offset(x: 0, y: offset)
+//            .onAppear{
+//                withAnimation(.spring()){
+//                    offset = 0
+//                }
+//            }
         }
         .ignoresSafeArea()
         

@@ -63,6 +63,7 @@ struct ListOrderedView: View {
             VStack{
                 Text("予約した部屋リスト")
                     .font(.title2)
+                    .padding(.vertical,20)
                 
                 VStack {
                     Picker("Selection askdaksjd",selection: $selectedOption){

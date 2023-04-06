@@ -86,7 +86,7 @@ struct WrapMainView: View {
             VStack{
                 ZStack{
                     VStack(){
-                        Text("予約室").font(.title2)
+                        Text("予約室").font(.title2).padding(.vertical, 20)
                         HStack{
                             
                             HStack{

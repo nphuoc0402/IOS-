@@ -44,6 +44,7 @@ struct Payment: View {
             Text("支払い")
                 .font(.title2)
                 .frame(alignment: .center)
+                .padding(.vertical,20)
             VStack(alignment: .leading){
                 List(drafRoomOder){room in
                     HStack{

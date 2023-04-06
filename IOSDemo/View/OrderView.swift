@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct OrderView: View {
+    @EnvironmentObject var opDat:OpDat
     @State private var showMenu: Bool = false
-    @State private var text1: String = "My text"
-    @State private var text2: String = "My text"
     
     var roomViewModel : RoomViewModel = RoomViewModel()
     @State var listRooms:[RoomModel] = []
@@ -18,13 +17,14 @@ struct OrderView: View {
     @State var isPayment:Bool = false
     @State var drafRoomOrder:[RoomModel] = []
     @State var checkinDate = Date()
-    @State var checkoutDate = Date().addingTimeInterval(86400)
+    @State var checkoutDate = Date().addingTimeInterval(86401)
     @State private var selectedOptionIndex = 0
     @State var isShowDetail = false
     @State var days = 1
     @State var checkin:String = ""
     @State var checkout:String = ""
     @State var isSearched = false
+    
     var body: some View {
         ZStack{
             if isPayment {
@@ -158,7 +158,21 @@ struct WrapMainView: View {
                                 isShowDetail = true
                                 detailRoomId = room.id
                             }) {
-                                RoomRow(drafRoomOrder: $drafRoomOrder, room: room, total: $total, days: $days)
+                                RoomRow(
+                                    isChecked: self.drafRoomOrder.contains(where: {$0.id == room.id}),
+                                    room: room,
+                                    action: {
+                                        if self.drafRoomOrder.contains(where: {$0.id == room.id}) {
+                                            self.drafRoomOrder.removeAll(where: { $0.id == room.id })
+                                            
+                                            total = total - room.price * Int64(days)
+                                        } else {
+                                            self.drafRoomOrder.append(room)
+                                            total += room.price * Int64(days)
+                                            
+                                        }
+                                    }
+                                )
                             }
                         }
                     }
@@ -188,79 +202,90 @@ struct WrapMainView: View {
                       message: Text("項目を選択してください"))
             }
             
-            if isShowDetail {
-                Color.black.opacity(0.5).ignoresSafeArea(.all)
-                    .onTapGesture {
-                        isShowDetail = false
+            
+            
+            if isOpenCheckin {
+                ZStack{
+                    Color(.black)
+                        .opacity(0.3)
+                        .onTapGesture {
+                            isOpenCheckin.toggle()
+                        }
+                    
+                    VStack(spacing: 15) {
+                        DatePicker("",
+                                   selection: $checkinDate,
+                                   in: Date()...,
+                                   displayedComponents: [.date]
+                        )
+                            .labelsHidden()
+                            .datePickerStyle(.graphical)
+                            .frame(maxWidth: .infinity)
+                        
+                        
+                            .onChange(of: checkinDate) { value in
+                                changedCheckin()
+                            }
+                        Button(action: {
+                            isOpenCheckin.toggle()
+                        }, label: {
+                            Text("Close")
+                        }).font(.system(size:16))
+                            .foregroundColor(.white)
+                            .padding(.horizontal,20)
+                            .padding(10)
+                            .background(Color.blue)
+                            .cornerRadius(20)
                     }
-                    .allowsTightening(true)
+                    
+                    .padding(20)
+                    .background(Color.white)
+                    .cornerRadius(25)
+                    .padding(30)
+                    
+                }
+            }
+            if isOpenCheckout {
+                ZStack{
+                    Color(.black)
+                        .opacity(0.3)
+                        .onTapGesture {
+                            isOpenCheckout.toggle()
+                        }
+                    VStack(spacing: 15) {
+                        DatePicker("Checkout Date",
+                                   selection: $checkoutDate,
+                                   in: (checkinDate.addingTimeInterval(86400))...,
+                                   displayedComponents: [.date]
+                                   
+                        )
+                            .labelsHidden()
+                            .datePickerStyle(.graphical)
+                            .onChange(of: checkoutDate) { value in
+                                changedCheckout()
+                            }
+                        Button(action: {
+                            isOpenCheckout.toggle()
+                        }, label: {
+                            Text("Close")
+                        }).font(.system(size:16))
+                            .foregroundColor(.white)
+                            .padding(.horizontal,20)
+                            .padding(10)
+                            .background(Color.blue)
+                            .cornerRadius(20)
+                    }
+                    .padding(20)
+                    .background(Color.white)
+                    .cornerRadius(25)
+                    .padding(30)
+                }
+            }
+            if isShowDetail {
                 let room:RoomModel? = roomViewModel.getRoomById(id: detailRoomId)
                 RoomDetail(isShowDetail: $isShowDetail, roomDetail: room){
                     
                 }
-            }
-            
-            if isOpenCheckin {
-                VStack(spacing: 15) {
-                    DatePicker("Checkin Date",
-                               selection: $checkinDate,
-                               in: Date()...,
-                               displayedComponents: [.date]
-                    )
-                    .labelsHidden()
-                    .datePickerStyle(.graphical)
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(20)
-                    .border(.gray,width:1)
-                    
-                    .onChange(of: checkinDate) { value in
-                        changedCheckin()
-                    }
-                    Button(action: {
-                        isOpenCheckin.toggle()
-                    }, label: {
-                        Text("Close")
-                    }).font(.system(size:16))
-                        .foregroundColor(.white)
-                        .padding(.horizontal,20)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(20)
-                }
-                .cornerRadius(5)
-                .padding(30)
-                .background(Color.white)
-            }
-            if isOpenCheckout {
-                VStack(spacing: 15) {
-                    DatePicker("Checkout Date",
-                               selection: $checkoutDate,
-                               in: (checkinDate.addingTimeInterval(86400))...,
-                               displayedComponents: [.date]
-                               
-                    )
-                    .labelsHidden()
-                    .datePickerStyle(.graphical)
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(20)
-                    .border(.gray,width:1)
-                    .onChange(of: checkoutDate) { value in
-                        changedCheckout()
-                    }
-                    Button(action: {
-                        isOpenCheckout.toggle()
-                    }, label: {
-                        Text("Close")
-                    }).font(.system(size:16))
-                        .foregroundColor(.white)
-                        .padding(.horizontal,20)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(20)
-                }
-                .cornerRadius(5)
-                .padding(30)
-                .background(Color.white)
             }
             
         }
@@ -298,7 +323,7 @@ struct WrapMainView: View {
         isOpenCheckin.toggle()
         isOpenCheckin = false
         if(checkinDate >= checkoutDate || checkout == "") {
-            checkoutDate = checkinDate.addingTimeInterval(86400)
+            checkoutDate = checkinDate.addingTimeInterval(86401)
             checkout = formatDate(date: checkoutDate)
         }
         

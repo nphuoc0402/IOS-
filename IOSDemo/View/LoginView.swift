@@ -10,15 +10,12 @@ import SwiftUI
 import CoreData
 
 struct LoginView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
     @State var showAlert:Bool = false
     @State var email = ""
     @State var pw = ""
     @EnvironmentObject var opDat:OpDat
+    @AppStorage("userId") var userId:String = ""
+    @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
     var body: some View {
         NavigationView{
             ZStack{
@@ -72,12 +69,11 @@ struct LoginView: View {
         
     }
     func doLogin(_ email: String, _ pw: String){
-        
-        print(rooms[1].name)
-        print(accounts[0].card_number)
         for user in users{
             if (email.lowercased() == user.email.lowercased() && pw == user.passwd) {
                 opDat.currView = .home
+                isLoggedIn = true
+                userId = user.id
             }
         }
         showAlert = true

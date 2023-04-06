@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct ListOrderedView: View {
+    @EnvironmentObject var opDat:OpDat
+    @AppStorage("userId") var userId:String = ""
+    @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
     var roomOrderController:RoomOrderController = RoomOrderController()
     var roomViewModel : RoomViewModel = RoomViewModel()
     @State var listRooms:[RoomOrder] = []
     @State var checkinDate:Date = Date()
     @State var date:Date? = nil
-    @State var checkoutDate = Date().addingTimeInterval(86400)
+    @State var checkoutDate = Date().addingTimeInterval(86401)
     @State var isOpenCheckin = false
     @State var isOpenCheckout = false
     @State private var checkin:String = ""
@@ -21,13 +24,13 @@ struct ListOrderedView: View {
     @State var isPickCheckin: Bool = false
     @State var isPickCheckout: Bool = false
     @State var isFirst: Bool = true
+    @State var selectedOption:Int = 0
+    let option = ["All Records","Custom Search Range"]
     
-    init() {
-        self.listRooms = roomOrderController.getRoomOrderByUser(userId: "1")
-    }
     func filterData() {
+        
         if isPickCheckin && isPickCheckout {
-            listRooms = roomOrderController.getRoomOrderByUserInRange(userId: "1", checkinDate: checkinDate, checkoutDate: checkoutDate)
+            listRooms = roomOrderController.getRoomOrderByUserInRange(userId: userId, checkinDate: checkinDate, checkoutDate: checkoutDate)
         }
         isFirst = false
     }
@@ -36,7 +39,7 @@ struct ListOrderedView: View {
         isOpenCheckin.toggle()
         isOpenCheckin = false
         if(checkinDate >= checkoutDate || checkout == ""){
-            checkoutDate = checkinDate.addingTimeInterval(86400)
+            checkoutDate = checkinDate.addingTimeInterval(86401)
             checkout = formatDate(date: checkoutDate)
         }
         
@@ -60,52 +63,74 @@ struct ListOrderedView: View {
             VStack{
                 Text("予約した部屋リスト")
                     .font(.largeTitle)
-                HStack{
-                    HStack{
-                        Image(systemName: "calendar").foregroundColor(.gray)
-                        TextField("チェックイン日", text: $checkin)
-                            .disabled(true)
-                        
-                    }
-                    .frame(width: 140, height: 35)
-                    .padding([.leading], 5)
-                    .background(Color.black.opacity(0.05))
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        self.onExpandCheckin()
-                        isOpenCheckin = true
-                        if isOpenCheckout {
-                            isOpenCheckout.toggle()
+                
+                VStack {
+                    Picker("Selection askdaksjd",selection: $selectedOption){
+                        ForEach(0..<option.count) {
+                            Text(self.option[$0])
+                        }
+                    }.onChange(of: selectedOption){ value in
+                        if selectedOption == 0 {
+                            listRooms = roomOrderController.getRoomOrderByUser(userId: userId)
+                            if isOpenCheckin {
+                                isOpenCheckin.toggle()
+                            }
+                            if isOpenCheckout {
+                                isOpenCheckout.toggle()
+                            }
                         }
                     }
-                    Image(systemName: "arrow.right")
-                        .foregroundColor(.black)
                     
+                    
+                }
+                if selectedOption == 1 {
                     HStack{
-                        Image(systemName: "calendar").foregroundColor(.gray)
-                        TextField("チェックアウト日", text: $checkout)
-                            .disabled(true)
-                        
-                    }
-                    .frame(width: 140, height: 35)
-                    .padding([.leading], 5)
-                    .background(Color.black.opacity(0.05))
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        self.onExpandCheckout()
-                        isOpenCheckout = true
-                        if isOpenCheckin {
-                            isOpenCheckin.toggle()
+                        HStack{
+                            Image(systemName: "calendar").foregroundColor(.gray)
+                            TextField("チェックイン日", text: $checkin)
+                                .disabled(true)
+                            
                         }
-                    }
-                    Image(systemName: "magnifyingglass").font(.title).onTapGesture {
-                        filterData()
-                    }
-                    
-                }.padding()
+                        .frame(width: 135, height: 35)
+                        .padding([.leading], 5)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            self.onExpandCheckin()
+                            isOpenCheckin = true
+                            if isOpenCheckout {
+                                isOpenCheckout.toggle()
+                            }
+                        }
+                        Image(systemName: "arrow.right")
+                            .foregroundColor(.black)
+                        
+                        HStack{
+                            Image(systemName: "calendar").foregroundColor(.gray)
+                            TextField("チェックアウト日", text: $checkout)
+                                .disabled(true)
+                            
+                        }
+                        .frame(width: 135, height: 35)
+                        .padding([.leading], 5)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            self.onExpandCheckout()
+                            isOpenCheckout = true
+                            if isOpenCheckin {
+                                isOpenCheckin.toggle()
+                            }
+                        }
+                        Image(systemName: "magnifyingglass").font(.title).onTapGesture {
+                            filterData()
+                        }
+                        
+                    }.padding()
+                }
                 VStack(alignment: .leading){
                     if isFirst {
-                        ListDataView(listRooms: roomOrderController.getRoomOrderByUser(userId: "1"), roomViewModel: roomViewModel)
+                        ListDataView(listRooms: roomOrderController.getRoomOrderByUser(userId: userId), roomViewModel: roomViewModel)
                     } else {
                         ListDataView(listRooms: listRooms, roomViewModel: roomViewModel)
                     }
@@ -115,70 +140,81 @@ struct ListOrderedView: View {
                 
             }
             if isOpenCheckin {
-                VStack(spacing: 15) {
-                    DatePicker("Checkin Date",
-                               selection: $checkinDate,
-                               displayedComponents: [.date]
-                               
-                    )
-                    .labelsHidden()
-                    .datePickerStyle(.graphical)
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(20)
-                    .border(.gray,width:1)
+                ZStack{
+                    Color(.black)
+                        .opacity(0.3)
+                        .onTapGesture {
+                            isOpenCheckin.toggle()
+                        }
                     
-                    .onChange(of: checkinDate) { value in
-                        changedCheckin()
-                        isPickCheckin = true
+                    VStack(spacing: 15) {
+                        DatePicker("",
+                                   selection: $checkinDate,
+                                   in: Date()...,
+                                   displayedComponents: [.date]
+                        )
+                            .labelsHidden()
+                            .datePickerStyle(.graphical)
+                            .frame(maxWidth: .infinity)
+                        
+                        
+                            .onChange(of: checkinDate) { value in
+                                changedCheckin()
+                            }
+                        Button(action: {
+                            isOpenCheckin.toggle()
+                        }, label: {
+                            Text("Close")
+                        }).font(.system(size:16))
+                            .foregroundColor(.white)
+                            .padding(.horizontal,20)
+                            .padding(10)
+                            .background(Color.blue)
+                            .cornerRadius(20)
                     }
                     
-                    Button(action: {
-                        isOpenCheckin.toggle()
-                    }, label: {
-                        Text("Close")
-                    }).font(.system(size:16))
-                        .foregroundColor(.white)
-                        .padding(.horizontal,20)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(20)
-                    
-                }.cornerRadius(5)
-                    .padding(30)
+                    .padding(20)
                     .background(Color.white)
+                    .cornerRadius(25)
+                    .padding(30)
+                    
+                }
             }
             if isOpenCheckout {
-                VStack(spacing: 15) {
-                    DatePicker("Checkout Date",
-                               selection: $checkoutDate,
-                               in: (checkinDate.addingTimeInterval(86400))...,
-                               displayedComponents: [.date]
-                               
-                    )
-                    .labelsHidden()
-                    .datePickerStyle(.graphical)
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(20)
-                    .border(.gray,width:1)
-                    .onChange(of: checkoutDate) { value in
-                        changedCheckout()
+                ZStack{
+                    Color(.black)
+                        .opacity(0.3)
+                        .onTapGesture {
+                            isOpenCheckout.toggle()
+                        }
+                    VStack(spacing: 15) {
+                        DatePicker("Checkout Date",
+                                   selection: $checkoutDate,
+                                   in: (checkinDate.addingTimeInterval(86400))...,
+                                   displayedComponents: [.date]
+                                   
+                        )
+                            .labelsHidden()
+                            .datePickerStyle(.graphical)
+                            .onChange(of: checkoutDate) { value in
+                                changedCheckout()
+                            }
+                        Button(action: {
+                            isOpenCheckout.toggle()
+                        }, label: {
+                            Text("Close")
+                        }).font(.system(size:16))
+                            .foregroundColor(.white)
+                            .padding(.horizontal,20)
+                            .padding(10)
+                            .background(Color.blue)
+                            .cornerRadius(20)
                     }
-                    .transition(.slide)
-                    
-                    Button(action: {
-                        isOpenCheckout.toggle()
-                    }, label: {
-                        Text("Close")
-                    }).font(.system(size:16))
-                        .foregroundColor(.white)
-                        .padding(.horizontal,20)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(20)
-                    
-                }.cornerRadius(5)
-                    .padding(30)
+                    .padding(20)
                     .background(Color.white)
+                    .cornerRadius(25)
+                    .padding(30)
+                }
             }
             
             
@@ -231,7 +267,7 @@ struct ListDataView: View {
             }
             
         }.cornerRadius(5)
-            .padding(.horizontal,20)
+            .padding(.horizontal,10)
             .padding(.vertical, 0)
         
     }

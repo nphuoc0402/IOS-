@@ -10,7 +10,9 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var opDat:OpDat
     @State private var showMenu: Bool = false
-    
+    @AppStorage("userId") var userId:String = ""
+    @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
+
     var body: some View {
         ZStack {
             

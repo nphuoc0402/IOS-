@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Payment: View {
     @ObservedObject var account = Account()
+    @AppStorage("userId") var userId:String = ""
     let paymentMethod = ["後払い","前払い"]
     var title = "本気ですか？"
     var message = "本当に部屋を予約しますか"
@@ -245,7 +246,7 @@ struct Payment: View {
     
     func saveOrder(){
         for draf in drafRoomOder {
-            roomOrderController.addRoomOrder(userId: "1", roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: isPayment)
+            roomOrderController.addRoomOrder(userId: userId, roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: isPayment)
             listRooms.removeAll(where: { $0.id == draf.id})
         }
         isActive = true

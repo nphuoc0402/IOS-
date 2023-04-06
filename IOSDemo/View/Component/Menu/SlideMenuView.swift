@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ItemMenuView: View {
     @EnvironmentObject var opDat:OpDat
+    @AppStorage("userId") var userId:String = ""
+    @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
     var body: some View {
         HStack(alignment: .center){
             Spacer()
@@ -25,6 +27,8 @@ struct ItemMenuView: View {
                     })
                     Button("Logout",action: {
                         opDat.currView = .login
+                        userId = ""
+                        isLoggedIn = false
                     })
                     
                 }label: {

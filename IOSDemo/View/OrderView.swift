@@ -221,7 +221,7 @@ struct WrapMainView: View {
                     .cornerRadius(25)
                     .padding(30)
                     
-                }
+                }.ignoresSafeArea()
             }
             if isOpenCheckout {
                 ZStack{
@@ -256,7 +256,7 @@ struct WrapMainView: View {
                     .background(Color.white)
                     .cornerRadius(25)
                     .padding(30)
-                }
+                }.ignoresSafeArea()
             }
             if isShowDetail {
                 let room:RoomModel? = roomViewModel.getRoomById(id: detailRoomId)

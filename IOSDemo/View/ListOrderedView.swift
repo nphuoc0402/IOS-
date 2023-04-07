@@ -166,7 +166,7 @@ struct ListOrderedView: View {
                     .cornerRadius(25)
                     .padding(30)
                     
-                }
+                }.ignoresSafeArea()
             }
             if isOpenCheckout {
                 ZStack{
@@ -202,7 +202,7 @@ struct ListOrderedView: View {
                     .background(Color.white)
                     .cornerRadius(25)
                     .padding(30)
-                }
+                }.ignoresSafeArea()
             }
             Spacer()
         }.frame(alignment: .top)

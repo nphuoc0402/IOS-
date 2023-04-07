@@ -32,9 +32,9 @@ struct RoomDetail: View {
                     .font(.system(size:15))
                 Text("タイプ: \(roomDetail?.type ?? "")")
                     .font(.system(size:15))
-                Text("タイプ: \(roomDetail?.floor ?? "")")
+                Text("開: \(roomDetail?.floor ?? "")")
                     .font(.system(size:15))
-                Text("タイプ: \(roomDetail?.description ?? "")")
+                Text("記述: \(roomDetail?.description ?? "")")
                     .font(.system(size:15))
                 Button{
                     close()

@@ -94,15 +94,13 @@ struct Payment: View {
                 Spacer(minLength: 5)
             }
             .padding(.horizontal, 20)
-            Spacer(minLength: 10)
-            HStack{
+            
                 if deferredPayment {
                     CardView()
                     
                 }
-                
-            }
-            .frame(height:220)
+        
+            
             Spacer(minLength: 10)
             HStack(alignment: .bottom){
                 Button {
@@ -142,7 +140,7 @@ struct Payment: View {
                 
             }
             .padding(10)
-            .frame(alignment: .bottomLeading)
+            .frame(alignment: .top)
         }
         if isActive {
             Color.black.opacity(0.5).ignoresSafeArea(.all)
@@ -325,7 +323,8 @@ struct Payment: View {
                 }
             }.padding(.horizontal)
             
-        }
+        }.frame(alignment: .top)
+        
     }
     
     func payment(){

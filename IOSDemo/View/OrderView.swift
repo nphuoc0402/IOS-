@@ -17,7 +17,7 @@ struct OrderView: View {
     @State var isPayment:Bool = false
     @State var drafRoomOrder:[RoomModel] = []
     @State var checkinDate = Date()
-    @State var checkoutDate = Date().addingTimeInterval(86401)
+    @State var checkoutDate = Date().addingTimeInterval(86400)
     @State private var selectedOptionIndex = 0
     @State var isShowDetail = false
     @State var days = 1
@@ -322,8 +322,8 @@ struct WrapMainView: View {
         checkin = formatDate(date: checkinDate)
         isOpenCheckin.toggle()
         isOpenCheckin = false
-        if(checkinDate >= checkoutDate || checkout == "") {
-            checkoutDate = checkinDate.addingTimeInterval(86401)
+        if(formatDateHelper(date: checkinDate) >= formatDateHelper(date: checkoutDate) || checkout == "") {
+            checkoutDate = checkinDate.addingTimeInterval(86400)
             checkout = formatDate(date: checkoutDate)
         }
         

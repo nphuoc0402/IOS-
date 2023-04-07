@@ -29,12 +29,10 @@
 		4919888F29CC1BB60060A3EA /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919888E29CC1BB60060A3EA /* OrderView.swift */; };
 		4919889329CC1D670060A3EA /* WellcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919889229CC1D670060A3EA /* WellcomeView.swift */; };
 		4919889629CC1DAF0060A3EA /* SlideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919889529CC1DAF0060A3EA /* SlideMenuView.swift */; };
-		4919889829CC21C80060A3EA /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919889729CC21C80060A3EA /* DataController.swift */; };
 		4919889B29CC46D80060A3EA /* User.json in Resources */ = {isa = PBXBuildFile; fileRef = 4919889A29CC46D80060A3EA /* User.json */; };
 		4919889D29CC46F80060A3EA /* Room.json in Resources */ = {isa = PBXBuildFile; fileRef = 4919889C29CC46F80060A3EA /* Room.json */; };
 		491988A229CC47FA0060A3EA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491988A129CC47FA0060A3EA /* UserModel.swift */; };
 		491988A529CC481C0060A3EA /* RoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491988A429CC481B0060A3EA /* RoomModel.swift */; };
-		491988A729CC48360060A3EA /* RoomOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491988A629CC48360060A3EA /* RoomOrderModel.swift */; };
 		491988AA29CC4C8C0060A3EA /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491988A929CC4C8C0060A3EA /* RoomViewModel.swift */; };
 		49791CD329DA6CE700BDEEE5 /* ListOrderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49791CD229DA6CE700BDEEE5 /* ListOrderedView.swift */; };
 		49C647EA29D3D2BF0026983F /* RoomOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C647E929D3D2BF0026983F /* RoomOrderController.swift */; };
@@ -83,13 +81,11 @@
 		4919888E29CC1BB60060A3EA /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		4919889229CC1D670060A3EA /* WellcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellcomeView.swift; sourceTree = "<group>"; };
 		4919889529CC1DAF0060A3EA /* SlideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuView.swift; sourceTree = "<group>"; };
-		4919889729CC21C80060A3EA /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		4919889A29CC46D80060A3EA /* User.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = User.json; sourceTree = "<group>"; };
 		4919889C29CC46F80060A3EA /* Room.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Room.json; sourceTree = "<group>"; };
 		4919889F29CC47900060A3EA /* JsonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonHelper.swift; sourceTree = "<group>"; };
 		491988A129CC47FA0060A3EA /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		491988A429CC481B0060A3EA /* RoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomModel.swift; sourceTree = "<group>"; };
-		491988A629CC48360060A3EA /* RoomOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomOrderModel.swift; sourceTree = "<group>"; };
 		491988A929CC4C8C0060A3EA /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		49791CD229DA6CE700BDEEE5 /* ListOrderedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOrderedView.swift; sourceTree = "<group>"; };
 		49C647E929D3D2BF0026983F /* RoomOrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomOrderController.swift; sourceTree = "<group>"; };
@@ -149,7 +145,6 @@
 		30D5D65429D580A800C0A1F3 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
-				300A0E9A29DC05530064B0AA /* Card.swift */,
 				30D5D65129D5801E00C0A1F3 /* Payment.swift */,
 			);
 			path = Payment;
@@ -234,12 +229,9 @@
 			isa = PBXGroup;
 			children = (
 				4919889929CC46A50060A3EA /* JsonData */,
-				4919889729CC21C80060A3EA /* DataController.swift */,
 				300A0E9F29DD3C9B0064B0AA /* CardModel.swift */,
 				491988A129CC47FA0060A3EA /* UserModel.swift */,
 				491988A429CC481B0060A3EA /* RoomModel.swift */,
-				49C647E929D3D2BF0026983F /* RoomOrderController.swift */,
-				491988A629CC48360060A3EA /* RoomOrderModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -248,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				300A0E9729DAAD6B0064B0AA /* Dialog */,
-				49791CD429DA96E100BDEEE5 /* DatePicker */,
 				30D5D65429D580A800C0A1F3 /* Payment */,
 				30D5D5F429D29A9100C0A1F3 /* Menu */,
 				30D5D5F329D29A7F00C0A1F3 /* Room */,
@@ -270,6 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				49C647EB29D3D3770026983F /* util.swift */,
+				4919889F29CC47900060A3EA /* JsonHelper.swift */,
+				300A0E9A29DC05530064B0AA /* Card.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -277,17 +270,10 @@
 		491988A829CC4C570060A3EA /* ListViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				49C647E929D3D2BF0026983F /* RoomOrderController.swift */,
 				491988A929CC4C8C0060A3EA /* RoomViewModel.swift */,
 			);
 			path = ListViewModel;
-			sourceTree = "<group>";
-		};
-		49791CD429DA96E100BDEEE5 /* DatePicker */ = {
-			isa = PBXGroup;
-			children = (
-				4919889F29CC47900060A3EA /* JsonHelper.swift */,
-			);
-			path = DatePicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -429,7 +415,6 @@
 				49C647EA29D3D2BF0026983F /* RoomOrderController.swift in Sources */,
 				49C647EC29D3D3770026983F /* util.swift in Sources */,
 				300A0EA029DD3C9B0064B0AA /* CardModel.swift in Sources */,
-				30D5D5F029D28D5E00C0A1F3 /* ListRoom.swift in Sources */,
 				4919886529CC1AC50060A3EA /* IOSDemo.xcdatamodeld in Sources */,
 				4919886229CC1AC50060A3EA /* Persistence.swift in Sources */,
 				30D5D5F229D28DFD00C0A1F3 /* RoomDetail.swift in Sources */,
@@ -438,7 +423,6 @@
 				4919888F29CC1BB60060A3EA /* OrderView.swift in Sources */,
 				491988A229CC47FA0060A3EA /* UserModel.swift in Sources */,
 				491988AA29CC4C8C0060A3EA /* RoomViewModel.swift in Sources */,
-				4919889829CC21C80060A3EA /* DataController.swift in Sources */,
 				4919888A29CC1B7B0060A3EA /* MainView.swift in Sources */,
 				4919885929CC1AC20060A3EA /* IOSDemoApp.swift in Sources */,
 				30D5D65229D5801E00C0A1F3 /* Payment.swift in Sources */,
@@ -447,7 +431,6 @@
 				300A0E9B29DC05530064B0AA /* Card.swift in Sources */,
 				4919889329CC1D670060A3EA /* WellcomeView.swift in Sources */,
 				49791CD329DA6CE700BDEEE5 /* ListOrderedView.swift in Sources */,
-				491988A729CC48360060A3EA /* RoomOrderModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

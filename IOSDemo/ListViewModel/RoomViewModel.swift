@@ -14,12 +14,6 @@ class RoomViewModel:ObservableObject {
     let roomKey :  String = "rooms_list"
     init(){
         getRooms()
-        //        filterRoom()
-        //let results = roomOrderController.getRoomOrderByUser(userId: "01")
-        //        for result in results {
-        //            print(result.checkinDate ?? "")
-        //        }
-        //roomOrderController.addRoomOrder()
     }
     func getRooms(){
         self.rooms = load("Room.json")

@@ -25,7 +25,7 @@ struct ListOrderedView: View {
     @State var isPickCheckout: Bool = false
     @State var isFirst: Bool = true
     @State var selectedOption:Int = 0
-    let option = ["全記録","検索範囲]
+    let option = ["全記録","検索範囲"]
     
     func filterData() {
         if isPickCheckin && isPickCheckout {
@@ -36,7 +36,7 @@ struct ListOrderedView: View {
         checkin = formatDate(date: checkinDate)
         isOpenCheckin.toggle()
         isOpenCheckin = false
-        if(checkinDate >= checkoutDate || checkout == ""){
+        if(formatDateHelper(date: checkinDate) >= formatDateHelper(date: checkoutDate) || checkout == ""){
             checkoutDate = checkinDate.addingTimeInterval(86401)
             checkout = formatDate(date: checkoutDate)
         }

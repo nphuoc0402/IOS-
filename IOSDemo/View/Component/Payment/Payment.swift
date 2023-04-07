@@ -360,7 +360,7 @@ struct Payment: View {
     
     func saveOrder(){
         for draf in drafRoomOder {
-            roomOrderController.addRoomOrder(userId: userId, roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: isPayment)
+            roomOrderController.addRoomOrder(userId: userId, roomId: draf.id, checkinDate: checkinDate, checkoutDate: checkoutDate, payment: deferredPayment)
             listRooms.removeAll(where: { $0.id == draf.id})
         }
         isActive = true

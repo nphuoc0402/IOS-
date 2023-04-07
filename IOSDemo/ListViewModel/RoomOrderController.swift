@@ -11,25 +11,10 @@ class RoomOrderController: ObservableObject {
     
     let viewContext = PersistenceController.shared.container.viewContext
     init() {
-        fetchRoomOrder()
-        //        deleteRoomOrder()
+        //fetchRoomOrder()
+        //deleteRoomOrder()
     }
-    
-    func fetchRoomOrder(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RoomOrder")
-        //        request.predicate = NSPredicate(format: "name = %@", "name")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try viewContext.fetch(request)
-            //            for data in result as! [NSManagedObject]{
-            //                print(data.value(forKey: "roomId") as! String)
-            //                print(data.value(forKey: "checkinDate") as! Date)
-            //                print(data.value(forKey: "checkoutDate") as! Date)
-            //            }
-        }catch {
-            print("Failed")
-        }
-    }
+
     func getRoomOrderByUser(userId: String) -> [RoomOrder] {
         let request = NSFetchRequest<RoomOrder>(entityName: "RoomOrder")
         let dateSort = NSSortDescriptor(key: "orderDate", ascending: false)
@@ -88,7 +73,7 @@ class RoomOrderController: ObservableObject {
         do {
             let result = try viewContext.fetch(request)
             for data in result as! [NSManagedObject]{
-                if (checkinDate <= data.value(forKey: "checkoutDate") as! Date && checkoutDate >= data.value(forKey: "checkinDate") as! Date) {
+                if (checkinDate < data.value(forKey: "checkoutDate") as! Date && checkoutDate > data.value(forKey: "checkinDate") as! Date) {
                     return true
                 }
                 

@@ -270,9 +270,11 @@ struct Payment: View {
                         
                         card.expiredDate = String(card.expiredDate.prefix(5))
                     }))
+                    .keyboardType(.numberPad)
                     .padding(10)
                     .background(Color.black.opacity(0.05))
                     .cornerRadius(10);
+                    
                     HStack{
                         Image(systemName: "creditcard")
                         TextField("セキュリティコード", text: .init(get: {

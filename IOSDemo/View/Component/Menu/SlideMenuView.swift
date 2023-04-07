@@ -17,15 +17,15 @@ struct ItemMenuView: View {
             Spacer()
             ZStack(alignment: .trailing){
                 Menu{
-                    Button("Order New Room",action: {
+                    Button("部屋を予約する",action: {
                         opDat.currView = .home
                         
                     })
-                    Button("List Room Ordered",action: {
+                    Button("部屋を予約したリスト",action: {
                         opDat.currView = .listOrderd
                         
                     })
-                    Button("Logout",action: {
+                    Button("ログアウト",action: {
                         opDat.currView = .login
                         userId = ""
                         isLoggedIn = false

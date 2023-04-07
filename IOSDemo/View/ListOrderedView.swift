@@ -25,7 +25,7 @@ struct ListOrderedView: View {
     @State var isPickCheckout: Bool = false
     @State var isFirst: Bool = true
     @State var selectedOption:Int = 0
-    let option = ["All Records","Custom Search Range"]
+    let option = ["全記録","検索範囲]
     
     func filterData() {
         if isPickCheckin && isPickCheckout {

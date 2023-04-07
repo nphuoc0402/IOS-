@@ -56,12 +56,6 @@ struct RoomDetail: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .shadow(radius: 20)
             .padding(30)
-//            .offset(x: 0, y: offset)
-//            .onAppear{
-//                withAnimation(.spring()){
-//                    offset = 0
-//                }
-//            }
         }
         .ignoresSafeArea()
         

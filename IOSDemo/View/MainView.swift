@@ -12,18 +12,15 @@ struct MainView: View {
     @State private var showMenu: Bool = false
     @AppStorage("userId") var userId:String = ""
     @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
-
+    
     var body: some View {
         ZStack {
             GeometryReader { _ in
                 if(opDat.currView != .login) {
                     HStack {
                         ItemMenuView()
-                        
                     }
                 }
-                
-                
             }
             .background(Color.black.opacity(showMenu ? 0 : 0))
             switch(opDat.currView){
@@ -37,13 +34,7 @@ struct MainView: View {
                 ListOrderedView()
                     .environmentObject(opDat)
             }
-            
-            
-            
         }
-        
-        
-        
     }
 }
 

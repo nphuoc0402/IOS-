@@ -45,24 +45,6 @@ struct DialogView: View {
         .padding()
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        //            .overlay{
-        //                VStack{
-        //                    HStack{
-        //                        Spacer()
-        //                        Button{
-        //                            close()
-        //                        } label: {
-        //                            Image(systemName: "xmark")
-        //                                .font(.title2)
-        //                        }
-        //                        .tint(.black)
-        //                    }
-        //                    
-        //                    Spacer()
-        //                }
-        //                .padding()
-        //                
-        //            }
         .shadow(radius: 20)
         .padding(30)
         .offset(x: 0, y: offset)

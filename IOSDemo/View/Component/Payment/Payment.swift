@@ -367,12 +367,3 @@ struct Payment: View {
         
     }
 }
-
-
-
-
-//struct Payment_Previews: PreviewProvider {
-//    static var previews: some View {
-////        Payment()
-//    }
-//}

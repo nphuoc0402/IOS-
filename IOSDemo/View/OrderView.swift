@@ -10,7 +10,6 @@ import SwiftUI
 struct OrderView: View {
     @EnvironmentObject var opDat:OpDat
     @State private var showMenu: Bool = false
-    
     var roomViewModel : RoomViewModel = RoomViewModel()
     @State var listRooms:[RoomModel] = []
     @State var total: Int64 = 0
@@ -24,7 +23,6 @@ struct OrderView: View {
     @State var checkin:String = ""
     @State var checkout:String = ""
     @State var isSearched = false
-    
     var body: some View {
         ZStack{
             if isPayment {
@@ -34,14 +32,10 @@ struct OrderView: View {
                     .frame(alignment: .topLeading)
                     .environmentObject(roomViewModel)
             }
-            
             Spacer()
         }.frame(alignment: .top)
-        
     }
 }
-
-
 struct WrapMainView: View {
     @Binding var list: [RoomModel]
     @Binding var total: Int64
@@ -56,14 +50,11 @@ struct WrapMainView: View {
     @Binding var checkout: String
     @Binding var isSearched:Bool
     let options = ["全て", "シングル", "ツイン"]
-    
     @State var showAlert = false
     @State var detailRoomId:String = ""
-    
     @EnvironmentObject var roomViewModel : RoomViewModel
     @State var isOpenCheckin = false
     @State var isOpenCheckout = false
-    
     
     init(list: Binding<[RoomModel]>,total: Binding<Int64>, drafRoomOrder: Binding<[RoomModel]>, isPayment: Binding<Bool>, checkinDate: Binding<Date>,checkoutDate: Binding<Date>, selectedOptionIndex: Binding<Int>, days: Binding<Int>, isShowDetail: Binding<Bool>, checkin: Binding<String>, checkout: Binding<String>, isSearched: Binding<Bool>){
         self._list = list
@@ -82,7 +73,6 @@ struct WrapMainView: View {
     
     var body: some View {
         ZStack {
-            
             VStack{
                 ZStack{
                     VStack(){
@@ -93,7 +83,6 @@ struct WrapMainView: View {
                                 Image(systemName: "calendar").foregroundColor(.gray)
                                 TextField("チェックイン日", text: $checkin)
                                     .disabled(true)
-                                
                             }
                             .frame(width: 140, height: 35)
                             .padding([.leading], 5)
@@ -179,12 +168,9 @@ struct WrapMainView: View {
                 }
                 .cornerRadius(5)
                 .padding([.leading, .trailing])
-                //                .frame(width: .infinity, height: 420, alignment: .center)
-                
                 VStack(alignment:.leading){
                     Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
                 }.frame(maxWidth: .infinity,alignment: .leading).padding()
-                
                 Button(action: {doSave()}) {
                     Text("予約画面へ")
                         .font(.system(size:16))
@@ -194,16 +180,12 @@ struct WrapMainView: View {
                         .background(Color.blue)
                         .cornerRadius(20)
                         .frame(height: 30)
-                    
                 }
                 Spacer()
             }.alert(isPresented: $showAlert){
                 Alert(title: Text("この項目は必須です"),
                       message: Text("項目を選択してください"))
             }
-            
-            
-            
             if isOpenCheckin {
                 ZStack{
                     Color(.black)
@@ -211,7 +193,6 @@ struct WrapMainView: View {
                         .onTapGesture {
                             isOpenCheckin.toggle()
                         }
-                    
                     VStack(spacing: 15) {
                         DatePicker("",
                                    selection: $checkinDate,
@@ -221,8 +202,6 @@ struct WrapMainView: View {
                             .labelsHidden()
                             .datePickerStyle(.graphical)
                             .frame(maxWidth: .infinity)
-                        
-                        
                             .onChange(of: checkinDate) { value in
                                 changedCheckin()
                             }
@@ -237,7 +216,6 @@ struct WrapMainView: View {
                             .background(Color.blue)
                             .cornerRadius(20)
                     }
-                    
                     .padding(20)
                     .background(Color.white)
                     .cornerRadius(25)
@@ -257,7 +235,6 @@ struct WrapMainView: View {
                                    selection: $checkoutDate,
                                    in: (checkinDate.addingTimeInterval(86400))...,
                                    displayedComponents: [.date]
-                                   
                         )
                             .labelsHidden()
                             .datePickerStyle(.graphical)
@@ -284,22 +261,15 @@ struct WrapMainView: View {
             if isShowDetail {
                 let room:RoomModel? = roomViewModel.getRoomById(id: detailRoomId)
                 RoomDetail(isShowDetail: $isShowDetail, roomDetail: room){
-                    
                 }
             }
-            
         }
-        
     }
-    
-    
-    
     
     func updateFilter(){
         if checkin != "" && checkout != "" && isSearched {
             list = roomViewModel.filterRoom(checkinDate: checkinDate, checkoutDate: checkoutDate, roomType: options[selectedOptionIndex])
         }
-        
     }
     func filterData() {
         if checkin != "" && checkout != "" {
@@ -308,16 +278,16 @@ struct WrapMainView: View {
             total = 0
             drafRoomOrder.removeAll()
             isSearched = true
-            
         }
     }
     func doSave(){
         if(!$drafRoomOrder.isEmpty){
             isPayment = true
-        }else {
+        } else {
             showAlert = true
         }
     }
+    
     func changedCheckin() {
         checkin = formatDate(date: checkinDate)
         isOpenCheckin.toggle()
@@ -326,17 +296,18 @@ struct WrapMainView: View {
             checkoutDate = checkinDate.addingTimeInterval(86400)
             checkout = formatDate(date: checkoutDate)
         }
-        
     }
+    
     func changedCheckout() {
         isOpenCheckout.toggle()
         isOpenCheckout = false
-        
         checkout = formatDate(date: checkoutDate)
     }
+    
     func onExpandCheckin() {
         isOpenCheckin.toggle()
     }
+    
     func onExpandCheckout() {
         isOpenCheckout.toggle()
     }

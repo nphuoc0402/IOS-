@@ -16,7 +16,7 @@ struct ListOrderedView: View {
     @State var listRooms:[RoomOrder] = []
     @State var checkinDate:Date = Date()
     @State var date:Date? = nil
-    @State var checkoutDate = Date().addingTimeInterval(86401)
+    @State var checkoutDate = Date().addingTimeInterval(86400)
     @State var isOpenCheckin = false
     @State var isOpenCheckout = false
     @State private var checkin:String = ""
@@ -37,31 +37,30 @@ struct ListOrderedView: View {
         isOpenCheckin.toggle()
         isOpenCheckin = false
         if(formatDateHelper(date: checkinDate) >= formatDateHelper(date: checkoutDate) || checkout == ""){
-            checkoutDate = checkinDate.addingTimeInterval(86401)
+            checkoutDate = checkinDate.addingTimeInterval(86400)
             checkout = formatDate(date: checkoutDate)
         }
-        
     }
     func changedCheckout() {
         isOpenCheckout.toggle()
         checkout = formatDate(date: checkoutDate)
         isOpenCheckout = false
-        
-        
     }
+    
     func onExpandCheckin() {
         isOpenCheckin.toggle()
     }
+    
     func onExpandCheckout() {
         isOpenCheckout.toggle()
     }
+    
     var body: some View {
         ZStack{
             VStack{
                 Text("予約した部屋リスト")
                     .font(.title2)
                     .padding(.vertical,20)
-                
                 VStack {
                     Picker("",selection: $selectedOption){
                         ForEach(0..<option.count) {
@@ -78,8 +77,6 @@ struct ListOrderedView: View {
                             }
                         }
                     }
-                    
-                    
                 }
                 if selectedOption == 1 {
                     HStack{
@@ -87,7 +84,6 @@ struct ListOrderedView: View {
                             Image(systemName: "calendar").foregroundColor(.gray)
                             TextField("チェックイン日", text: $checkin)
                                 .disabled(true)
-                            
                         }
                         .frame(width: 135, height: 35)
                         .padding([.leading], 5)
@@ -107,7 +103,6 @@ struct ListOrderedView: View {
                             Image(systemName: "calendar").foregroundColor(.gray)
                             TextField("チェックアウト日", text: $checkout)
                                 .disabled(true)
-                            
                         }
                         .frame(width: 135, height: 35)
                         .padding([.leading], 5)
@@ -134,8 +129,6 @@ struct ListOrderedView: View {
                     }
                     
                 }.padding(.bottom, 30)
-                
-                
             }
             if isOpenCheckin {
                 ZStack{
@@ -144,7 +137,6 @@ struct ListOrderedView: View {
                         .onTapGesture {
                             isOpenCheckin.toggle()
                         }
-                    
                     VStack(spacing: 15) {
                         DatePicker("",
                                    selection: $checkinDate,
@@ -153,8 +145,6 @@ struct ListOrderedView: View {
                             .labelsHidden()
                             .datePickerStyle(.graphical)
                             .frame(maxWidth: .infinity)
-                        
-                        
                             .onChange(of: checkinDate) { value in
                                 isPickCheckin = true
                                 isPickCheckout = true
@@ -171,7 +161,6 @@ struct ListOrderedView: View {
                             .background(Color.blue)
                             .cornerRadius(20)
                     }
-                    
                     .padding(20)
                     .background(Color.white)
                     .cornerRadius(25)
@@ -191,7 +180,6 @@ struct ListOrderedView: View {
                                    selection: $checkoutDate,
                                    in: (checkinDate.addingTimeInterval(86400))...,
                                    displayedComponents: [.date]
-                                   
                         )
                             .labelsHidden()
                             .datePickerStyle(.graphical)
@@ -216,21 +204,16 @@ struct ListOrderedView: View {
                     .padding(30)
                 }
             }
-            
-            
-            
             Spacer()
         }.frame(alignment: .top)
     }
 }
 
-
 struct ListDataView: View {
     var listRooms: [RoomOrder]
     var roomViewModel: RoomViewModel
     var body: some View {
-        List{
-            
+        List {
             ForEach(self.listRooms, id:\.self) { orderRoom in
                 let room = roomViewModel.getRoomById(id: orderRoom.roomId ?? "")
                 let total = Int64(room?.price ?? 0) * Int64(numberOfDaysBetween(start: orderRoom.checkinDate!, end: orderRoom.checkoutDate!))
@@ -257,19 +240,15 @@ struct ListDataView: View {
                             Text("予約日: ¥\(total)").frame(width: 120,alignment: .leading)
                             Text("支払方法: \(formatDate(date: orderRoom.orderDate!))").frame(width: 120,alignment: .leading)
                         }
-                        
-                        
                     }
                     .font(.system(size: 12))
                     Spacer()
                 }
-                
             }
             
         }.cornerRadius(5)
             .padding(.horizontal,10)
             .padding(.vertical, 0)
-        
     }
 }
 

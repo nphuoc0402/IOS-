@@ -16,7 +16,6 @@
 		30D5D5F229D28DFD00C0A1F3 /* RoomDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5D5F129D28DFD00C0A1F3 /* RoomDetail.swift */; };
 		30D5D65229D5801E00C0A1F3 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5D65129D5801E00C0A1F3 /* Payment.swift */; };
 		4919885929CC1AC20060A3EA /* IOSDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919885829CC1AC20060A3EA /* IOSDemoApp.swift */; };
-		4919885B29CC1AC30060A3EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919885A29CC1AC30060A3EA /* ContentView.swift */; };
 		4919885D29CC1AC50060A3EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4919885C29CC1AC50060A3EA /* Assets.xcassets */; };
 		4919886029CC1AC50060A3EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4919885F29CC1AC50060A3EA /* Preview Assets.xcassets */; };
 		4919886229CC1AC50060A3EA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919886129CC1AC50060A3EA /* Persistence.swift */; };
@@ -27,7 +26,6 @@
 		4919888A29CC1B7B0060A3EA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919888929CC1B7B0060A3EA /* MainView.swift */; };
 		4919888C29CC1B970060A3EA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919888B29CC1B970060A3EA /* LoginView.swift */; };
 		4919888F29CC1BB60060A3EA /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919888E29CC1BB60060A3EA /* OrderView.swift */; };
-		4919889329CC1D670060A3EA /* WellcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919889229CC1D670060A3EA /* WellcomeView.swift */; };
 		4919889629CC1DAF0060A3EA /* SlideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919889529CC1DAF0060A3EA /* SlideMenuView.swift */; };
 		4919889B29CC46D80060A3EA /* User.json in Resources */ = {isa = PBXBuildFile; fileRef = 4919889A29CC46D80060A3EA /* User.json */; };
 		4919889D29CC46F80060A3EA /* Room.json in Resources */ = {isa = PBXBuildFile; fileRef = 4919889C29CC46F80060A3EA /* Room.json */; };
@@ -66,7 +64,6 @@
 		30D5D65129D5801E00C0A1F3 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		4919885529CC1AC20060A3EA /* IOSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4919885829CC1AC20060A3EA /* IOSDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSDemoApp.swift; sourceTree = "<group>"; };
-		4919885A29CC1AC30060A3EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4919885C29CC1AC50060A3EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4919885F29CC1AC50060A3EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4919886129CC1AC50060A3EA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -79,7 +76,6 @@
 		4919888929CC1B7B0060A3EA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4919888B29CC1B970060A3EA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4919888E29CC1BB60060A3EA /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
-		4919889229CC1D670060A3EA /* WellcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellcomeView.swift; sourceTree = "<group>"; };
 		4919889529CC1DAF0060A3EA /* SlideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuView.swift; sourceTree = "<group>"; };
 		4919889A29CC46D80060A3EA /* User.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = User.json; sourceTree = "<group>"; };
 		4919889C29CC46F80060A3EA /* Room.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Room.json; sourceTree = "<group>"; };
@@ -178,7 +174,6 @@
 				4919888829CC1B340060A3EA /* Model */,
 				4919888729CC1B1E0060A3EA /* View */,
 				4919885829CC1AC20060A3EA /* IOSDemoApp.swift */,
-				4919885A29CC1AC30060A3EA /* ContentView.swift */,
 				4919885C29CC1AC50060A3EA /* Assets.xcassets */,
 				4919886129CC1AC50060A3EA /* Persistence.swift */,
 				4919886329CC1AC50060A3EA /* IOSDemo.xcdatamodeld */,
@@ -220,7 +215,6 @@
 				4919888B29CC1B970060A3EA /* LoginView.swift */,
 				4919888E29CC1BB60060A3EA /* OrderView.swift */,
 				49791CD229DA6CE700BDEEE5 /* ListOrderedView.swift */,
-				4919889229CC1D670060A3EA /* WellcomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -418,7 +412,6 @@
 				4919886529CC1AC50060A3EA /* IOSDemo.xcdatamodeld in Sources */,
 				4919886229CC1AC50060A3EA /* Persistence.swift in Sources */,
 				30D5D5F229D28DFD00C0A1F3 /* RoomDetail.swift in Sources */,
-				4919885B29CC1AC30060A3EA /* ContentView.swift in Sources */,
 				30D5D5EE29D2898A00C0A1F3 /* RoomRow.swift in Sources */,
 				4919888F29CC1BB60060A3EA /* OrderView.swift in Sources */,
 				491988A229CC47FA0060A3EA /* UserModel.swift in Sources */,
@@ -429,7 +422,6 @@
 				300A0EA229DD4B3F0064B0AA /* JsonHelper.swift in Sources */,
 				4919889629CC1DAF0060A3EA /* SlideMenuView.swift in Sources */,
 				300A0E9B29DC05530064B0AA /* Card.swift in Sources */,
-				4919889329CC1D670060A3EA /* WellcomeView.swift in Sources */,
 				49791CD329DA6CE700BDEEE5 /* ListOrderedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

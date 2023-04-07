@@ -66,7 +66,6 @@ class RoomOrderController: ObservableObject {
         }
     }
     func isBookingInRange(checkinDate: Date, checkoutDate: Date, roomId: String) -> Bool{
-        
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RoomOrder")
         request.predicate = NSPredicate(format: "roomId = %@", roomId)
         request.returnsObjectsAsFaults = false
@@ -76,7 +75,6 @@ class RoomOrderController: ObservableObject {
                 if (checkinDate < data.value(forKey: "checkoutDate") as! Date && checkoutDate > data.value(forKey: "checkinDate") as! Date) {
                     return true
                 }
-                
             }
         }catch {
             print("Failed")

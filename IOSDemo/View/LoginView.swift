@@ -27,13 +27,11 @@ struct LoginView: View {
                 Circle()
                     .scale(1.35)
                     .foregroundColor(.white)
-                
                 VStack(spacing: 10){
                     Image("hotel")
                         .resizable()
                         .frame(width: 100, height: 100)
                         .frame(alignment: .topTrailing)
-                    
                     Text("予約室")
                         .font(.largeTitle)
                         .bold()
@@ -44,8 +42,6 @@ struct LoginView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .keyboardType(.emailAddress)
-                    
-                    
                     SecureField("パスワード",text: $pw)
                         .padding()
                         .frame(width: 300, height: 50)
@@ -58,15 +54,12 @@ struct LoginView: View {
                     .frame(width: 300,height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    
                 }
             }
-            
         }.alert(isPresented: $showAlert){
             Alert(title: Text("アカウントまたはパスワードが無効です"),
                   message: Text("有効なアカウントを入力してください"))
         }
-        
     }
     func doLogin(_ email: String, _ pw: String){
         for user in users{
@@ -77,15 +70,6 @@ struct LoginView: View {
             }
         }
         showAlert = true
-        
-    }
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            LoginView()
-        }
     }
 }
 

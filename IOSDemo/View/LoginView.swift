@@ -63,7 +63,7 @@ struct LoginView: View {
     }
     func doLogin(_ email: String, _ pw: String){
         for user in users{
-            if (email.lowercased() == user.email.lowercased() && pw == user.passwd) {
+            if (email == user.email && pw == user.passwd) {
                 opDat.currView = .home
                 isLoggedIn = true
                 userId = user.id

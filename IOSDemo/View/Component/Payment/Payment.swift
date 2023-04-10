@@ -11,7 +11,7 @@ import UIKit
 struct Payment: View {
     @ObservedObject var card = Card()
     @AppStorage("userId") var userId:String = ""
-    let paymentMethod = ["後払い","前払い"]
+    let paymentMethod = ["後払い","元払い"]
     var title = "本気ですか？"
     var message = "本当に部屋を予約しますか"
     var buttontitle = "予約します"

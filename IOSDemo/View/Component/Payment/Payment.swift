@@ -262,6 +262,13 @@ struct Payment: View {
                                 }
                             }
                             
+                            if let myInt2 = Int(String(value[stringIndex])) {
+                                if(index == 1 && myInt2 > 2 && value[value.index(startIndex, offsetBy: 0)] == "1"){
+                                    card.expiredDate.insert("2", at: stringIndex)
+                                    continue
+                                }
+                            }
+                            
                             card.expiredDate += String(value[stringIndex])
                             
                             

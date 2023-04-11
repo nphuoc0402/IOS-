@@ -158,7 +158,7 @@ struct ListOrderedView: View {
                         Button(action: {
                             isOpenCheckin.toggle()
                         }, label: {
-                            Text("Close")
+                            Text("閉じる")
                         }).font(.system(size:16))
                             .foregroundColor(.white)
                             .padding(.horizontal,20)
@@ -195,7 +195,7 @@ struct ListOrderedView: View {
                         Button(action: {
                             isOpenCheckout.toggle()
                         }, label: {
-                            Text("Close")
+                            Text("閉じる")
                         }).font(.system(size:16))
                             .foregroundColor(.white)
                             .padding(.horizontal,20)

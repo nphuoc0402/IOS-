@@ -185,7 +185,7 @@ struct Payment: View {
             }
             .padding(.horizontal, 20)
             VStack(spacing: 0){
-                TextField("名様を入力してください", text: $card.name)
+                TextField("カード名様人氏名を入力してください", text: $card.name)
                     .padding(10)
                     .background(Color.black.opacity(0.05))
                     .cornerRadius(10)
@@ -292,7 +292,7 @@ struct Payment: View {
                     
                     HStack{
                         Image(systemName: "creditcard")
-                        TextField("セキュリティコード", text: .init(get: {
+                        TextField("CVV", text: .init(get: {
                             card.secureCode
                         }, set: { value in
                             card.secureCode = value

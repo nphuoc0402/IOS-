@@ -62,21 +62,26 @@ struct ListOrderedView: View {
                     .font(.title2)
                     .padding(.vertical,20)
                 VStack {
-                    Picker("",selection: $selectedOption){
-                        ForEach(0..<option.count) {
-                            Text(self.option[$0])
-                        }
-                    }.onChange(of: selectedOption){ value in
-                        if selectedOption == 0 {
-                            listRooms = roomOrderController.getRoomOrderByUser(userId: userId)
-                            if isOpenCheckin {
-                                isOpenCheckin.toggle()
+                    HStack(alignment: .center, spacing: 5){
+                        Text("検索タイプ")
+                            .font(.subheadline)
+                        Picker("検索タイプ",selection: $selectedOption){
+                            ForEach(0..<option.count) {
+                                Text(self.option[$0])
                             }
-                            if isOpenCheckout {
-                                isOpenCheckout.toggle()
+                        }.onChange(of: selectedOption){ value in
+                            if selectedOption == 0 {
+                                listRooms = roomOrderController.getRoomOrderByUser(userId: userId)
+                                if isOpenCheckin {
+                                    isOpenCheckin.toggle()
+                                }
+                                if isOpenCheckout {
+                                    isOpenCheckout.toggle()
+                                }
                             }
                         }
                     }
+                    
                 }
                 if selectedOption == 1 {
                     HStack{

@@ -95,11 +95,10 @@ struct Payment: View {
             }
             .padding(.horizontal, 20)
             
-                if deferredPayment {
-                    CardView()
-                    
-                }
-        
+            if deferredPayment {
+                CardView()
+                
+            }
             
             Spacer(minLength: 10)
             HStack(alignment: .bottom){
@@ -257,11 +256,20 @@ struct Payment: View {
                         let startIndex = value.startIndex
                         for index in 0..<value.count {
                             let stringIndex = value.index(startIndex, offsetBy: index)
+                            if let myInt1 = Int(String(value[startIndex])) {
+                                if(index == 0 && myInt1 > 1){
+                                    card.expiredDate.insert("0", at: stringIndex)
+                                }
+                            }
+                            
                             card.expiredDate += String(value[stringIndex])
+                            
+                            
                             
                             if (index + 1) % 3 == 0 && value[stringIndex] != "/" {
                                 card.expiredDate.insert("/", at: stringIndex)
                             }
+                            
                         }
                         
                         if value.last == "/" {
@@ -320,7 +328,7 @@ struct Payment: View {
                         }else {
                             Spacer()
                         }
-                    
+                        
                     }
                 }
             }.padding(.horizontal)

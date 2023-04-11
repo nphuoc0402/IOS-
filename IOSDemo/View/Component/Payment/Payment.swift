@@ -291,7 +291,7 @@ struct Payment: View {
                     .cornerRadius(10);
                     
                     HStack{
-                        Image(systemName: "creditcard")
+                        Image(systemName: "creditcard.fill")
                         TextField("CVV", text: .init(get: {
                             card.secureCode
                         }, set: { value in

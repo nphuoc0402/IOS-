@@ -239,12 +239,18 @@ struct ListDataView: View {
                         }
                         HStack {
                             Text("タイプ: \(room?.type ?? "")").frame(width: 120,alignment: .leading)
-                            Text("開: \(room?.floor ?? "")").frame(width: 120,alignment: .leading)
+                            Text("予約日: \(formatDate(date: orderRoom.orderDate!))").frame(width: 120,alignment: .leading)
                         }
                         HStack {
                             Text("予約日: ¥\(total)").frame(width: 120,alignment: .leading)
-                            Text("支払方法: \(formatDate(date: orderRoom.orderDate!))").frame(width: 120,alignment: .leading)
+                            if orderRoom.payment {
+                                Text("支払方法: 元払い").frame(width: 120,alignment: .leading)
+                            }else {
+                                Text("支払方法: 後払い").frame(width: 120,alignment: .leading)
+                            }
+                            
                         }
+                        
                     }
                     .font(.system(size: 12))
                     Spacer()

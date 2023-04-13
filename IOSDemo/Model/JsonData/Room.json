@@ -110,10 +110,29 @@
     {
         "id" : "13",
         "name" : "402",
-        "floor" : "3",
-        "price" : 17000,
+        "floor" : "4",
+        "price" : 8000,
         "type" : "シングル",
         "imageName": "402-Single",
         "description": "ここは402号室です"
+    },
+    {
+        "id" : "14",
+        "name" : "403",
+        "floor" : "4",
+        "price" : 9000,
+        "type" : "シングル",
+        "imageName": "402-Single",
+        "description": "ここは403号室です"
+    },
+    {
+        "id" : "13",
+        "name" : "404",
+        "floor" : "4",
+        "price" : 8000,
+        "type" : "シングル",
+        "imageName": "402-Single",
+        "description": "ここは404号室です"
     }
+    
 ]

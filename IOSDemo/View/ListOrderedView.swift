@@ -29,6 +29,7 @@ struct ListOrderedView: View {
     
     func filterData() {
         if isPickCheckin && isPickCheckout {
+            isFirst = false
             listRooms = roomOrderController.getRoomOrderByUserInRange(userId: userId, checkinDate: checkinDate, checkoutDate: checkoutDate)
         }
     }
@@ -78,6 +79,12 @@ struct ListOrderedView: View {
                                 if isOpenCheckout {
                                     isOpenCheckout.toggle()
                                 }
+                            }else {
+                                if isFirst {
+                                    listRooms.removeAll()
+                                }else {
+                                    filterData()
+                                }
                             }
                         }
                     }
@@ -97,6 +104,7 @@ struct ListOrderedView: View {
                         .onTapGesture {
                             self.onExpandCheckin()
                             isOpenCheckin = true
+                            checkin = formatDate(date: checkinDate)
                             if isOpenCheckout {
                                 isOpenCheckout.toggle()
                             }
@@ -116,6 +124,7 @@ struct ListOrderedView: View {
                         .onTapGesture {
                             self.onExpandCheckout()
                             isOpenCheckout = true
+                            checkout = formatDate(date: checkoutDate)
                             if isOpenCheckin {
                                 isOpenCheckin.toggle()
                             }

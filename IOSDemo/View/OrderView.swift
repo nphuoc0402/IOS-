@@ -91,6 +91,7 @@ struct WrapMainView: View {
                             .onTapGesture {
                                 self.onExpandCheckin()
                                 isOpenCheckin = true
+                                checkin = formatDate(date: checkinDate)
                                 if isOpenCheckout {
                                     isOpenCheckout.toggle()
                                 }
@@ -111,6 +112,7 @@ struct WrapMainView: View {
                             .onTapGesture {
                                 self.onExpandCheckout()
                                 isOpenCheckout = true
+                                checkout = formatDate(date: checkoutDate)
                                 if isOpenCheckin {
                                     isOpenCheckin.toggle()
                                 }

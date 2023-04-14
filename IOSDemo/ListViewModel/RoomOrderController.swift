@@ -40,7 +40,7 @@ class RoomOrderController: ObservableObject {
             results = try viewContext.fetch(request)
             for data in results {
                 if (!(checkinDate <= data.value(forKey: "checkoutDate") as! Date && checkoutDate >= data.value(forKey: "checkinDate") as! Date)) {
-                    results.removeAll(where: { $0.roomId == data.value(forKey: "roomId") as! String})
+                    results.removeAll(where: { $0.roomId == data.value(forKey: "roomId") as? String})
                 }
             }
             

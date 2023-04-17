@@ -91,6 +91,8 @@ struct ListOrderedView: View {
                         .cornerRadius(10)
                         .onTapGesture {
                             isOpenCheckin.toggle()
+                            isPickCheckin = true
+                            isPickCheckout = true
                             checkin = formatDate(date: checkinDate)
                         }
                         Image(systemName: "arrow.right")
@@ -107,6 +109,7 @@ struct ListOrderedView: View {
                         .cornerRadius(10)
                         .onTapGesture {
                             isOpenCheckout.toggle()
+                            isPickCheckout = true
                             checkout = formatDate(date: checkoutDate)
                         }
                         Image(systemName: "magnifyingglass").font(.title).onTapGesture {

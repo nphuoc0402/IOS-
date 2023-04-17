@@ -11,7 +11,6 @@ class RoomOrderController: ObservableObject {
     
     let viewContext = PersistenceController.shared.container.viewContext
     init() {
-        //fetchRoomOrder()
         //deleteRoomOrder()
     }
 

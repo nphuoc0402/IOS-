@@ -41,8 +41,8 @@ struct RoomDetail: View {
                 } label: {
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.red)
-                        Text("OK")
+                            .foregroundColor(.blue)
+                        Text("閉じる")
                             .font(.system(size: 16, weight: .bold))
                             .foregroundColor(.white)
                             .padding()

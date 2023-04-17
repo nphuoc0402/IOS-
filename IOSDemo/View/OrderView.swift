@@ -89,12 +89,8 @@ struct WrapMainView: View {
                             .background(Color.black.opacity(0.05))
                             .cornerRadius(10)
                             .onTapGesture {
-                                self.onExpandCheckin()
-                                isOpenCheckin = true
+                                isOpenCheckin.toggle()
                                 checkin = formatDate(date: checkinDate)
-                                if isOpenCheckout {
-                                    isOpenCheckout.toggle()
-                                }
                             }
                             Image(systemName: "arrow.right")
                                 .foregroundColor(.black)
@@ -110,12 +106,8 @@ struct WrapMainView: View {
                             .background(Color.black.opacity(0.05))
                             .cornerRadius(10)
                             .onTapGesture {
-                                self.onExpandCheckout()
-                                isOpenCheckout = true
+                                isOpenCheckout.toggle()
                                 checkout = formatDate(date: checkoutDate)
-                                if isOpenCheckin {
-                                    isOpenCheckin.toggle()
-                                }
                             }
                             
                             Image(systemName: "magnifyingglass").font(.title).onTapGesture {
@@ -209,14 +201,15 @@ struct WrapMainView: View {
                             }
                         Button(action: {
                             isOpenCheckin.toggle()
-                        }, label: {
+                        }){
                             Text("閉じる")
-                        }).font(.system(size:16))
-                            .foregroundColor(.white)
-                            .padding(.horizontal,20)
-                            .padding(10)
-                            .background(Color.blue)
-                            .cornerRadius(20)
+                                .font(.system(size:16))
+                                .foregroundColor(.white)
+                                .padding(.horizontal,20)
+                                .padding(10)
+                                .background(Color.blue)
+                                .cornerRadius(20)
+                        }
                     }
                     .padding(20)
                     .background(Color.white)
@@ -245,14 +238,15 @@ struct WrapMainView: View {
                             }
                         Button(action: {
                             isOpenCheckout.toggle()
-                        }, label: {
+                        }){
                             Text("閉じる")
-                        }).font(.system(size:16))
-                            .foregroundColor(.white)
-                            .padding(.horizontal,20)
-                            .padding(10)
-                            .background(Color.blue)
-                            .cornerRadius(20)
+                                .font(.system(size:16))
+                                .foregroundColor(.white)
+                                .padding(.horizontal,20)
+                                .padding(10)
+                                .background(Color.blue)
+                                .cornerRadius(20)
+                        }
                     }
                     .padding(20)
                     .background(Color.white)
@@ -292,8 +286,6 @@ struct WrapMainView: View {
     
     func changedCheckin() {
         checkin = formatDate(date: checkinDate)
-        isOpenCheckin.toggle()
-        isOpenCheckin = false
         if(formatDateHelper(date: checkinDate) >= formatDateHelper(date: checkoutDate) || checkout == "") {
             checkoutDate = checkinDate.addingTimeInterval(86400)
             checkout = formatDate(date: checkoutDate)
@@ -301,17 +293,7 @@ struct WrapMainView: View {
     }
     
     func changedCheckout() {
-        isOpenCheckout.toggle()
-        isOpenCheckout = false
         checkout = formatDate(date: checkoutDate)
-    }
-    
-    func onExpandCheckin() {
-        isOpenCheckin.toggle()
-    }
-    
-    func onExpandCheckout() {
-        isOpenCheckout.toggle()
     }
 }
 

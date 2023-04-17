@@ -35,25 +35,13 @@ struct ListOrderedView: View {
     }
     func changedCheckin() {
         checkin = formatDate(date: checkinDate)
-        isOpenCheckin.toggle()
-        isOpenCheckin = false
         if(formatDateHelper(date: checkinDate) >= formatDateHelper(date: checkoutDate) || checkout == ""){
             checkoutDate = checkinDate.addingTimeInterval(86400)
             checkout = formatDate(date: checkoutDate)
         }
     }
     func changedCheckout() {
-        isOpenCheckout.toggle()
         checkout = formatDate(date: checkoutDate)
-        isOpenCheckout = false
-    }
-    
-    func onExpandCheckin() {
-        isOpenCheckin.toggle()
-    }
-    
-    func onExpandCheckout() {
-        isOpenCheckout.toggle()
     }
     
     var body: some View {
@@ -102,12 +90,8 @@ struct ListOrderedView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .onTapGesture {
-                            self.onExpandCheckin()
-                            isOpenCheckin = true
+                            isOpenCheckin.toggle()
                             checkin = formatDate(date: checkinDate)
-                            if isOpenCheckout {
-                                isOpenCheckout.toggle()
-                            }
                         }
                         Image(systemName: "arrow.right")
                             .foregroundColor(.black)
@@ -122,12 +106,8 @@ struct ListOrderedView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .onTapGesture {
-                            self.onExpandCheckout()
-                            isOpenCheckout = true
+                            isOpenCheckout.toggle()
                             checkout = formatDate(date: checkoutDate)
-                            if isOpenCheckin {
-                                isOpenCheckin.toggle()
-                            }
                         }
                         Image(systemName: "magnifyingglass").font(.title).onTapGesture {
                             filterData()
@@ -160,20 +140,19 @@ struct ListOrderedView: View {
                             .datePickerStyle(.graphical)
                             .frame(maxWidth: .infinity)
                             .onChange(of: checkinDate) { value in
-                                isPickCheckin = true
-                                isPickCheckout = true
                                 changedCheckin()
                             }
                         Button(action: {
                             isOpenCheckin.toggle()
-                        }, label: {
+                        }){
                             Text("閉じる")
-                        }).font(.system(size:16))
-                            .foregroundColor(.white)
-                            .padding(.horizontal,20)
-                            .padding(10)
-                            .background(Color.blue)
-                            .cornerRadius(20)
+                                .font(.system(size:16))
+                                .foregroundColor(.white)
+                                .padding(.horizontal,20)
+                                .padding(10)
+                                .background(Color.blue)
+                                .cornerRadius(20)
+                        }
                     }
                     .padding(20)
                     .background(Color.white)
@@ -198,19 +177,19 @@ struct ListOrderedView: View {
                             .labelsHidden()
                             .datePickerStyle(.graphical)
                             .onChange(of: checkoutDate) { value in
-                                isPickCheckout = true
                                 changedCheckout()
                             }
                         Button(action: {
                             isOpenCheckout.toggle()
-                        }, label: {
+                        }) {
                             Text("閉じる")
-                        }).font(.system(size:16))
-                            .foregroundColor(.white)
-                            .padding(.horizontal,20)
-                            .padding(10)
-                            .background(Color.blue)
-                            .cornerRadius(20)
+                                .font(.system(size:16))
+                                .foregroundColor(.white)
+                                .padding(.horizontal,20)
+                                .padding(10)
+                                .background(Color.blue)
+                                .cornerRadius(20)
+                        }
                     }
                     .padding(20)
                     .background(Color.white)
@@ -251,7 +230,7 @@ struct ListDataView: View {
                             Text("予約日: \(formatDate(date: orderRoom.orderDate!))").frame(width: 120,alignment: .leading)
                         }
                         HStack {
-                            Text("予約日: ¥\(total)").frame(width: 120,alignment: .leading)
+                            Text("合計: ¥\(total)").frame(width: 120,alignment: .leading)
                             if orderRoom.payment {
                                 Text("支払方法: 元払い").frame(width: 120,alignment: .leading)
                             }else {

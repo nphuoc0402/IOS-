@@ -47,13 +47,14 @@ struct LoginView: View {
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                    Button("ログイン") {
-                        doLogin(email, pw)
+                    Button(action: {doLogin(email, pw)}) {
+                        Text("ログイン")
+                            .foregroundColor(.white)
+                            .frame(width: 300,height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(10)
                     }
-                    .foregroundColor(.white)
-                    .frame(width: 300,height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    
                 }
             }
         }.alert(isPresented: $showAlert){

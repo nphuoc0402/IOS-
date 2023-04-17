@@ -128,15 +128,15 @@ struct Payment: View {
                         .cornerRadius(20)
                         .frame(height: 30)
                     
-                }.alert(isPresented: $isShowingAlert){
-                    Alert(title: Text("本気ですか？"),
-                          message: Text("本当に部屋を予約しますか"),
-                          primaryButton: .default(Text("Ok")){
-                        saveOrder()
-                    },
-                          secondaryButton: .cancel(Text("キャンセル")))
                 }
                 
+            }.alert(isPresented: $isShowingAlert){
+                Alert(title: Text("本気ですか？"),
+                      message: Text("本当に部屋を予約しますか"),
+                      primaryButton: .default(Text("Ok")){
+                    saveOrder()
+                },
+                      secondaryButton: .cancel(Text("キャンセル")))
             }
             .padding(10)
             .frame(alignment: .top)
@@ -343,8 +343,14 @@ struct Payment: View {
         }.frame(alignment: .top)
         
     }
-    
+    func dismissOtherWindow(){
+        let scene = UIApplication.shared.connectedScenes
+        let windowScene = scene.first as? UIWindowScene
+        let window = windowScene?.windows.first?.rootViewController
+        window?.dismiss(animated: true)
+    }
     func payment(){
+        dismissOtherWindow()
         if !deferredPayment {
             isShowingAlert = true
         } else if (card.isCardNumberValid() && card.isNameValid() && card.isExpiredDateValid() && card.isSecureCodeValid()) {

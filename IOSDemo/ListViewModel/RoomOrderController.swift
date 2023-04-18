@@ -11,7 +11,7 @@ class RoomOrderController: ObservableObject {
     
     let viewContext = PersistenceController.shared.container.viewContext
     init() {
-        //deleteRoomOrder()
+//        deleteRoomOrder()
     }
 
     func getRoomOrderByUser(userId: String) -> [RoomOrder] {

@@ -42,11 +42,13 @@ struct LoginView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .keyboardType(.emailAddress)
+                        .accessibilityIdentifier("txtEmail")
                     SecureField("パスワード",text: $pw)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
+                        .accessibilityIdentifier("txtPassword")
                     Button(action: {doLogin(email, pw)}) {
                         Text("ログイン")
                             .foregroundColor(.white)
@@ -54,6 +56,7 @@ struct LoginView: View {
                             .background(Color.blue)
                             .cornerRadius(10)
                     }
+                    .accessibilityIdentifier("btnLogin")
                     
                 }
             }

@@ -77,12 +77,14 @@ struct WrapMainView: View {
                 ZStack{
                     VStack(){
                         Text("予約室").font(.title2).padding(.vertical, 20)
+                            .accessibilityIdentifier("lblHeader")
                         HStack{
                             
                             HStack{
                                 Image(systemName: "calendar").foregroundColor(.gray)
                                 TextField("チェックイン日", text: $checkin)
                                     .disabled(true)
+                                    .accessibilityIdentifier("txtCheckin")
                             }
                             .frame(width: 140, height: 35)
                             .padding([.leading], 5)
@@ -99,6 +101,7 @@ struct WrapMainView: View {
                                 Image(systemName: "calendar").foregroundColor(.gray)
                                 TextField("チェックアウト日", text: $checkout)
                                     .disabled(true)
+                                    .accessibilityIdentifier("txtCheckout")
                                 
                             }
                             .frame(width: 140, height: 35)
@@ -199,6 +202,7 @@ struct WrapMainView: View {
                             .onChange(of: checkinDate) { value in
                                 changedCheckin()
                             }
+                            .accessibilityIdentifier("checkinPicker")
                         Button(action: {
                             isOpenCheckin.toggle()
                         }){
@@ -210,6 +214,7 @@ struct WrapMainView: View {
                                 .background(Color.blue)
                                 .cornerRadius(20)
                         }
+                        .accessibilityIdentifier("btnCloseCheckinPk")
                     }
                     .padding(20)
                     .background(Color.white)
@@ -236,6 +241,7 @@ struct WrapMainView: View {
                             .onChange(of: checkoutDate) { value in
                                 changedCheckout()
                             }
+                            .accessibilityIdentifier("checkoutPicker")
                         Button(action: {
                             isOpenCheckout.toggle()
                         }){
@@ -247,6 +253,7 @@ struct WrapMainView: View {
                                 .background(Color.blue)
                                 .cornerRadius(20)
                         }
+                        .accessibilityIdentifier("btnCloseCheckoutPk")
                     }
                     .padding(20)
                     .background(Color.white)

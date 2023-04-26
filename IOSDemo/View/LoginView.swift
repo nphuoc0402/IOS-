@@ -36,6 +36,7 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding()
+                        .accessibilityIdentifier("lblHeader")
                     TextField("メール",text: $email)
                         .padding()
                         .frame(width: 300, height: 50)
@@ -63,7 +64,9 @@ struct LoginView: View {
         }.alert(isPresented: $showAlert){
             Alert(title: Text("アカウントまたはパスワードが無効です"),
                   message: Text("有効なアカウントを入力してください"))
+         
         }
+        
     }
     func doLogin(_ email: String, _ pw: String){
         for user in users{

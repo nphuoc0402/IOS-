@@ -50,6 +50,7 @@ struct ListOrderedView: View {
                 Text("予約した部屋リスト")
                     .font(.title2)
                     .padding(.vertical,20)
+                    .accessibilityIdentifier("lblHeader")
                 VStack {
                     HStack(alignment: .center, spacing: 5){
                         Text("検索タイプ")

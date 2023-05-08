@@ -20,20 +20,21 @@ struct ItemMenuView: View {
                     Button("部屋を予約する",action: {
                         opDat.currView = .home
                         
-                    })
+                    }).accessibilityIdentifier("部屋を予約する")
                     Button("部屋を予約したリスト",action: {
                         opDat.currView = .listOrderd
                         
-                    })
+                    }).accessibilityIdentifier("部屋を予約したリスト")
                     Button("ログアウト",action: {
                         opDat.currView = .login
                         userId = ""
                         isLoggedIn = false
-                    })
+                    }).accessibilityIdentifier("ログアウト")
                     
                 }label: {
                     Image(systemName: "text.justify")
                 }
+                .accessibilityIdentifier("menu")
                 
             }
             .font(.title)

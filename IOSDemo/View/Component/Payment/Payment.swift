@@ -89,7 +89,7 @@ struct Payment: View {
                         }else {
                             deferredPayment = false
                         }
-                    }
+                    }.accessibilityIdentifier("opt\(index)")
                 }
                 Spacer(minLength: 5)
             }
@@ -115,6 +115,7 @@ struct Payment: View {
                         .frame(height: 30)
                     
                 }
+                .accessibilityIdentifier("btnBack")
                 Button {
                     payment()
                     
@@ -129,6 +130,7 @@ struct Payment: View {
                         .frame(height: 30)
                     
                 }
+                .accessibilityIdentifier("btnPayment")
                 
             }.alert(isPresented: $isShowingAlert){
                 Alert(title: Text("本気ですか？"),

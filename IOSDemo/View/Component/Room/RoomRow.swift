@@ -33,6 +33,7 @@ struct RoomRow: View {
                         self.action()
                     }
                     .font(.system(size: 30))
+                    .accessibilityIdentifier("ckb-\(room.name)")
             }
             
             

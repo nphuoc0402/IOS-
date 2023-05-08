@@ -133,7 +133,7 @@ struct WrapMainView: View {
                             .padding(20)
                         }).onChange(of: selectedOptionIndex) { value in
                             updateFilter()
-                        }
+                        }.accessibilityIdentifier(options[index])
                     }
                 }
                 
@@ -160,13 +160,15 @@ struct WrapMainView: View {
                                     }
                                 )
                             }
+                            .accessibilityIdentifier(room.name)
                         }
+                        .accessibilityIdentifier("searchList")
                     }
                 }
                 .cornerRadius(5)
                 .padding([.leading, .trailing])
                 VStack(alignment:.leading){
-                    Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline)
+                    Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline).accessibilityIdentifier("total")
                 }.frame(maxWidth: .infinity,alignment: .leading).padding()
                 Button(action: {doSave()}) {
                     Text("予約画面へ")
@@ -178,6 +180,7 @@ struct WrapMainView: View {
                         .cornerRadius(20)
                         .frame(height: 30)
                 }
+                .accessibilityIdentifier("btnGotoPayment")
                 Spacer()
             }.alert(isPresented: $showAlert){
                 Alert(title: Text("この項目は必須です"),
@@ -202,7 +205,7 @@ struct WrapMainView: View {
                             .onChange(of: checkinDate) { value in
                                 changedCheckin()
                             }
-                            .accessibilityIdentifier("checkinPicker")
+                            .accessibilityIdentifier("datePicker")
                         Button(action: {
                             isOpenCheckin.toggle()
                         }){
@@ -214,7 +217,7 @@ struct WrapMainView: View {
                                 .background(Color.blue)
                                 .cornerRadius(20)
                         }
-                        .accessibilityIdentifier("btnCloseCheckinPk")
+                        .accessibilityIdentifier("btnCloseDatePicker")
                     }
                     .padding(20)
                     .background(Color.white)
@@ -241,7 +244,7 @@ struct WrapMainView: View {
                             .onChange(of: checkoutDate) { value in
                                 changedCheckout()
                             }
-                            .accessibilityIdentifier("checkoutPicker")
+                            .accessibilityIdentifier("datePicker")
                         Button(action: {
                             isOpenCheckout.toggle()
                         }){
@@ -253,7 +256,7 @@ struct WrapMainView: View {
                                 .background(Color.blue)
                                 .cornerRadius(20)
                         }
-                        .accessibilityIdentifier("btnCloseCheckoutPk")
+                        .accessibilityIdentifier("btnCloseDatePicker")
                     }
                     .padding(20)
                     .background(Color.white)

@@ -39,6 +39,7 @@ struct DialogView: View {
                 }
                 .padding()
             }
+            .accessibilityIdentifier("btnOk")
             
         }
         .fixedSize(horizontal: false, vertical: true)

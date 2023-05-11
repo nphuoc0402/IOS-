@@ -193,6 +193,7 @@ struct Payment: View {
                     .background(Color.black.opacity(0.05))
                     .cornerRadius(10)
                     .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityIdentifier("txtNameCard")
                 
                 
             }
@@ -231,6 +232,7 @@ struct Payment: View {
                         
                         card.cardNumber = String(card.cardNumber.prefix(19))
                     })).keyboardType(.numberPad)
+                        .accessibilityIdentifier("txtCardNumber")
                 }
                 .padding(10)
                 .background(Color.black.opacity(0.05))
@@ -291,7 +293,8 @@ struct Payment: View {
                     .keyboardType(.numberPad)
                     .padding(10)
                     .background(Color.black.opacity(0.05))
-                    .cornerRadius(10);
+                    .cornerRadius(10)
+                    .accessibilityIdentifier("txtExpiredDate")
                     
                     HStack{
                         Image(systemName: "creditcard.fill")
@@ -303,6 +306,7 @@ struct Payment: View {
                             card.secureCode = String(card.secureCode.prefix(3))
                         }))
                         .keyboardType(.numberPad)
+                        .accessibilityIdentifier("txtCVV")
                         
                     }
                     .padding(10)

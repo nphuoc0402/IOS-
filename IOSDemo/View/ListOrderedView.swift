@@ -76,6 +76,7 @@ struct ListOrderedView: View {
                                 }
                             }
                         }
+                        .accessibilityIdentifier("btnSearchType")
                     }
                     
                 }
@@ -85,6 +86,7 @@ struct ListOrderedView: View {
                             Image(systemName: "calendar").foregroundColor(.gray)
                             TextField("チェックイン日", text: $checkin)
                                 .disabled(true)
+                                .accessibilityIdentifier("txtCheckin")
                         }
                         .frame(width: 135, height: 35)
                         .padding([.leading], 5)
@@ -103,6 +105,7 @@ struct ListOrderedView: View {
                             Image(systemName: "calendar").foregroundColor(.gray)
                             TextField("チェックアウト日", text: $checkout)
                                 .disabled(true)
+                                .accessibilityIdentifier("txtCheckout")
                         }
                         .frame(width: 135, height: 35)
                         .padding([.leading], 5)
@@ -116,6 +119,7 @@ struct ListOrderedView: View {
                         Image(systemName: "magnifyingglass").font(.title).onTapGesture {
                             filterData()
                         }
+                        .accessibilityIdentifier("btnSearch")
                         
                     }.padding()
                 }
@@ -146,6 +150,7 @@ struct ListOrderedView: View {
                             .onChange(of: checkinDate) { value in
                                 changedCheckin()
                             }
+                            .accessibilityIdentifier("datePicker")
                         Button(action: {
                             isOpenCheckin.toggle()
                         }){
@@ -156,7 +161,7 @@ struct ListOrderedView: View {
                                 .padding(10)
                                 .background(Color.blue)
                                 .cornerRadius(20)
-                        }
+                        }.accessibilityIdentifier("btnCloseDatePicker")
                     }
                     .padding(20)
                     .background(Color.white)
@@ -183,6 +188,7 @@ struct ListOrderedView: View {
                             .onChange(of: checkoutDate) { value in
                                 changedCheckout()
                             }
+                            .accessibilityIdentifier("datePicker")
                         Button(action: {
                             isOpenCheckout.toggle()
                         }) {
@@ -193,7 +199,7 @@ struct ListOrderedView: View {
                                 .padding(10)
                                 .background(Color.blue)
                                 .cornerRadius(20)
-                        }
+                        }.accessibilityIdentifier("btnCloseDatePicker")
                     }
                     .padding(20)
                     .background(Color.white)

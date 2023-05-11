@@ -86,7 +86,7 @@ struct ListOrderedView: View {
                             Image(systemName: "calendar").foregroundColor(.gray)
                             TextField("チェックイン日", text: $checkin)
                                 .disabled(true)
-                                .accessibilityIdentifier("txtCheckinDate")
+                                .accessibilityIdentifier("txtCheckin")
                         }
                         .frame(width: 135, height: 35)
                         .padding([.leading], 5)
@@ -105,7 +105,7 @@ struct ListOrderedView: View {
                             Image(systemName: "calendar").foregroundColor(.gray)
                             TextField("チェックアウト日", text: $checkout)
                                 .disabled(true)
-                                .accessibilityIdentifier("txtCheckoutDate")
+                                .accessibilityIdentifier("txtCheckout")
                         }
                         .frame(width: 135, height: 35)
                         .padding([.leading], 5)

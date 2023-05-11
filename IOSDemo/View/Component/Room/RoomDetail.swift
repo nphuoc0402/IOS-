@@ -26,16 +26,21 @@ struct RoomDetail: View {
                 roomDetail?.image
                     .resizable()
                     .frame(width: 100, height:100)
-                Text("部屋:   \(roomDetail?.name ?? "")")
+                Text("部屋: \(roomDetail?.name ?? "")")
                     .font(.system(size:15))
+                    .accessibilityIdentifier("detail-name")
                 Text("価格: ¥\(roomDetail?.price ?? 0)")
                     .font(.system(size:15))
+                    .accessibilityIdentifier("detail-price")
                 Text("タイプ: \(roomDetail?.type ?? "")")
                     .font(.system(size:15))
+                    .accessibilityIdentifier("detail-type")
                 Text("階: \(roomDetail?.floor ?? "")")
                     .font(.system(size:15))
+                    .accessibilityIdentifier("detail-floor")
                 Text("記述: \(roomDetail?.description ?? "")")
                     .font(.system(size:15))
+                    .accessibilityIdentifier("detail-description")
                 Button{
                     close()
                 } label: {
@@ -48,7 +53,7 @@ struct RoomDetail: View {
                             .padding()
                     }
                     .padding()
-                }
+                }.accessibilityIdentifier("close-detail")
             }
             .fixedSize(horizontal: false, vertical: true)
             .padding()

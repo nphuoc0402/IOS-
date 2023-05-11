@@ -115,7 +115,7 @@ struct WrapMainView: View {
                             
                             Image(systemName: "magnifyingglass").font(.title).onTapGesture {
                                 filterData()
-                            }
+                            }.accessibilityIdentifier("btnSearch")
                         }
                     }
                     

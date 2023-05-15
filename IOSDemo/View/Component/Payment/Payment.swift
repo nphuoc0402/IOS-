@@ -45,6 +45,7 @@ struct Payment: View {
                 .font(.title2)
                 .frame(alignment: .center)
                 .padding(.vertical,20)
+                .accessibilityIdentifier("lblHeader")
             VStack(alignment: .leading){
                 List(drafRoomOder){room in
                     HStack{

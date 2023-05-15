@@ -158,6 +158,7 @@ struct Payment: View {
             DialogView(isShowDetail: $isWrongAccount, image: Image("failure"), title: "失敗", message: "無効なアカウントです。再入力してください", buttonTitle: "OK") {
                 isWrongAccount = false
             }
+            .accessibilityIdentifier("errMsgWrongAccount")
         }
         
     }
@@ -205,6 +206,7 @@ struct Payment: View {
                         .font(.caption)
                         .foregroundColor(.red)
                         .padding(.horizontal)
+                        .accessibilityIdentifier("errMsgACName")
                 }
                 
             }
@@ -248,6 +250,7 @@ struct Payment: View {
                         .font(.caption)
                         .foregroundColor(.red)
                         .padding(.horizontal)
+                        .accessibilityIdentifier("errMsgACNumber")
                 }
                 
             }
@@ -322,6 +325,7 @@ struct Payment: View {
                                 .foregroundColor(.red)
                                 .padding(.horizontal)
                                 .frame(width: 175, height: 30, alignment: .topLeading)
+                                .accessibilityIdentifier("errMsgExpiredDate")
                             
                         }else {
                             Spacer()
@@ -338,6 +342,7 @@ struct Payment: View {
                                 .foregroundColor(.red)
                                 .padding(.horizontal)
                                 .frame(width: 175, height: 30, alignment: .topLeading)
+                                .accessibilityIdentifier("errMsgSecureCode")
                         }else {
                             Spacer()
                         }

@@ -24,8 +24,10 @@ struct DialogView: View {
                 .font(.title2)
                 .bold()
                 .padding()
+                .accessibilityIdentifier("dialogTitle")
             Text(message)
                 .font(.body)
+                .accessibilityIdentifier("dialogMessage")
             Button{
                 action()
             } label: {

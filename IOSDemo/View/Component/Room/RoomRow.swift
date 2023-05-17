@@ -21,9 +21,9 @@ struct RoomRow: View {
                         .frame(width: 60, height:60)
                 }
                 VStack(spacing: 5){
-                    Text("部屋:   \(room.name)")
-                    Text("     価格: ¥\(room.price)")
-                    Text("  タイプ: \(room.type)")
+                    Text("部屋: \(room.name)")
+                    Text("価格: ¥\(room.price)")
+                    Text("タイプ: \(room.type)")
                 }
                 .font(.system(size: 12))
                 Spacer()

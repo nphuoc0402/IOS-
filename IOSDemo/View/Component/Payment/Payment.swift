@@ -159,7 +159,6 @@ struct Payment: View {
             DialogView(isShowDetail: $isWrongAccount, image: Image("failure"), title: "失敗", message: "無効なアカウントです。再入力してください", buttonTitle: "OK") {
                 isWrongAccount = false
             }
-            .accessibilityIdentifier("errMsgWrongAccount")
         }
         
     }

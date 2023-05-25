@@ -25,7 +25,7 @@ struct ListOrderedView: View {
     @State var isPickCheckout: Bool = false
     @State var isFirst: Bool = true
     @State var selectedOption:Int = 0
-    let option = ["全記録","検索範囲"]
+    let option = ["全て表示","特定期間を表示"]
     
     func filterData() {
         if isPickCheckin && isPickCheckout {
@@ -51,32 +51,38 @@ struct ListOrderedView: View {
                     .font(.title2)
                     .padding(.vertical,20)
                     .accessibilityIdentifier("lblHeader")
+                
                 VStack {
+                    Text("検索タイプ").font(.subheadline).padding(0)
                     HStack(alignment: .center, spacing: 5){
-                        Text("検索タイプ")
-                            .font(.subheadline)
-                        Picker("検索タイプ",selection: $selectedOption){
-                            ForEach(0..<option.count) {
-                                Text(self.option[$0])
-                            }
-                        }.onChange(of: selectedOption){ value in
-                            if selectedOption == 0 {
-                                listRooms = roomOrderController.getRoomOrderByUser(userId: userId)
-                                if isOpenCheckin {
-                                    isOpenCheckin.toggle()
+                        ForEach(0..<option.count) { index in
+                            Button(action: {
+                                selectedOption = index
+                            }, label: {
+                                HStack {
+                                    Text(option[index])
+                                    Image(systemName: selectedOption == index ? "largecircle.fill.circle" : "circle")
                                 }
-                                if isOpenCheckout {
-                                    isOpenCheckout.toggle()
-                                }
-                            }else {
-                                if isFirst {
-                                    listRooms.removeAll()
+                                .padding(5)
+                            }).onChange(of: selectedOption) { value in
+                                if selectedOption == 0 {
+                                    listRooms = roomOrderController.getRoomOrderByUser(userId: userId)
+                                    if isOpenCheckin {
+                                        isOpenCheckin.toggle()
+                                    }
+                                    if isOpenCheckout {
+                                        isOpenCheckout.toggle()
+                                    }
                                 }else {
-                                    filterData()
+                                    if isFirst {
+                                        listRooms.removeAll()
+                                    }else {
+                                        filterData()
+                                    }
                                 }
-                            }
+                            }.accessibilityIdentifier(option[index])
                         }
-                        .accessibilityIdentifier("btnSearchType")
+                        
                     }
                     
                 }

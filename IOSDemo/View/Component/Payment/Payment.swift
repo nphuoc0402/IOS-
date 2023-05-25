@@ -11,7 +11,7 @@ import UIKit
 struct Payment: View {
     @ObservedObject var card = Card()
     @AppStorage("userId") var userId:String = ""
-    let paymentMethod = ["後払い","元払い"]
+    let paymentMethod = ["後払い","事前決済"]
     var title = "本気ですか？"
     var message = "本当に部屋を予約しますか"
     var buttontitle = "予約します"
@@ -121,7 +121,7 @@ struct Payment: View {
                     payment()
                     
                 } label: {
-                    Text("予約を確認する")
+                    Text("予約する")
                         .font(.system(size:16))
                         .foregroundColor(.white)
                         .padding(.horizontal,20)
@@ -134,9 +134,9 @@ struct Payment: View {
                 .accessibilityIdentifier("btnPayment")
                 
             }.alert(isPresented: $isShowingAlert){
-                Alert(title: Text("本気ですか？"),
-                      message: Text("本当に部屋を予約しますか"),
-                      primaryButton: .default(Text("Ok")){
+                Alert(title: Text("確認"),
+                      message: Text("予約完了後はキャンセル料が発生します。予約を行いますか？"),
+                      primaryButton: .default(Text("OK")){
                     saveOrder()
                 },
                       secondaryButton: .cancel(Text("キャンセル")))
@@ -146,7 +146,7 @@ struct Payment: View {
         }
         if isActive {
             Color.black.opacity(0.5).ignoresSafeArea(.all)
-            DialogView(isShowDetail: $isActive,image: Image("success"), title: "成功", message: "予約が成功したことを確認する", buttonTitle: "OK") {
+            DialogView(isShowDetail: $isActive,image: Image("success"), title: "予約が完了しました", message: "", buttonTitle: "OK") {
                 isActive = false
                 isPayment = false
                 drafRoomOder.removeAll()
@@ -156,7 +156,7 @@ struct Payment: View {
         
         if isWrongAccount {
             Color.black.opacity(0.5).ignoresSafeArea(.all)
-            DialogView(isShowDetail: $isWrongAccount, image: Image("failure"), title: "失敗", message: "無効なアカウントです。再入力してください", buttonTitle: "OK") {
+            DialogView(isShowDetail: $isWrongAccount, image: Image("failure"), title: "失敗", message: "クレジットカード情報が誤っています。入力内容をご確認ください", buttonTitle: "OK") {
                 isWrongAccount = false
             }
         }

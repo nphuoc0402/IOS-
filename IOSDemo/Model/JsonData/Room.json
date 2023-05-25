@@ -6,7 +6,7 @@
         "price" : 15000,
         "type" : "シングル",
         "imageName": "201-Single",
-        "description": "ここは201号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     },
     {
         "id" : "2",
@@ -15,7 +15,7 @@
         "price" : 5000,
         "type" : "シングル",
         "imageName": "202-Single",
-        "description": "ここは202号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     },
     {
         "id" : "3",
@@ -24,7 +24,7 @@
         "price" : 13000,
         "type" : "シングル",
         "imageName": "203-Single",
-        "description": "ここは203号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     },
     {
         "id" : "4",
@@ -33,7 +33,7 @@
         "price" : 10000,
         "type" : "シングル",
         "imageName": "204-Single",
-        "description": "ここは204号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     },
     {
         "id" : "5",
@@ -42,7 +42,7 @@
         "price" : 8000,
         "type" : "シングル",
         "imageName": "205-Single",
-        "description": "ここは205号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     },
     {
         "id" : "6",
@@ -51,7 +51,7 @@
         "price" : 18000,
         "type" : "ツイン",
         "imageName": "206-Twin",
-        "description": "ここは206号室です"
+        "description": "ツインの部屋は、床面積：30m²"
     },
     {
         "id" : "7",
@@ -60,7 +60,7 @@
         "price" : 12000,
         "type" : "ツイン",
         "imageName": "301-Twin",
-        "description": "ここは301号室です"
+        "description": "ツインの部屋は、床面積：30m²"
     },
     {
         "id" : "8",
@@ -69,7 +69,7 @@
         "price" : 15000,
         "type" : "ツイン",
         "imageName": "302-Twin",
-        "description": "ここは302号室です"
+        "description": "ツインの部屋は、床面積：30m²"
     },
     {
         "id" : "9",
@@ -78,7 +78,7 @@
         "price" : 16000,
         "type" : "ツイン",
         "imageName": "303-Twin",
-        "description": "ここは303号室です"
+        "description": "ツインの部屋は、床面積：30m²"
     },
     {
         "id" : "10",
@@ -87,7 +87,7 @@
         "price" : 10000,
         "type" : "ツイン",
         "imageName": "304-Twin",
-        "description": "ここは304号室です"
+        "description": "ツインの部屋は、床面積：30m²"
     },
     {
         "id" : "11",
@@ -96,7 +96,7 @@
         "price" : 17000,
         "type" : "ツイン",
         "imageName": "305-Twin",
-        "description": "ここは305号室です"
+        "description": "ツインの部屋は、床面積：30m²"
     },
     {
         "id" : "12",
@@ -105,7 +105,7 @@
         "price" : 22000,
         "type" : "ツイン",
         "imageName": "401-Twin",
-        "description": "ここは401号室です"
+        "description": "ツインの部屋は、床面積：30m²"
     },
     {
         "id" : "13",
@@ -114,7 +114,7 @@
         "price" : 8000,
         "type" : "シングル",
         "imageName": "402-Single",
-        "description": "ここは402号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     },
     {
         "id" : "14",
@@ -123,7 +123,7 @@
         "price" : 9000,
         "type" : "シングル",
         "imageName": "402-Single",
-        "description": "ここは403号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     },
     {
         "id" : "15",
@@ -132,7 +132,7 @@
         "price" : 8000,
         "type" : "シングル",
         "imageName": "402-Single",
-        "description": "ここは404号室です"
+        "description": "シングルの部屋は、床面積：25m²"
     }
     
 ]

@@ -17,11 +17,11 @@ struct ItemMenuView: View {
             Spacer()
             ZStack(alignment: .trailing){
                 Menu{
-                    Button("部屋を予約する",action: {
+                    Button("宿泊予約",action: {
                         opDat.currView = .home
                         
                     }).accessibilityIdentifier("部屋を予約する")
-                    Button("部屋を予約したリスト",action: {
+                    Button("予約した部屋リスト",action: {
                         opDat.currView = .listOrderd
                         
                     }).accessibilityIdentifier("部屋を予約したリスト")

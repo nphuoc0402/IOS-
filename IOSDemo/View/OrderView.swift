@@ -76,7 +76,7 @@ struct WrapMainView: View {
             VStack{
                 ZStack{
                     VStack(){
-                        Text("予約室").font(.title2).padding(.vertical, 20)
+                        Text("部屋の予約").font(.title2).padding(.vertical, 20)
                             .accessibilityIdentifier("lblHeader")
                         HStack{
                             
@@ -171,7 +171,7 @@ struct WrapMainView: View {
                     Text("合計: ¥\(total)").frame(alignment: .leading).font(.headline).accessibilityIdentifier("total")
                 }.frame(maxWidth: .infinity,alignment: .leading).padding()
                 Button(action: {doSave()}) {
-                    Text("予約画面へ")
+                    Text("支払い画面へ")
                         .font(.system(size:16))
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
@@ -183,8 +183,8 @@ struct WrapMainView: View {
                 .accessibilityIdentifier("btnGotoPayment")
                 Spacer()
             }.alert(isPresented: $showAlert){
-                Alert(title: Text("この項目は必須です"),
-                      message: Text("項目を選択してください"))
+                Alert(title: Text("予約する部屋が選択されていません"),
+                      message: Text(""))
             }
             if isOpenCheckin {
                 ZStack{

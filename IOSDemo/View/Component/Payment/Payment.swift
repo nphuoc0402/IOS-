@@ -367,7 +367,7 @@ struct Payment: View {
         } else if (card.isCardNumberValid() && card.isNameValid() && card.isExpiredDateValid() && card.isSecureCodeValid()) {
             
             for cardCustomer in cards {
-                if (cardCustomer.name == card.name && cardCustomer.card_number == card.cardNumber.replacingOccurrences(of: " ", with: "") && cardCustomer.expired_date == card.expiredDate && cardCustomer.secure_code == card.secureCode){
+                if (cardCustomer.card_number == card.cardNumber.replacingOccurrences(of: " ", with: "") && cardCustomer.expired_date == card.expiredDate && cardCustomer.secure_code == card.secureCode){
                     isShowingAlert = true
                     return
                 }

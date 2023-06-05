@@ -35,10 +35,10 @@ struct RoomDetail: View {
                 Text("タイプ: \(roomDetail?.type ?? "")")
                     .font(.system(size:15))
                     .accessibilityIdentifier("detail-type")
-                Text("階: \(roomDetail?.floor ?? "")")
+                Text("床: \(roomDetail?.floor ?? "")")
                     .font(.system(size:15))
                     .accessibilityIdentifier("detail-floor")
-                Text("記述: \(roomDetail?.description ?? "")")
+                Text("情報: \(roomDetail?.description ?? "")")
                     .font(.system(size:15))
                     .accessibilityIdentifier("detail-description")
                 Button{

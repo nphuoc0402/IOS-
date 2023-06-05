@@ -40,7 +40,10 @@ class Card: ObservableObject {
         if isNameValid() {
             return ""
         }else {
-            return "カード所有者の名前は大文字にする必要があります"
+            if (name == ""){
+                return "カード名様を入力してください"
+            }
+            return "カード所持者の名前は大文字にする必要があります"
         }
     }
     
@@ -56,7 +59,7 @@ class Card: ObservableObject {
         if isExpiredDateValid() {
             return ""
         } else {
-            return "カードの有効期限が正しくありません"
+            return "有効期限を入力してください"
         }
     }
     

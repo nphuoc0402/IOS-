@@ -16,7 +16,7 @@ struct MainView: View {
     var body: some View {
         ZStack {
             GeometryReader { _ in
-                if(opDat.currView != .login) {
+                if(opDat.currView != .login && opDat.currView != .home) {
                     HStack {
                         ItemMenuView()
                     }
@@ -33,6 +33,7 @@ struct MainView: View {
             case .listOrderd:
                 ListOrderedView()
                     .environmentObject(opDat)
+            
             }
         }
     }

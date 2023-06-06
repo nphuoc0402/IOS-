@@ -26,7 +26,9 @@ struct OrderView: View {
     var body: some View {
         ZStack{
             if isPayment {
-                Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment, checkinDate: $checkinDate, checkoutDate: $checkoutDate, listRooms: $listRooms)
+                ScrollView {
+                    Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment, checkinDate: $checkinDate, checkoutDate: $checkoutDate, listRooms: $listRooms)
+                }
             }else {
                 WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days, isShowDetail: $isShowDetail, checkin: $checkin, checkout: $checkout,isSearched: $isSearched)
                     .frame(alignment: .topLeading)
@@ -73,11 +75,20 @@ struct WrapMainView: View {
     
     var body: some View {
         ZStack {
+        VStack(spacing: 5){
+            ZStack{
+                GeometryReader { _ in
+                    HStack {
+                        ItemMenuView().background(Color.white)
+                    }
+                }
+                Text("部屋の予約").font(.title2).padding(.vertical, 20)
+                    .accessibilityIdentifier("lblHeader")
+            }
+            
             VStack{
                 ZStack{
                     VStack(){
-                        Text("部屋の予約").font(.title2).padding(.vertical, 20)
-                            .accessibilityIdentifier("lblHeader")
                         HStack{
                             
                             HStack{
@@ -162,6 +173,7 @@ struct WrapMainView: View {
                             }
                             .accessibilityIdentifier(room.name)
                         }
+                        .frame( height: 480).background(Color.white)
                         .accessibilityIdentifier("searchList")
                     }
                 }
@@ -186,6 +198,7 @@ struct WrapMainView: View {
                 Alert(title: Text("予約する部屋が選択されていません"),
                       message: Text(""))
             }
+        }
             if isOpenCheckin {
                 ZStack{
                     Color(.black)
@@ -269,7 +282,8 @@ struct WrapMainView: View {
                 RoomDetail(isShowDetail: $isShowDetail, roomDetail: room){
                 }
             }
-        }
+        }.frame(alignment: .top)
+        
     }
     
     func updateFilter(){

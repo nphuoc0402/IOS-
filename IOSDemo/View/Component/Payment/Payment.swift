@@ -41,11 +41,20 @@ struct Payment: View {
     }
     var body: some View {
         VStack(spacing: 5){
-            Text("支払い")
-                .font(.title2)
-                .frame(alignment: .center)
-                .padding(.vertical,20)
-                .accessibilityIdentifier("lblHeader")
+            ZStack{
+                GeometryReader { _ in
+                        HStack {
+                            ItemMenuView()
+                        }
+                    
+                }
+                Text("支払い")
+                    .font(.title2)
+                    .frame(alignment: .center)
+                    .padding(.vertical,20)
+                    .accessibilityIdentifier("lblHeader")
+            }
+            
             VStack(alignment: .leading){
                 List(drafRoomOder){room in
                     HStack{

@@ -13,7 +13,7 @@ struct OrderView: View {
     var roomViewModel : RoomViewModel = RoomViewModel()
     @State var listRooms:[RoomModel] = []
     @State var total: Int64 = 0
-    @State var isPayment:Bool = true
+    @State var isPayment:Bool = false
     @State var drafRoomOrder:[RoomModel] = []
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)

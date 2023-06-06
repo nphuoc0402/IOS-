@@ -13,7 +13,7 @@ struct OrderView: View {
     var roomViewModel : RoomViewModel = RoomViewModel()
     @State var listRooms:[RoomModel] = []
     @State var total: Int64 = 0
-    @State var isPayment:Bool = false
+    @State var isPayment:Bool = true
     @State var drafRoomOrder:[RoomModel] = []
     @State var checkinDate = Date()
     @State var checkoutDate = Date().addingTimeInterval(86400)
@@ -26,9 +26,8 @@ struct OrderView: View {
     var body: some View {
         ZStack{
             if isPayment {
-                ScrollView {
                     Payment(drafRoomOder: $drafRoomOrder, total: $total,isPayment: $isPayment, checkinDate: $checkinDate, checkoutDate: $checkoutDate, listRooms: $listRooms)
-                }
+                
             }else {
                 WrapMainView(list: $listRooms, total: $total, drafRoomOrder: $drafRoomOrder,isPayment: $isPayment, checkinDate:$checkinDate, checkoutDate:$checkoutDate, selectedOptionIndex: $selectedOptionIndex,days: $days, isShowDetail: $isShowDetail, checkin: $checkin, checkout: $checkout,isSearched: $isSearched)
                     .frame(alignment: .topLeading)
